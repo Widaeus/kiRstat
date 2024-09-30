@@ -8,8 +8,6 @@ knit:
   incremental: true
 cache: true
 echo: true
-output-dir:
-  "output"
 ---
 Försättsblad
 
