@@ -8,6 +8,8 @@ knit:
   incremental: true
 cache: true
 echo: true
+output-dir:
+  "output"
 ---
 Försättsblad
 
@@ -19,13 +21,9 @@ Jacob Widaeus 950729
 
 Karl Wärnberg 940807
 
-Namn
+Beata Rosenberg
 
-Namn
-
-Namn
-
-Namn
+Rozh Kader
 
 **1.**  Session
 
