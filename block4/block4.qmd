@@ -19,6 +19,8 @@ Namn och personnummer på dem som deltagit aktivt:
 
 Jacob Widaeus 950729
 
+Karl wärnberg
+
 Hej
 
 Denna gruppuppgift berör materialet i ISwR kapitel 5 och 7. Du kommer att använda R för att genomföra ett antal hypotesttest. Uppgifterna ska belysa koncept som förklaras bättre i andra böcker än ISwR. Sidhänvisningarna för Lind/Marchal/Wathen är för upplaga 17 i denna text. Om du har en annat upplaga får du leta lite grann. Sidhänvisningarna gäller Lind om inget annan anges.
