@@ -1,0 +1,1180 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrartcl}
+
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Inlämningsuppgift block 3 -- tabeller, grafer, fördelningar, centrala gränssnittssatsen},
+  pdfauthor={Statistiska Metoder med R},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Inlämningsuppgift block 3 -- tabeller, grafer, fördelningar,
+centrala gränssnittssatsen}
+\author{Statistiska Metoder med R}
+\date{}
+
+\begin{document}
+\maketitle
+
+
+Försättsblad
+
+Gruppnamn 10
+
+Namn och personnumer på dem som deltagit aktivt:
+
+Jacob Widaeus 950729
+
+Hej
+
+Denna gruppuppgift berör materialet i \textbf{ISwR kapitel 3 och 4}. Ni
+kommer att arbeta med funktioner som sammanfattar data i tabeller. En
+sport inom dataanalys är att försöka sammanfatta en stor datamängd med
+bara två siffror: ett centralmått och ett variationsmått. Ni får
+sammanfatta datamängder med olika typer av grafer. Ni kommer att
+undersöka fördelningar och funktioner för fördelningar i R. Varför är så
+många variabler normalfördelade? Här få ni testa ett argument som utgår
+ifrån approximation av binomialfördelningen. Det ingår även en
+simulering som illustrerar centrala gränssnittssatsen. \textbf{Om du
+inte läst så mycket statistik tidigare bör du ha Lind eller en annan bra
+statistikbok till hands för att få ut det mesta av gruppuppgift 3!}
+
+Om du kör fast men någon uppgift ta hjälp av dina kurskamrater i första
+hand. Skulle det vara så att ni tillsammans ändå inte lyckas lösa
+uppgiften ta kontakt med lärare.
+
+\textbf{Skriva tabeller}
+
+\textbf{1.1} Ladda ISwR paketet och printa ut de fem första raderna i
+data.frame stroke med
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ISwR)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Warning: package 'ISwR' was built under R version 4.4.1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{stroke[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{,]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     sex       died       dstr age dgn coma diab minf han  dead   obsmonths
+1   Male 1991-01-07 1991-01-02  76 INF   No   No  Yes  No  TRUE  0.16339869
+2   Male       <NA> 1991-01-03  58 INF   No   No   No  No FALSE 59.60784314
+3   Male 1991-06-02 1991-01-08  74 INF   No   No  Yes Yes  TRUE  4.73856209
+4 Female 1991-01-13 1991-01-11  77 ICH   No  Yes   No Yes  TRUE  0.06535948
+5 Female       <NA> 1991-01-13  76 INF   No  Yes   No Yes FALSE 59.28104575
+\end{verbatim}
+
+Varför står det ett ensamt komma efter 1:5?
+
+För att markera att det gäller samtliga kolumner.
+
+\textbf{1.2} Använd funktionen names() för att ta ut en lista på
+variabler i stroke
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(stroke)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] "sex"       "died"      "dstr"      "age"       "dgn"       "coma"     
+ [7] "diab"      "minf"      "han"       "dead"      "obsmonths"
+\end{verbatim}
+
+\textbf{1.3} Är age tillgänglig? Testa:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{age}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Error in eval(expr, envir, enclos): object 'age' not found
+\end{verbatim}
+
+\textbf{1.4} Använd attach för att namnen i stroke ska blir tillgängliga
+för R
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{attach}\NormalTok{(stroke)}
+\end{Highlighting}
+\end{Shaded}
+
+Testa igen om age är tillgänglig:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(age[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{20}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] 76 58 74 77 76 48 81 53 73 69 86 79 69 58 71 84 63 85 81 77
+\end{verbatim}
+
+\textbf{1.5} Vad är tanken med attach egentligen? Vad finns det för
+fördel med att R inte automatiskt ser namnen inne i ett objekt? Och om
+det nu är så bra, finns det något sätt att få R att glömma namnen i ett
+objekt? (ISwR sid.36)
+
+Tanken med attach är att göra variabler ``direkta'' i en workspace utan
+att behöva referera till data frame. I större projekt där man använder
+många data set och frames och kanske listor underlättar namngivning etc
+utan attach. detach() kan användas för att återställa
+variabeltillgängligheten.
+
+\textbf{1.6} Använd tapply() för att beräkna medelvärde för variabeln
+age, uppdelat på patienter som varit i koma eller inte efter sin stroke.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tapply}\NormalTok{(stroke}\SpecialCharTok{$}\NormalTok{age, stroke}\SpecialCharTok{$}\NormalTok{coma, mean, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+      No      Yes 
+69.59463 72.18750 
+\end{verbatim}
+
+\textbf{1.7} Använd tapply() för att beräkna medianålder för patienten
+uppdelat på olika diagnos, dgn.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tapply}\NormalTok{(stroke}\SpecialCharTok{$}\NormalTok{age, stroke}\SpecialCharTok{$}\NormalTok{dgn, median, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ICH  ID INF SAH 
+ 68  81  70  60 
+\end{verbatim}
+
+\textbf{1.8} Använd funktionen table() för att göra en korstabell över
+variablerna dgn och sex i stroke
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{table}\NormalTok{(stroke}\SpecialCharTok{$}\NormalTok{sex, stroke}\SpecialCharTok{$}\NormalTok{dgn)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+        
+         ICH  ID INF SAH
+  Female  48 140 295  27
+  Male    31  62 206  20
+\end{verbatim}
+
+\textbf{Använd valfria data i stroke för att skapa grafer:}
+
+\textbf{2.1} stapeldiagram
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{barplot}\NormalTok{(}\FunctionTok{table}\NormalTok{(stroke}\SpecialCharTok{$}\NormalTok{sex))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block3_files/figure-pdf/unnamed-chunk-9-1.pdf}
+
+Stapeldiagram lämpar sig för att skildra antal i kategoriska variabler.
+
+\textbf{2.2} histogram
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{hist}\NormalTok{(stroke}\SpecialCharTok{$}\NormalTok{age)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block3_files/figure-pdf/unnamed-chunk-10-1.pdf}
+
+Histogram lämpar sig för att skildra antal i en kontinuerlig variabel
+och utvärdera fördelning i en population.
+
+\textbf{2.3} box plot
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{boxplot}\NormalTok{(stroke}\SpecialCharTok{$}\NormalTok{obsmonths }\SpecialCharTok{\textasciitilde{}}\NormalTok{ stroke}\SpecialCharTok{$}\NormalTok{dead)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block3_files/figure-pdf/unnamed-chunk-11-1.pdf}
+
+Box plot lämpar sig bäst för att skildra intravariabel spridning i
+jämförelse med andra variabler.
+
+\textbf{2.4} spridningsdiagram (scatter plot)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(stroke}\SpecialCharTok{$}\NormalTok{died, stroke}\SpecialCharTok{$}\NormalTok{age)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block3_files/figure-pdf/unnamed-chunk-12-1.pdf}
+
+Lämpar sig bäst för att utröna kluster, mönster och samband mellan två
+kontinuerliga variabler.
+
+\textbf{2.5} cirkeldiagram
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{pie}\NormalTok{(}\FunctionTok{table}\NormalTok{(stroke}\SpecialCharTok{$}\NormalTok{dgn))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block3_files/figure-pdf/unnamed-chunk-13-1.pdf}
+
+Lämpar sig bäst för att utvärdera antalet inom olika kategoriska
+variabler, i jämförelse till varandra och helheten.
+
+Förutom att redovisa din kod och klippa in den resulterande grafen vill
+jag att du kommenterar kort vad varje typ av graf är lämplig för att
+illustrera.
+
+Kanske valde du att besvara fråga 2.1 med den enkla koden
+plot(table(dgn))
+
+I så fall får du godkänt. Men om du svarat lika enkelt på alla frågor
+2.1-5 så vill jag att du utforskar några möjligheter att göra en mer
+avancerad graf.
+
+\textbf{3.1} Rita plot(table(dgn)) men lägg till något flärdfullt som
+bakgrundsfärg, titelrad, tjockare staplar.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create a table of counts for the categorical variable \textquotesingle{}dgn\textquotesingle{}}
+\NormalTok{dgn\_counts }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(stroke}\SpecialCharTok{$}\NormalTok{dgn)}
+
+\CommentTok{\# Create a bar plot with enhanced formatting}
+\FunctionTok{barplot}\NormalTok{(}
+\NormalTok{  dgn\_counts,}
+  \AttributeTok{main =} \StringTok{"Fördelning av diagnoser"}\NormalTok{,}
+  \AttributeTok{xlab =} \StringTok{"Diagnoser"}\NormalTok{,}
+  \AttributeTok{ylab =} \StringTok{"Frekvens"}\NormalTok{,}
+  \AttributeTok{col =} \StringTok{"skyblue"}\NormalTok{,}
+  \AttributeTok{border =} \StringTok{"white"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block3_files/figure-pdf/unnamed-chunk-14-1.pdf}
+
+\textbf{Välj, beräkna och motivera val av centralmått och spridningsmått
+för dessa variabler:}
+
+\textbf{4.1} age i stroke
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{age\_median }\OtherTok{\textless{}{-}} \FunctionTok{median}\NormalTok{(stroke}\SpecialCharTok{$}\NormalTok{age)}
+\NormalTok{age\_iqr }\OtherTok{\textless{}{-}} \FunctionTok{IQR}\NormalTok{(stroke}\SpecialCharTok{$}\NormalTok{age)}
+\NormalTok{age\_lower }\OtherTok{\textless{}{-}} \FunctionTok{quantile}\NormalTok{(stroke}\SpecialCharTok{$}\NormalTok{age, }\FloatTok{0.25}\NormalTok{)}
+\NormalTok{age\_upper }\OtherTok{\textless{}{-}} \FunctionTok{quantile}\NormalTok{(stroke}\SpecialCharTok{$}\NormalTok{age, }\FloatTok{0.75}\NormalTok{)}
+
+\FunctionTok{hist}\NormalTok{(stroke}\SpecialCharTok{$}\NormalTok{age)}
+
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v =}\NormalTok{ age\_median)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v =}\NormalTok{ age\_lower)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v =}\NormalTok{ age\_upper)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block3_files/figure-pdf/unnamed-chunk-15-1.pdf}
+
+Här valde jag att beräkna median och IQR på grund av vänsterskewed data.
+
+\textbf{4.2} dgn i stroke
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(stroke}\SpecialCharTok{$}\NormalTok{dgn)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block3_files/figure-pdf/unnamed-chunk-16-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"Mode av stroke$dgn är"}\NormalTok{, }\FunctionTok{names}\NormalTok{(}\FunctionTok{sort}\NormalTok{(}\FunctionTok{table}\NormalTok{(stroke}\SpecialCharTok{$}\NormalTok{dgn), }\AttributeTok{decreasing =} \ConstantTok{TRUE}\NormalTok{)[}\DecValTok{1}\NormalTok{])))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Mode av stroke$dgn är INF"
+\end{verbatim}
+
+Bästa centralmåttet av kategoriska variabler är mode.
+
+\textbf{4.3} rnorm(10000)
+
+Om du vet vad rnorm betyder -- testa annars ?rnorm() -- så är det lätt
+att argumentera för det rätta svaret. Men jag vill påminna här att du
+även kan titta på data innan du bestämmer dig. Kanske dessa metoder kan
+vara till nytta: hist(rnorm(10000)) boxplot(rnorm(10000))
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{10000}\NormalTok{)}
+\FunctionTok{hist}\NormalTok{(data)}
+
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v =} \FunctionTok{mean}\NormalTok{(data))}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v =} \FunctionTok{mean}\NormalTok{(data) }\SpecialCharTok{{-}} \FunctionTok{sd}\NormalTok{(data))}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v =} \FunctionTok{mean}\NormalTok{(data) }\SpecialCharTok{+} \FunctionTok{sd}\NormalTok{(data))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block3_files/figure-pdf/unnamed-chunk-17-1.pdf}
+
+I en normalfördelad data hamnar medelvärdet centralt och spridningen kan
+karaktäriseras standardavvikelser. I detta fall skildrar jag detta med
+en vertikal linje 1 SD från medelvärdet.
+
+\textbf{Fördelningar}
+
+För att ha glädje av avsnittet fördelningar i inlämningsuppgiften måste
+du ha grunderna klara för dig. Läs i Lind eller någon anna text om
+diskreta och kontinuerliga fördelningar. Du kan fokusera på exemplen
+binomialfördelning (sid. 184-193) och normalfördelning (214-229).
+
+\textbf{Bionomialfördelningen}
+
+Passar för att beskriva fördelningar där man upprepar ett experimentet
+ett antal gånger (i R heter det size) Experimentet kan få två olika
+utfall, dessa brukar betecknas success och failure. Sannolikheten för
+success (i R heter det prob) förblir densamma vid varje nytt försök.
+
+Exempel: Två patienter får en behandling som har sannolikheten P(bota) =
+0,7 att bota sjukdomen.
+
+\textbf{5.1} Använd min kod nedan för att med binomialfördelningen
+beräkna och plotta sannolikheterna att 0 eller 1 eller 2 patienter
+botas. Lägg till en lämplig titel till grafen.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{0}\SpecialCharTok{:}\DecValTok{2}
+\FunctionTok{plot}\NormalTok{(x, }\FunctionTok{dbinom}\NormalTok{(x, }\DecValTok{2}\NormalTok{, }\FloatTok{0.7}\NormalTok{), }\AttributeTok{type =} \StringTok{"h"}\NormalTok{, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{10}\NormalTok{, }\AttributeTok{main =} \StringTok{"Binomial fördelning"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block3_files/figure-pdf/unnamed-chunk-18-1.pdf}
+
+Det är bra att vid ett tillfälle beräkna sannolikheterna för varje
+utfall för hand. Formeln finner du på sid 57 i ISwR. Här följer formeln
+med värdena för utfallet 0 tillfrisknar ifyllda.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{2}
+\NormalTok{p }\OtherTok{\textless{}{-}} \FloatTok{0.7}
+
+\CommentTok{\# Beräkna sannolikheterna}
+\NormalTok{prob\_0 }\OtherTok{\textless{}{-}} \FunctionTok{dbinom}\NormalTok{(}\DecValTok{0}\NormalTok{, n, p)}
+\NormalTok{prob\_1 }\OtherTok{\textless{}{-}} \FunctionTok{dbinom}\NormalTok{(}\DecValTok{1}\NormalTok{, n, p)}
+\NormalTok{prob\_2 }\OtherTok{\textless{}{-}} \FunctionTok{dbinom}\NormalTok{(}\DecValTok{2}\NormalTok{, n, p)}
+
+\CommentTok{\# print}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"P(x=0) ="}\NormalTok{, prob\_0))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "P(x=0) = 0.09"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"P(x=1) ="}\NormalTok{, prob\_1))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "P(x=1) = 0.42"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"P(x=2) ="}\NormalTok{, prob\_2))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "P(x=2) = 0.49"
+\end{verbatim}
+
+\textbf{5.2} Beräkna i R med formeln ovan sannolikheterna att 0 eller 1
+eller 2 patienter botas, rita en graf. Använd funktionen choose(). Blev
+det samma resultat som i 5.1?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Beräkna sannolikheterna med ovan formel}
+\NormalTok{prob\_0 }\OtherTok{\textless{}{-}} \FunctionTok{choose}\NormalTok{(n, }\DecValTok{0}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ p}\SpecialCharTok{\^{}}\DecValTok{0} \SpecialCharTok{*}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ p)}\SpecialCharTok{\^{}}\NormalTok{(n }\SpecialCharTok{{-}} \DecValTok{0}\NormalTok{)}
+\NormalTok{prob\_1 }\OtherTok{\textless{}{-}} \FunctionTok{choose}\NormalTok{(n, }\DecValTok{1}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ p}\SpecialCharTok{\^{}}\DecValTok{1} \SpecialCharTok{*}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ p)}\SpecialCharTok{\^{}}\NormalTok{(n }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{)}
+\NormalTok{prob\_2 }\OtherTok{\textless{}{-}} \FunctionTok{choose}\NormalTok{(n, }\DecValTok{2}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ p}\SpecialCharTok{\^{}}\DecValTok{2} \SpecialCharTok{*}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ p)}\SpecialCharTok{\^{}}\NormalTok{(n }\SpecialCharTok{{-}} \DecValTok{2}\NormalTok{)}
+
+\CommentTok{\# Skapa en vektor}
+\NormalTok{probs }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(prob\_0, prob\_1, prob\_2)}
+
+\CommentTok{\# Plot}
+\FunctionTok{barplot}\NormalTok{(probs, }\AttributeTok{names.arg =} \DecValTok{0}\SpecialCharTok{:}\DecValTok{2}\NormalTok{, }\AttributeTok{main =} \StringTok{"Sannolikhet"}\NormalTok{, }\AttributeTok{xlab =} \StringTok{"Antal tillfrisknade"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"Sannolikhet"}\NormalTok{, }\AttributeTok{col =} \StringTok{"lightblue"}\NormalTok{, }\AttributeTok{border =} \StringTok{"white"}\NormalTok{, }\AttributeTok{ylim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{0.75}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block3_files/figure-pdf/unnamed-chunk-20-1.pdf}
+
+För att lösa uppgiften kan du behöva komplettera texten i ISwR med en
+annan text om binomialfördelningen. Om du har läst tidigare räcker det
+kanske att läsa igenom formler som jag klippt ur wikipedia binomial
+distribution
+
+\textbf{5.3} Sex patienter får samma behandling. Sannolikheten att
+tillfriskna har visat sig vara 80\%.
+
+Rita ett stapeldiagram som visar sannolikheten för varje tänkbart utfall
+från noll patienter tillfrisknar till sex patienter tillfrisknar. Använd
+dbinom().
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Skriver funktion då det kan itereras}
+\NormalTok{prob }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(n, p) \{}
+  \CommentTok{\# Initiate df}
+\NormalTok{  prob }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{amount =} \FunctionTok{integer}\NormalTok{(), }\AttributeTok{probability =} \FunctionTok{numeric}\NormalTok{())}
+  \CommentTok{\# for loop, for every iteration calculate and append}
+  \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{n) \{}
+\NormalTok{    prob }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(prob, }\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{amount =}\NormalTok{ i, }\AttributeTok{probability =} \FunctionTok{dbinom}\NormalTok{(i, n, p)))}
+\NormalTok{  \}}
+  \FunctionTok{return}\NormalTok{(prob)}
+\NormalTok{\}}
+
+\CommentTok{\# Beräkna sannolikheter}
+\NormalTok{probabilities }\OtherTok{\textless{}{-}} \FunctionTok{prob}\NormalTok{(}\DecValTok{6}\NormalTok{, }\FloatTok{0.8}\NormalTok{)}
+
+\CommentTok{\# Plot}
+\FunctionTok{barplot}\NormalTok{(probabilities}\SpecialCharTok{$}\NormalTok{probability, }\AttributeTok{names.arg =}\NormalTok{ probabilities}\SpecialCharTok{$}\NormalTok{amount, }\AttributeTok{ylim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{0.5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block3_files/figure-pdf/unnamed-chunk-21-1.pdf}
+
+\textbf{5.4} Beräkna sannolikheten att exakt två patienter tillfrisknar.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Det finns redan en funktion skriven}
+
+\NormalTok{frisk\_2 }\OtherTok{\textless{}{-}} \FunctionTok{prob}\NormalTok{(}\DecValTok{2}\NormalTok{, }\FloatTok{0.8}\NormalTok{)}
+
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"Sannolikheten att 2 patienter tillfrisknar är"}\NormalTok{, frisk\_2[}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{]}\SpecialCharTok{*}\DecValTok{100}\NormalTok{,}\StringTok{"\%"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Sannolikheten att 2 patienter tillfrisknar är 64 %"
+\end{verbatim}
+
+\textbf{5.5} Beräkna sannolikheten att minst 5 patienter tillfrisknar.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{frisk\_2 }\OtherTok{\textless{}{-}} \FunctionTok{prob}\NormalTok{(}\DecValTok{5}\NormalTok{, }\FloatTok{0.8}\NormalTok{)}
+
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"Sannolikheten att 5 patienter tillfrisknar är"}\NormalTok{, }\FunctionTok{round}\NormalTok{(frisk\_2[}\DecValTok{5}\NormalTok{,}\DecValTok{2}\NormalTok{]}\SpecialCharTok{*}\DecValTok{100}\NormalTok{),}\StringTok{"\%"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Sannolikheten att 5 patienter tillfrisknar är 33 %"
+\end{verbatim}
+
+\textbf{Normalfördelnigen}
+
+Normalfördelnigen är ett mycket användbart verktyg inom statistiken.
+
+\textbf{6.1} Rita en standardiserad normalfördelning med medelvärdet
+noll och standardavvikelsen ett med mitt kodförslag nedan:
+
+x \textless- seq(-4,4,0.05)
+
+plot (dnorm(x))
+
+eller
+
+curve(dnorm(x), from= -4, to=4)
+
+\emph{Funktionen dnorm(x), som i density function, returnerar
+sannolikheten att i ett experiment få ett ufallet x eller mycket nära x}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\FloatTok{0.05}\NormalTok{)}
+
+\FunctionTok{plot}\NormalTok{ (}\FunctionTok{dnorm}\NormalTok{(x))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block3_files/figure-pdf/unnamed-chunk-24-1.pdf}
+
+\textbf{6.2} Rita en graf som beskriver fördelningen av blodtryck i mmHg
+för människor. Variabeln ska vara normalfödelad med medelvärdet 90 och
+standardavvikelsen 10.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{hist}\NormalTok{(}\FunctionTok{rnorm}\NormalTok{(}\DecValTok{100}\NormalTok{, }\AttributeTok{mean=}\DecValTok{90}\NormalTok{, }\AttributeTok{sd=}\DecValTok{10}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block3_files/figure-pdf/unnamed-chunk-25-1.pdf}
+
+\emph{Funktionen pnorm(x), som i probability function, returnerar
+sannolikheten att i ett experiment få ett utfall x eller lägre än x.}
+
+Använd pnorm() för att beräkna andelen människor i världsbefolkningen
+som har ett blodtryck:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Skriver en funktion då repeterande uppgift}
+\NormalTok{blodtryck }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(limit, mean, sd, }\AttributeTok{hi =} \ConstantTok{TRUE}\NormalTok{) \{}
+\NormalTok{  prob }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(limit, }\AttributeTok{mean =}\NormalTok{ mean, }\AttributeTok{sd =}\NormalTok{ sd)}
+  \ControlFlowTok{if}\NormalTok{ (hi)}
+\NormalTok{    prob }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{prob)}\SpecialCharTok{*}\DecValTok{100}
+  \ControlFlowTok{else}
+\NormalTok{    prob }\OtherTok{\textless{}{-}}\NormalTok{ prob}\SpecialCharTok{*}\DecValTok{100}
+
+  \FunctionTok{return}\NormalTok{(prob)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{6.3} 80 eller lägre
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{blodtryck}\NormalTok{(}\DecValTok{80}\NormalTok{, }\AttributeTok{mean=}\DecValTok{90}\NormalTok{, }\AttributeTok{sd=}\DecValTok{10}\NormalTok{, }\AttributeTok{hi =} \ConstantTok{FALSE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 15.86553
+\end{verbatim}
+
+\textbf{6.4} 100 eller lägre
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{blodtryck}\NormalTok{(}\DecValTok{100}\NormalTok{, }\AttributeTok{mean=}\DecValTok{90}\NormalTok{, }\AttributeTok{sd=}\DecValTok{10}\NormalTok{, }\AttributeTok{hi =} \ConstantTok{FALSE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 84.13447
+\end{verbatim}
+
+\textbf{6.5} högre än 100
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{blodtryck}\NormalTok{(}\DecValTok{100}\NormalTok{, }\AttributeTok{mean=}\DecValTok{90}\NormalTok{, }\AttributeTok{sd=}\DecValTok{10}\NormalTok{, }\AttributeTok{hi =} \ConstantTok{TRUE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 15.86553
+\end{verbatim}
+
+\textbf{6.6} högre än 90 (stanna till här och tänk efter om resultatet
+för 6.6 verkar stämma, kommentera)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{blodtryck}\NormalTok{(}\DecValTok{90}\NormalTok{, }\AttributeTok{mean=}\DecValTok{90}\NormalTok{, }\AttributeTok{sd=}\DecValTok{10}\NormalTok{, }\AttributeTok{hi =} \ConstantTok{TRUE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 50
+\end{verbatim}
+
+Eftersom medelvärdet av normalfördelning ska vara 90 bör då 50\% vara
+över 90.
+
+\textbf{6.7} Av 50000 svenska män födda 1980, hur många är 190 cm eller
+längre? Utgå ifrån medellängd 180 cm och standardavvikelse 7 cm.
+(Värdena är påhittade.)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{((}\DecValTok{1}\SpecialCharTok{{-}}\FunctionTok{pnorm}\NormalTok{(}\DecValTok{190}\NormalTok{, }\AttributeTok{mean =} \DecValTok{180}\NormalTok{, }\AttributeTok{sd =} \DecValTok{7}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 0.07656373
+\end{verbatim}
+
+\textbf{6.8} Hur många män födda 1980 är mellan 180 och 190 cm långa?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{pnorm}\NormalTok{(}\DecValTok{190}\NormalTok{, }\AttributeTok{mean =} \DecValTok{180}\NormalTok{, }\AttributeTok{sd =} \DecValTok{7}\NormalTok{) }\SpecialCharTok{{-}} \FunctionTok{pnorm}\NormalTok{(}\DecValTok{180}\NormalTok{, }\AttributeTok{mean =} \DecValTok{180}\NormalTok{, }\AttributeTok{sd =} \DecValTok{7}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 0.4234363
+\end{verbatim}
+
+\emph{Funktionen qnorm(), som i quantile function, kan du använda om du
+söker ett värde för en normalfördelad variabel som är högre eller lika
+med en viss andel av alla observationer.}
+
+Nedan har jag använt qnorm() för att beräkna det intervall av blodtryck
+som innesluter 95\% av befolkningen.
+
+\textgreater{} qnorm(c(0.025, 0.975), 90, 10)
+
+{[}1{]} 70.40036 109.59964
+
+\textbf{6.9} Justera min kod så att R returnerar blodtrycksintervallet
+angett i heltal.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{round}\NormalTok{(}\FunctionTok{qnorm}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\FloatTok{0.975}\NormalTok{), }\DecValTok{90}\NormalTok{, }\DecValTok{10}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1]  70 110
+\end{verbatim}
+
+Nedan har jag ritat en graf som visar fördelningen av blodtryck i
+befolkningen. Medel 90 mmHg, standardavvikelse 10. Dessutom har jag
+ritat in gränserna som innesluter 95\% av befolkningen.
+
+\textbf{6.10} Återskapa min graf med R kod.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Definierar punkter}
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\DecValTok{60}\NormalTok{, }\DecValTok{120}\NormalTok{, }\FloatTok{0.1}\NormalTok{)}
+
+\CommentTok{\# Beräknar värden}
+\NormalTok{blodtryck }\OtherTok{\textless{}{-}} \FunctionTok{dnorm}\NormalTok{(x, }\AttributeTok{mean =} \DecValTok{90}\NormalTok{, }\AttributeTok{sd =} \DecValTok{10}\NormalTok{)}
+
+\NormalTok{ci }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(}\FunctionTok{qnorm}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\FloatTok{0.975}\NormalTok{), }\DecValTok{90}\NormalTok{, }\DecValTok{10}\NormalTok{))}
+
+\CommentTok{\# Plot}
+\FunctionTok{plot}\NormalTok{(x, blodtryck, }\AttributeTok{type =} \StringTok{"l"}\NormalTok{, }\AttributeTok{xlab =} \StringTok{"X"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"dnorm(x,90,10)"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\FunctionTok{segments}\NormalTok{(ci[}\DecValTok{1}\NormalTok{], }\DecValTok{0}\NormalTok{, ci[}\DecValTok{1}\NormalTok{], }\FunctionTok{dnorm}\NormalTok{(ci[}\DecValTok{1}\NormalTok{], }\AttributeTok{mean =} \DecValTok{90}\NormalTok{, }\AttributeTok{sd =} \DecValTok{10}\NormalTok{), }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{)}
+\FunctionTok{segments}\NormalTok{(ci[}\DecValTok{2}\NormalTok{], }\DecValTok{0}\NormalTok{, ci[}\DecValTok{2}\NormalTok{], }\FunctionTok{dnorm}\NormalTok{(ci[}\DecValTok{2}\NormalTok{], }\AttributeTok{mean =} \DecValTok{90}\NormalTok{, }\AttributeTok{sd =} \DecValTok{10}\NormalTok{), }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block3_files/figure-pdf/unnamed-chunk-34-1.pdf}
+
+Den sortens beräkningar du har gjort med normalfördelningen är mycket
+vanliga. Därför finns så kallade z-tabeller publicerade. De anger ofta
+sannolikheten, p , att få ett utfall z eller lägre än z, där z är
+normalfördelad med medelvärdet 0 och standardavvikelsen 1.
+
+Testa att googla z table och titta på bildresultaten, så hittar du
+z-tabeller i olika utformningar.
+
+Du kan använda länken nedan om du vill, men lova då att klura på hur
+adressen är utformad, det kan du ha glädje av någon annan gång när du
+hämtar sidor automatiskt.
+
+\url{https://www.google.com/search?q=z+table}
+
+\textbf{6.11} Skriv några rader i R som skapar en kolumn med p-värden,
+från z= -4 till z = 0 Välj ett antal värdesiffror som du tycker verkar
+vara vanligt i z-tabeller. Vi bryr oss inte om smärre avvikelser i
+avrundning.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Z och P värden}
+\NormalTok{z }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{4}\NormalTok{, }\DecValTok{0}\NormalTok{, }\AttributeTok{by =} \DecValTok{1}\NormalTok{)}
+\NormalTok{p\_values }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(z)}
+
+\CommentTok{\# Skapa df}
+\NormalTok{p\_values\_df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{z =}\NormalTok{ z, }\AttributeTok{p\_values =} \FunctionTok{round}\NormalTok{(p\_values, }\DecValTok{4}\NormalTok{))}
+
+\FunctionTok{print}\NormalTok{(p\_values\_df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   z p_values
+1 -4   0.0000
+2 -3   0.0013
+3 -2   0.0228
+4 -1   0.1587
+5  0   0.5000
+\end{verbatim}
+
+\textbf{Varför är normalfördelningen användbar?}
+
+Nu har du räknat ett antal exempel med normalfördelningen. Men varför är
+normalfördelningen så användbar egentligen? Jag vill att du gör två
+experiment som illustrerar varför vi har stor glädje av denna
+fördelning. Det första utgår ifrån ett resonemang om biologi och
+binomialfördelningen, det andra är mer matematiskt och handlar om
+centrala gränsvärdessatsen.
+
+Många fenomen i naturen beror på ett stort antal underliggande faktorer
+som är oberoende av varandra. Ofta duger det bra att anta oberoende även
+i fall där det finns små kopplingar mellan faktorer. Tänk till exempel
+att du ska skapa detaljerad modell av kroppslängd. Troligen kan du hitta
+påverkan från ett stort antal gener, vi kan gissa på 200. Dessutom kan
+du säkert hitta ett så stort antal yttre faktorer att det verkar rimligt
+att klassa dem som oberoende för vårt resonemang. Mammas
+nutritionstillstånd under graviditeten. Mamma rökte eller ej. Min poäng
+här är bara att listan kan göras lång.
+
+Tänk dig en biologisk variabel x. Du kan simulera ett värde för x genom
+att singla slant ett antal gånger och lägga samman resultatet: varje
+krona ger 1 poäng, varje klave ger 0 poäng. Använd binomialfördelningen
+för att se hur x fördelas i popultaionen om variabeln styrs av två
+underliggande faktorer. (7.1)
+
+Jämförelsen haltar något, eftersom vi inte har med koncepten recessiv
+och dominant i vår enkla modell, men för att konkretisera kan du tänka
+dig en enklare egenskap som ögonfärg. Mycket förenklat kan den anta
+några få olika lägen: blå, grön, brun. Och den styrs av få underliggande
+faktorer: ett par gener.
+
+\textbf{7.1} Rita upp binomialfördelningen för att singla slant två ggr
+med följande kod.
+
+Rita in en normalfördelning i samma graf.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{0}\SpecialCharTok{:}\DecValTok{2}
+\FunctionTok{plot}\NormalTok{(x, }\FunctionTok{dbinom}\NormalTok{(x, }\DecValTok{2}\NormalTok{, }\FloatTok{0.5}\NormalTok{), }\AttributeTok{type =} \StringTok{"h"}\NormalTok{, }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{4}\NormalTok{, }\AttributeTok{ylim=} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{0.6}\NormalTok{))}
+
+\NormalTok{mean }\OtherTok{\textless{}{-}} \DecValTok{2} \SpecialCharTok{*} \FloatTok{0.5}
+\NormalTok{sd }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(}\DecValTok{2} \SpecialCharTok{*} \FloatTok{0.5} \SpecialCharTok{*} \FloatTok{0.5}\NormalTok{)}
+
+\NormalTok{x\_norm }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\AttributeTok{length.out =} \DecValTok{100}\NormalTok{)}
+\NormalTok{norm\_y }\OtherTok{\textless{}{-}} \FunctionTok{dnorm}\NormalTok{(x\_norm, mean, sd)}
+
+\FunctionTok{lines}\NormalTok{(x\_norm, norm\_y, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block3_files/figure-pdf/unnamed-chunk-36-1.pdf}
+
+\textbf{7.2} Rita nu upp en variabel som styrs av 8 underliggande
+oberoende faktorer Rita in en normalfördelning i samma graf.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Variabler}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{10000}
+\NormalTok{factors }\OtherTok{\textless{}{-}} \FunctionTok{replicate}\NormalTok{(}\DecValTok{8}\NormalTok{, }\FunctionTok{rnorm}\NormalTok{(n))}
+\NormalTok{variable }\OtherTok{\textless{}{-}} \FunctionTok{rowSums}\NormalTok{(factors)}
+
+\CommentTok{\# Plot the histogram of the variable}
+\FunctionTok{hist}\NormalTok{(variable, }\AttributeTok{breaks =} \DecValTok{50}\NormalTok{, }\AttributeTok{probability =} \ConstantTok{TRUE}\NormalTok{)}
+
+\CommentTok{\# Overlay a normal distribution curve}
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FunctionTok{min}\NormalTok{(variable), }\FunctionTok{max}\NormalTok{(variable), }\AttributeTok{length =} \DecValTok{100}\NormalTok{)}
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{dnorm}\NormalTok{(x, }\AttributeTok{mean =} \FunctionTok{mean}\NormalTok{(variable), }\AttributeTok{sd =} \FunctionTok{sd}\NormalTok{(variable))}
+\FunctionTok{lines}\NormalTok{(x, y, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block3_files/figure-pdf/unnamed-chunk-37-1.pdf}
+
+\textbf{7.3} Rita nu upp en variabel som styrs av 30 underliggande
+oberoende faktorer Rita in en normalfördelning i samma graf.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Variabler}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{10000}
+\NormalTok{factors }\OtherTok{\textless{}{-}} \FunctionTok{replicate}\NormalTok{(}\DecValTok{30}\NormalTok{, }\FunctionTok{rnorm}\NormalTok{(n))}
+\NormalTok{variable }\OtherTok{\textless{}{-}} \FunctionTok{rowSums}\NormalTok{(factors)}
+
+\CommentTok{\# Plot}
+\FunctionTok{hist}\NormalTok{(variable, }\AttributeTok{breaks =} \DecValTok{50}\NormalTok{, }\AttributeTok{probability =} \ConstantTok{TRUE}\NormalTok{)}
+
+\CommentTok{\# Overlay}
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FunctionTok{min}\NormalTok{(variable), }\FunctionTok{max}\NormalTok{(variable), }\AttributeTok{length =} \DecValTok{100}\NormalTok{)}
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{dnorm}\NormalTok{(x, }\AttributeTok{mean =} \FunctionTok{mean}\NormalTok{(variable), }\AttributeTok{sd =} \FunctionTok{sd}\NormalTok{(variable))}
+\FunctionTok{lines}\NormalTok{(x, y, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block3_files/figure-pdf/unnamed-chunk-38-1.pdf}
+
+\textbf{7.4} Kommentera resultatet av undersökningen 7.1 till 7.3 Även
+summerade variabler beroende på 8 och 30 faktorer uppvisar normal
+distribution, oavsett fördelning på underliggande faktorer. Det innebär
+även att vi kan anta att variabler som påverkas av underliggande
+faktorer uppvisar normal distribution, oavsett dess underliggande
+distribution.
+
+\textbf{Frivillig uppgift}: Det finns ett elegant sätt att välja
+standardavvikelse för normalfördelningen som du ritar in över
+binomialfördelningen i graferna. Hur kan man beräkna ett lämpligt värde?
+Tips: Läs Lind formel {[}6-5{]}
+
+\textbf{Centrala gränsvärdessatsen (Central Limit theorem)}
+
+Att annat skäl till att normalfördelningen är så användbar inom
+statistiken följer av centrala gränsvärdessatsen. Tänk att du drar många
+lika stora stickprov ur en population och varje gång beräknar
+stickprovets medelvärde. Vi ska nu undersöka hur stickprovets medelvärde
+fördelas.
+
+\textbf{8.1} Skapa ett antal fördelningar NORM, UNIF, SKEV med koden
+nedan Använd gruppens nummer som seed, tex grupp A = seed(1), grpp B,
+seed(2)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{10}\NormalTok{)}
+\NormalTok{NORM }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{10000}\NormalTok{)}
+\NormalTok{UNIF }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(}\DecValTok{10000}\NormalTok{)}
+\NormalTok{SKEV }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{8.2} Rita histogram över fördelningarna och beräkna medelvärde
+och standardavvikelse (även om man kan ifrågasätta iden att räkna medel
+och standardavvikelse för SKEV)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{hist}\NormalTok{(NORM)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v =} \FunctionTok{mean}\NormalTok{(NORM), }\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v =} \FunctionTok{mean}\NormalTok{(NORM) }\SpecialCharTok{+} \FunctionTok{sd}\NormalTok{(NORM), }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v =} \FunctionTok{mean}\NormalTok{(NORM) }\SpecialCharTok{{-}} \FunctionTok{sd}\NormalTok{(NORM), }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block3_files/figure-pdf/unnamed-chunk-40-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{hist}\NormalTok{(UNIF)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v =} \FunctionTok{mean}\NormalTok{(UNIF), }\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v =} \FunctionTok{mean}\NormalTok{(UNIF) }\SpecialCharTok{+} \FunctionTok{sd}\NormalTok{(UNIF), }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v =} \FunctionTok{mean}\NormalTok{(UNIF) }\SpecialCharTok{{-}} \FunctionTok{sd}\NormalTok{(UNIF), }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block3_files/figure-pdf/unnamed-chunk-40-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{hist}\NormalTok{(SKEV)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v =} \FunctionTok{mean}\NormalTok{(SKEV), }\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v =} \FunctionTok{mean}\NormalTok{(SKEV) }\SpecialCharTok{+} \FunctionTok{sd}\NormalTok{(SKEV), }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v =} \FunctionTok{mean}\NormalTok{(SKEV) }\SpecialCharTok{{-}} \FunctionTok{sd}\NormalTok{(SKEV), }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block3_files/figure-pdf/unnamed-chunk-40-3.pdf}
+
+\textbf{8.3} Börja arbeta med NORM. Tag ur NORM 1000 stickprov med
+återläggning av storleken n=3, tag sedan 1000 stickprov av storleken
+n=6, tag slutligen 1000 stickprov av storleken n=300.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Funktion för plotting}
+\NormalTok{plot\_sample\_means }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(data, sample\_sizes, num\_samples) \{}
+  \CommentTok{\# Nestad funktion för att beräkna medelvärde och sd}
+\NormalTok{  sample\_means }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(data, sample\_size, num\_samples) \{}
+\NormalTok{    means }\OtherTok{\textless{}{-}} \FunctionTok{numeric}\NormalTok{(num\_samples)}
+    \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{num\_samples) \{}
+\NormalTok{      sample }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(data, sample\_size, }\AttributeTok{replace =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{      means[i] }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(sample)}
+\NormalTok{    \}}
+    \FunctionTok{return}\NormalTok{(means)}
+\NormalTok{  \}}
+  
+  \FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\FunctionTok{length}\NormalTok{(sample\_sizes), }\DecValTok{1}\NormalTok{))  }\CommentTok{\# Set up the plotting area}
+  
+  \ControlFlowTok{for}\NormalTok{ (n }\ControlFlowTok{in}\NormalTok{ sample\_sizes) \{}
+\NormalTok{    means }\OtherTok{\textless{}{-}} \FunctionTok{sample\_means}\NormalTok{(data, n, num\_samples)}
+    \FunctionTok{hist}\NormalTok{(means, }\AttributeTok{main =} \FunctionTok{paste}\NormalTok{(}\StringTok{"(n ="}\NormalTok{, n, }\StringTok{")"}\NormalTok{))}
+    \FunctionTok{abline}\NormalTok{(}\AttributeTok{v =} \FunctionTok{mean}\NormalTok{(means), }\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{)}
+    \FunctionTok{abline}\NormalTok{(}\AttributeTok{v =} \FunctionTok{mean}\NormalTok{(means) }\SpecialCharTok{+} \FunctionTok{sd}\NormalTok{(means), }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{)}
+    \FunctionTok{abline}\NormalTok{(}\AttributeTok{v =} \FunctionTok{mean}\NormalTok{(means) }\SpecialCharTok{{-}} \FunctionTok{sd}\NormalTok{(means), }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{)}
+\NormalTok{  \}}
+  
+  \FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{))  }\CommentTok{\# Reset plotting area}
+\NormalTok{\}}
+
+\NormalTok{sample\_sizes }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{300}\NormalTok{)}
+\NormalTok{num\_samples }\OtherTok{\textless{}{-}} \DecValTok{1000}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot\_sample\_means}\NormalTok{(NORM, sample\_sizes, num\_samples)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block3_files/figure-pdf/unnamed-chunk-42-1.pdf}
+
+Beräkna medelvärde för varje stickprov och rita histogram över
+medelvärdena (du har gjort en empirisk samplingsfördelning). Beräkna
+medelvärdet och standardavvikelsen för dina samplingsfördelningar n=3,
+n=6, n=300 .
+
+\textbf{8.4} Upprepa uppgift 8.3 med UNIF och till sist med SKEV
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot\_sample\_means}\NormalTok{(UNIF, sample\_sizes, num\_samples)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block3_files/figure-pdf/unnamed-chunk-43-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot\_sample\_means}\NormalTok{(SKEV, sample\_sizes, num\_samples)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block3_files/figure-pdf/unnamed-chunk-44-1.pdf}
+
+\textbf{8.5} Formulera centrala gränsvärdessatsen (CGS), citera gärna ur
+en bok (tex Lind) eller från internet. Kommentera resultatet i 8.2 till
+8.4 med hjälp av CGS.
+
+För NORM (normalfördelning): Provmitten är normalfördelade, vilket är
+väntat eftersom den ursprungliga fördelningen är normal.
+
+För UNIF (uniform fördelning): Trots att den ursprungliga fördelningen
+är uniform närmar sig fördelningen av provmedelvärdena en
+normalfördelning när provstorleken ökar. Detta visar på den centrala
+gränsvärdessatsen, som säger att provmedelvärdena kommer att vara
+normalfördelade oavsett den ursprungliga fördelningen.
+
+För SKEV (skev fördelning): Även om den ursprungliga fördelningen är
+skev blir fördelningen av provmedelvärdena ungefär normal när
+provstorleken ökar. Detta illustrerar återigen den centrala
+gränsvärdessatsen, som visar att provmedelvärdena tenderar att vara
+normalfördelade oavsett skevheten i den ursprungliga fördelningen.
+
+
+
+
+\end{document}
