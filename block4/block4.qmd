@@ -11,21 +11,22 @@ knit:
 cache: true
 echo: true
 ---
-Försättsblad
-
-Gruppnamn 10
+Grupp 10
 
 Namn och personnummer på dem som deltagit aktivt:
 
 Jacob Widaeus 950729
 
-Hej
 
-Denna gruppuppgift berör materialet i ISwR kapitel 5 och 7. Du kommer att använda R för att genomföra ett antal hypotesttest. Uppgifterna ska belysa koncept som förklaras bättre i andra böcker än ISwR. Sidhänvisningarna för Lind/Marchal/Wathen är för upplaga 17 i denna text. Om du har en annat upplaga får du leta lite grann. Sidhänvisningarna gäller Lind om inget annan anges.
 
-Låt mig påminna dig om en viktig sak innan du börjar. Den här kursen är inte del av något program som vill bestämma över dig. **Det är din kurs**, och du kan välja vad den ska innehålla. Tanken med inlämningsuppgiften är att låta dig utforska hypotesprövning och samtidigt lära dig några R-knep. **Om du fastnar lång tid i något som du inte vill fokusera på**,skriv en kommentar och gå vidare. Du har kanske en gruppkamrat som prioriterat annorlunda, genom att samarbeta kan ni få ihop hela uppgiften ändå. Det krävs inte alla rätt – viktigast är att lämna in i tid.
+\
 
-polygon() är till exempel en smaksak. Svårt eller lätt? Användbart eller ointressant? Det finns ett dokument med tips om polygon som du kan använda: tips till inlämningsuppgift 4 polygon.docx
+\
+
+```{r, echo: false}
+# Load dependencies
+library(tidyverse)
+```
 
 **1\. En enstaka observation jämförd med en känd population**
 
@@ -36,25 +37,25 @@ Samma typ av beräkning kan användas för ett hypotestest, en beräkning som ta
 **Kommenterat exempel**
 
 Nollhypotes:
-
 Personen hör till populationen med fördelningen blodtryck ~N(90, 10)
 
 Alternativhypotes:
-
 Personen hör till en population med lägre blodtryck än N(90, 10)
 
-**1.1** Är det ett ensidigt eller tvåsidigt test vi har formulerat? (_ensidigt sid._ 330-331, 460, 325-326 _tvåsidigt sid._ 389, 327-330, 325-326)
+**1.1** Är det ett ensidigt eller tvåsidigt test vi har formulerat?
 Val av signifikansnivå: Vi väljer α = 0.05.
 Det innebär att vi förkastar nollhypotesen om p-värdet är lägre än 0.05.
 Genom att välja α = 0.05 har vi accepterat att om vi gör upprepade tester där nollhypotesen verkligen är sann så kommer vi förkasta nollhypotesen av misstag i 5% av testen på lång sikt.
 
+\
 Svar: Det är ett ensidigt test eftersom alternativhypotesen anger att personen hör till en population med lägre blodtryck än N(90, 10).
+\
 
 **1.2** Är det ett typ I eller ett typ II fel att förkasta en sann nollhypotes?
 
+\
 Svar: Att förkasta en sann nollhypotes är ett typ I fel.
-
-(_Typ 1 sid._ 325, 322-323, 343, _Typ 2 sid._ 322-323, 343-346)
+\
 
 Val av statistisk test: z- test
 
@@ -65,36 +66,34 @@ Antag att nollhypotesen stämmer, personen du mätt hör till populationen N(90,
 **1.3** Beräkna blå area i figuren ”Ensidigt test” med R
 
 ```{r}
-# Given parameters
+# Given information
 mean <- 90
 sd <- 10
 value <- 72
 
-# Calculate the p-value
+# Beräkna p värdet, för normalfördelad population
 p_value <- pnorm(value, mean, sd)
-p_value
+print(p_value)
 ```
 
 **1.4** Återskapa min figur ”Ensidigt test” nedan med R
-Tips: polygon(cord.x,cord.y,col='skyblue')
-Ytterligare tips: Bläddra fram till 2.5
 
 ```{r}
 library(ggplot2)
 
-# Given parameters
+# Givna parametrar
 mean <- 90
 sd <- 10
 value <- 72
 
-# Create a sequence of x values
+# Skapa x värden
 x <- seq(mean - 4*sd, mean + 4*sd, length=1000)
-# Calculate the density
+# Beräkna fördelning
 y <- dnorm(x, mean, sd)
-# Create a data frame
+# df
 data <- data.frame(x, y)
 
-# Plot the normal distribution
+# Plotta
 ggplot(data, aes(x, y)) +
   geom_line() +
   geom_area(data = subset(data, x <= value), aes(x = x, y = y), fill = "blue", alpha = 0.5) +
@@ -106,7 +105,9 @@ ggplot(data, aes(x, y)) +
 
 **1.5**Blodtrycket bt72 eller lägre verkar förekomma i mindre del av befolkningen än 0.05, vår valda signifikansnivå. Ska vi behålla eller förkasta nollhypotesen?
 
+\
 Svar: Eftersom blodtrycket på 72 mmHg är lägre än signifikansnivån på 5%, bör vi förkasta nollhypotesen.
+\
 
 **Tvåsidigt test**
 
@@ -118,7 +119,26 @@ Personen hör till en population med högre eller lägre blodtryck än N(90, 10)
 
 **1.6** Kan nollhypotesen förkastas med α = 0.05 som signifikansnivå?
 
-Svar: Om p-värdet för det tvåsidiga testet är mindre än signifikansnivån (α = 0,05), förkastar vi nollhypotesen.
+```{r}
+# Given information
+mean <- 90
+sd <- 10
+value <- 72
+alfa <- 0.05
+
+# Beräkna p värde
+p_lower <- pnorm(value, mean, sd)
+p_upper <- pnorm(mean + (mean - value), mean, sd, lower.tail = FALSE)
+
+# Two-sided
+p_value_two_sided <- p_lower + p_upper
+
+if (p_value_two_sided < alfa) {
+  print(paste("Nollhypotesen kan förkastas med", round(p_value_two_sided, 4)))
+} else {
+  print(paste("Nollhypotesen kan inte förkastas med", round(p_value_two_sided, 4)))
+}
+```
 
 **Uttrycka skillnader med variation**
 

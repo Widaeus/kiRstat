@@ -43,14 +43,28 @@
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 % Make \paragraph and \subparagraph free-standing
+\makeatletter
 \ifx\paragraph\undefined\else
   \let\oldparagraph\paragraph
-  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
 \fi
 \ifx\subparagraph\undefined\else
   \let\oldsubparagraph\subparagraph
-  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
+\makeatother
 
 \usepackage{color}
 \usepackage{fancyvrb}
@@ -70,7 +84,7 @@
 \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
 \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
 \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
-\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
 \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
 \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
 \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
@@ -80,7 +94,7 @@
 \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
 \newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
 \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
-\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
 \newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
 \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
 \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
@@ -160,6 +174,7 @@
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
+
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -177,6 +192,7 @@
   urlcolor={Blue},
   pdfcreator={LaTeX via pandoc}}
 
+
 \title{Inlämningsuppgift block 4 -- hypotestest, konfidensintervall}
 \author{Statistiska Metoder med R}
 \date{}
@@ -184,36 +200,23 @@
 \begin{document}
 \maketitle
 
-Försättsblad
 
-Gruppnamn 10
+Grupp 10
 
 Namn och personnummer på dem som deltagit aktivt:
 
 Jacob Widaeus 950729
 
-Hej
+\hfill\break
 
-Denna gruppuppgift berör materialet i ISwR kapitel 5 och 7. Du kommer
-att använda R för att genomföra ett antal hypotesttest. Uppgifterna ska
-belysa koncept som förklaras bättre i andra böcker än ISwR.
-Sidhänvisningarna för Lind/Marchal/Wathen är för upplaga 17 i denna
-text. Om du har en annat upplaga får du leta lite grann.
-Sidhänvisningarna gäller Lind om inget annan anges.
+\hfill\break
 
-Låt mig påminna dig om en viktig sak innan du börjar. Den här kursen är
-inte del av något program som vill bestämma över dig. \textbf{Det är din
-kurs}, och du kan välja vad den ska innehålla. Tanken med
-inlämningsuppgiften är att låta dig utforska hypotesprövning och
-samtidigt lära dig några R-knep. \textbf{Om du fastnar lång tid i något
-som du inte vill fokusera på},skriv en kommentar och gå vidare. Du har
-kanske en gruppkamrat som prioriterat annorlunda, genom att samarbeta
-kan ni få ihop hela uppgiften ändå. Det krävs inte alla rätt --
-viktigast är att lämna in i tid.
-
-polygon() är till exempel en smaksak. Svårt eller lätt? Användbart eller
-ointressant? Det finns ett dokument med tips om polygon som du kan
-använda: tips till inlämningsuppgift 4 polygon.docx
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Load dependencies}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
 
 \textbf{1. En enstaka observation jämförd med en känd population}
 
@@ -231,33 +234,28 @@ genomsnitt har lägre blodtyck än friska?
 
 \textbf{Kommenterat exempel}
 
-Nollhypotes:
-
-Personen hör till populationen med fördelningen blodtryck
+Nollhypotes: Personen hör till populationen med fördelningen blodtryck
 \textasciitilde N(90, 10)
 
-Alternativhypotes:
-
-Personen hör till en population med lägre blodtryck än N(90, 10)
+Alternativhypotes: Personen hör till en population med lägre blodtryck
+än N(90, 10)
 
 \textbf{1.1} Är det ett ensidigt eller tvåsidigt test vi har formulerat?
-(\emph{ensidigt sid.} 330-331, 460, 325-326 \emph{tvåsidigt sid.} 389,
-327-330, 325-326) Val av signifikansnivå: Vi väljer α = 0.05. Det
-innebär att vi förkastar nollhypotesen om p-värdet är lägre än 0.05.
-Genom att välja α = 0.05 har vi accepterat att om vi gör upprepade
-tester där nollhypotesen verkligen är sann så kommer vi förkasta
-nollhypotesen av misstag i 5\% av testen på lång sikt.
+Val av signifikansnivå: Vi väljer α = 0.05. Det innebär att vi förkastar
+nollhypotesen om p-värdet är lägre än 0.05. Genom att välja α = 0.05 har
+vi accepterat att om vi gör upprepade tester där nollhypotesen verkligen
+är sann så kommer vi förkasta nollhypotesen av misstag i 5\% av testen
+på lång sikt.
 
+\hfill\break
 Svar: Det är ett ensidigt test eftersom alternativhypotesen anger att
-personen hör till en population med lägre blodtryck än N(90, 10).
+personen hör till en population med lägre blodtryck än N(90, 10).\\
 
 \textbf{1.2} Är det ett typ I eller ett typ II fel att förkasta en sann
 nollhypotes?
 
-Svar: Att förkasta en sann nollhypotes är ett typ I fel.
-
-(\emph{Typ 1 sid.} 325, 322-323, 343, \emph{Typ 2 sid.} 322-323,
-343-346)
+\hfill\break
+Svar: Att förkasta en sann nollhypotes är ett typ I fel.\\
 
 Val av statistisk test: z- test
 
@@ -275,14 +273,14 @@ en slump? Svaret är arean under kurvan till vänster om bt= 72. Den arean
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Given parameters}
+\CommentTok{\# Given information}
 \NormalTok{mean }\OtherTok{\textless{}{-}} \DecValTok{90}
 \NormalTok{sd }\OtherTok{\textless{}{-}} \DecValTok{10}
 \NormalTok{value }\OtherTok{\textless{}{-}} \DecValTok{72}
 
-\CommentTok{\# Calculate the p{-}value}
+\CommentTok{\# Beräkna p värdet, för normalfördelad population}
 \NormalTok{p\_value }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(value, mean, sd)}
-\NormalTok{p\_value}
+\FunctionTok{print}\NormalTok{(p\_value)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -290,27 +288,25 @@ en slump? Svaret är arean under kurvan till vänster om bt= 72. Den arean
 [1] 0.03593032
 \end{verbatim}
 
-\textbf{1.4} Återskapa min figur ''Ensidigt test'' nedan med R Tips:
-polygon(cord.x,cord.y,col=`skyblue') Ytterligare tips: Bläddra fram till
-2.5
+\textbf{1.4} Återskapa min figur ''Ensidigt test'' nedan med R
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(ggplot2)}
 
-\CommentTok{\# Given parameters}
+\CommentTok{\# Givna parametrar}
 \NormalTok{mean }\OtherTok{\textless{}{-}} \DecValTok{90}
 \NormalTok{sd }\OtherTok{\textless{}{-}} \DecValTok{10}
 \NormalTok{value }\OtherTok{\textless{}{-}} \DecValTok{72}
 
-\CommentTok{\# Create a sequence of x values}
+\CommentTok{\# Skapa x värden}
 \NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(mean }\SpecialCharTok{{-}} \DecValTok{4}\SpecialCharTok{*}\NormalTok{sd, mean }\SpecialCharTok{+} \DecValTok{4}\SpecialCharTok{*}\NormalTok{sd, }\AttributeTok{length=}\DecValTok{1000}\NormalTok{)}
-\CommentTok{\# Calculate the density}
+\CommentTok{\# Beräkna fördelning}
 \NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{dnorm}\NormalTok{(x, mean, sd)}
-\CommentTok{\# Create a data frame}
+\CommentTok{\# df}
 \NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(x, y)}
 
-\CommentTok{\# Plot the normal distribution}
+\CommentTok{\# Plotta}
 \FunctionTok{ggplot}\NormalTok{(data, }\FunctionTok{aes}\NormalTok{(x, y)) }\SpecialCharTok{+}
   \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{geom\_area}\NormalTok{(}\AttributeTok{data =} \FunctionTok{subset}\NormalTok{(data, x }\SpecialCharTok{\textless{}=}\NormalTok{ value), }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ y), }\AttributeTok{fill =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+}
@@ -326,8 +322,9 @@ polygon(cord.x,cord.y,col=`skyblue') Ytterligare tips: Bläddra fram till
 av befolkningen än 0.05, vår valda signifikansnivå. Ska vi behålla eller
 förkasta nollhypotesen?
 
+\hfill\break
 Svar: Eftersom blodtrycket på 72 mmHg är lägre än signifikansnivån på
-5\%, bör vi förkasta nollhypotesen.
+5\%, bör vi förkasta nollhypotesen.\\
 
 \textbf{Tvåsidigt test}
 
@@ -345,8 +342,32 @@ population med högre eller lägre blodtryck än N(90, 10)
 \textbf{1.6} Kan nollhypotesen förkastas med α = 0.05 som
 signifikansnivå?
 
-Svar: Om p-värdet för det tvåsidiga testet är mindre än signifikansnivån
-(α = 0,05), förkastar vi nollhypotesen.
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Given information}
+\NormalTok{mean }\OtherTok{\textless{}{-}} \DecValTok{90}
+\NormalTok{sd }\OtherTok{\textless{}{-}} \DecValTok{10}
+\NormalTok{value }\OtherTok{\textless{}{-}} \DecValTok{72}
+\NormalTok{alfa }\OtherTok{\textless{}{-}} \FloatTok{0.05}
+
+\CommentTok{\# Beräkna p värde}
+\NormalTok{p\_lower }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(value, mean, sd)}
+\NormalTok{p\_upper }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(mean }\SpecialCharTok{+}\NormalTok{ (mean }\SpecialCharTok{{-}}\NormalTok{ value), mean, sd, }\AttributeTok{lower.tail =} \ConstantTok{FALSE}\NormalTok{)}
+
+\CommentTok{\# Two{-}sided}
+\NormalTok{p\_value\_two\_sided }\OtherTok{\textless{}{-}}\NormalTok{ p\_lower }\SpecialCharTok{+}\NormalTok{ p\_upper}
+
+\ControlFlowTok{if}\NormalTok{ (p\_value\_two\_sided }\SpecialCharTok{\textless{}}\NormalTok{ alfa) \{}
+  \FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"Nollhypotesen kan förkastas med"}\NormalTok{, }\FunctionTok{round}\NormalTok{(p\_value\_two\_sided, }\DecValTok{4}\NormalTok{)))}
+\NormalTok{\} }\ControlFlowTok{else}\NormalTok{ \{}
+  \FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"Nollhypotesen kan inte förkastas med"}\NormalTok{, }\FunctionTok{round}\NormalTok{(p\_value\_two\_sided, }\DecValTok{4}\NormalTok{)))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Nollhypotesen kan inte förkastas med 0.0719"
+\end{verbatim}
 
 \textbf{Uttrycka skillnader med variation}
 
@@ -435,7 +456,7 @@ skala från mmHg till standardavvikelse
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{block4_files/figure-pdf/unnamed-chunk-3-1.pdf}
+\includegraphics{block4_files/figure-pdf/unnamed-chunk-4-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -447,7 +468,7 @@ skala från mmHg till standardavvikelse
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{block4_files/figure-pdf/unnamed-chunk-3-2.pdf}
+\includegraphics{block4_files/figure-pdf/unnamed-chunk-4-2.pdf}
 
 \textbf{2. Ett stickprov jämförs med en känd population}
 
@@ -1009,6 +1030,7 @@ kan du förkasta nollhypotesen.
 
 \textbf{8.3Välj ett sätt att visualisera data. Du kan låta dig
 inspireras av IswR s 134.}
+
 
 
 
