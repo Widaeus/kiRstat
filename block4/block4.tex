@@ -43,28 +43,14 @@
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 % Make \paragraph and \subparagraph free-standing
-\makeatletter
 \ifx\paragraph\undefined\else
   \let\oldparagraph\paragraph
-  \renewcommand{\paragraph}{
-    \@ifstar
-      \xxxParagraphStar
-      \xxxParagraphNoStar
-  }
-  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
-  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
 \fi
 \ifx\subparagraph\undefined\else
   \let\oldsubparagraph\subparagraph
-  \renewcommand{\subparagraph}{
-    \@ifstar
-      \xxxSubParagraphStar
-      \xxxSubParagraphNoStar
-  }
-  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
-  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
-\makeatother
 
 \usepackage{color}
 \usepackage{fancyvrb}
@@ -84,7 +70,7 @@
 \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
 \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
 \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
-\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
 \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
 \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
 \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
@@ -94,7 +80,7 @@
 \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
 \newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
 \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
-\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
 \newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
 \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
 \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
@@ -174,7 +160,6 @@
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
-
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -192,14 +177,12 @@
   urlcolor={Blue},
   pdfcreator={LaTeX via pandoc}}
 
-
 \title{Inlämningsuppgift block 4 -- hypotestest, konfidensintervall}
 \author{Statistiska Metoder med R}
 \date{}
 
 \begin{document}
 \maketitle
-
 
 Grupp 10
 
@@ -217,6 +200,18 @@ Jacob Widaeus 950729
 \FunctionTok{library}\NormalTok{(tidyverse)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+-- Attaching core tidyverse packages ------------------------ tidyverse 2.0.0 --
+v dplyr     1.1.4     v readr     2.1.5
+v forcats   1.0.0     v stringr   1.5.1
+v lubridate 1.9.3     v tibble    3.2.1
+v purrr     1.0.2     v tidyr     1.3.1
+-- Conflicts ------------------------------------------ tidyverse_conflicts() --
+x dplyr::filter() masks stats::filter()
+x dplyr::lag()    masks stats::lag()
+i Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+\end{verbatim}
 
 \textbf{1. En enstaka observation jämförd med en känd population}
 
@@ -440,35 +435,33 @@ skala från mmHg till standardavvikelse
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Given parameters}
-\NormalTok{mean }\OtherTok{\textless{}{-}} \DecValTok{90}
-\NormalTok{sd }\OtherTok{\textless{}{-}} \DecValTok{10}
-
-\CommentTok{\# Sequence of blood pressure values}
+\CommentTok{\# Skapa en sekvens för blodtrycksvärden}
 \NormalTok{bt }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{50}\NormalTok{, }\DecValTok{120}\NormalTok{, }\DecValTok{1}\NormalTok{)}
 
-\CommentTok{\# Density of the normal distribution}
-\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{dnorm}\NormalTok{(bt, mean, sd)}
+\CommentTok{\# Beräkna densitetsfunktion för normalfördelning (N(90, 10))}
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{dnorm}\NormalTok{(bt, }\AttributeTok{mean =} \DecValTok{90}\NormalTok{, }\AttributeTok{sd =} \DecValTok{10}\NormalTok{)}
 
-\CommentTok{\# Plot the original distribution}
-\FunctionTok{plot}\NormalTok{(bt, y, }\AttributeTok{type =} \StringTok{"l"}\NormalTok{, }\AttributeTok{xlim =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{50}\NormalTok{, }\DecValTok{120}\NormalTok{), }\AttributeTok{main =} \StringTok{"Transformera så µ blir noll"}\NormalTok{)}
-\FunctionTok{lines}\NormalTok{(bt }\SpecialCharTok{{-}}\NormalTok{ mean, y, }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{)}
+\CommentTok{\# Rita första grafen där medelvärdet är 90 mmHg}
+\FunctionTok{plot}\NormalTok{(bt, y, }\AttributeTok{type =} \StringTok{"l"}\NormalTok{, }\AttributeTok{xlim =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{50}\NormalTok{, }\DecValTok{120}\NormalTok{),}
+\AttributeTok{main =} \StringTok{"Transformering från mmHg till standardavvikelse"}\NormalTok{,}
+     \AttributeTok{xlab =} \StringTok{"Blodtryck (mmHg)"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"Densitet"}\NormalTok{)}
+
+\CommentTok{\# Steg A: Subtrahera medelvärdet (µ = 90 mmHg)}
+\FunctionTok{lines}\NormalTok{(bt }\SpecialCharTok{{-}} \DecValTok{90}\NormalTok{, y, }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{)}
+
+\CommentTok{\# Steg B: Dividera med standardavvikelsen (σ = 10 mmHg)}
+\CommentTok{\# för att få standardiserad skala}
+\FunctionTok{lines}\NormalTok{((bt }\SpecialCharTok{{-}} \DecValTok{90}\NormalTok{) }\SpecialCharTok{/} \DecValTok{10}\NormalTok{, y, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{)}
+
+\CommentTok{\# Lägg till en legend för att förklara linjerna}
+\FunctionTok{legend}\NormalTok{(}\StringTok{"topright"}\NormalTok{, }\AttributeTok{legend =} \FunctionTok{c}\NormalTok{(}\StringTok{"Original (mmHg)"}\NormalTok{,}
+\StringTok{"Subtraherat medelvärdet"}\NormalTok{,}
+\StringTok{"Skala: standardavvikelse"}\NormalTok{),}
+       \AttributeTok{col =} \FunctionTok{c}\NormalTok{(}\StringTok{"black"}\NormalTok{, }\StringTok{"blue"}\NormalTok{, }\StringTok{"red"}\NormalTok{), }\AttributeTok{lty =} \DecValTok{1}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \includegraphics{block4_files/figure-pdf/unnamed-chunk-4-1.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Transform the scale to standard deviation}
-\NormalTok{bt\_transformed }\OtherTok{\textless{}{-}}\NormalTok{ (bt }\SpecialCharTok{{-}}\NormalTok{ mean) }\SpecialCharTok{/}\NormalTok{ sd}
-
-\CommentTok{\# Plot the transformed distribution}
-\FunctionTok{plot}\NormalTok{(bt\_transformed, y, }\AttributeTok{type =} \StringTok{"l"}\NormalTok{, }\AttributeTok{xlim =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{), }\AttributeTok{main =} \StringTok{"Transformera till standardavvikelse"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{block4_files/figure-pdf/unnamed-chunk-4-2.pdf}
 
 \textbf{2. Ett stickprov jämförs med en känd population}
 
@@ -479,17 +472,17 @@ stickprovet är stort nog.
 
 Du vill testa om ett stickprov är draget ur en population med känt
 medelvärde och standardavvikelse. Rätt metod är z-test, men formeln ser
-något annorlunda ut än i 1.
+något annorlunda ut än i 1. \[
+z = \frac{\bar{X} - \mu}{\frac{sigma}{\sqrt{n}}}
+\]
 
-z = ( - µ)/ (σ\textbf{/√n})
+\(\bar{X}\) är stickprovets medelvärde
 
-är stickprovets medelvärde
+\(µ\) är populationens medelvärde
 
-µ är populationens medelvärde
+\(n\) är stickprovets storlek
 
-n är stickprovets storlek
-
-√n är kvadratroten ur stickprovets storlek
+\({\sqrt{n}}\) är kvadratroten ur stickprovets storlek
 
 \textbf{2.1} Varför dividerar man populationens standardavvikelse med
 kvadratroten ur stickprovets storlek. Du behöver inte härleda
@@ -503,38 +496,185 @@ medelvikt uppmäts till 31.38 g.
 
 Är produkten tyngre än normalt denna morgon?
 
+\hfill\break
+Svar: Anledningen till att man dividerar populationens standardavvikelse
+(\(\sigma\)) med kvadratroten av stickprovets storlek (√n) är för att
+hantera osäkerheten i uppskattningen av medelvärdet från stickprovet.
+Enligt central limit theorem blir samplingsfördelningen av stickprovets
+medelvärde normalfördelad när stickprovet är stort nog, och dess
+spridning minskar när stickprovet blir större.\\
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Parametrar}
+\NormalTok{mu }\OtherTok{\textless{}{-}} \FloatTok{31.2}          \CommentTok{\# Populationens medelvärde}
+\NormalTok{sigma }\OtherTok{\textless{}{-}} \FloatTok{0.4}        \CommentTok{\# Populationens standardavvikelse}
+\NormalTok{x\_bar }\OtherTok{\textless{}{-}} \FloatTok{31.38}      \CommentTok{\# Stickprovets medelvärde}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{16}             \CommentTok{\# Stickprovets storlek}
+
+\CommentTok{\# Beräkna z{-}värdet}
+\NormalTok{z\_value }\OtherTok{\textless{}{-}}\NormalTok{ (x\_bar }\SpecialCharTok{{-}}\NormalTok{ mu) }\SpecialCharTok{/}\NormalTok{ (sigma }\SpecialCharTok{/} \FunctionTok{sqrt}\NormalTok{(n))}
+
+\CommentTok{\# Beräkna p{-}värdet (ensidigt test, höger{-}svans)}
+\NormalTok{p\_value }\OtherTok{\textless{}{-}} \DecValTok{1} \SpecialCharTok{{-}} \FunctionTok{pnorm}\NormalTok{(z\_value)}
+
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"Z{-}värde:"}\NormalTok{, z\_value))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Z-värde: 1.8"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"P{-}värde:"}\NormalTok{, p\_value))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "P-värde: 0.035930319112926"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ (p\_value }\SpecialCharTok{\textless{}} \FloatTok{0.05}\NormalTok{) \{}
+  \FunctionTok{print}\NormalTok{(}\StringTok{"Produkten är signifikant tyngre än normalt."}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Produkten är signifikant tyngre än normalt."
+\end{verbatim}
+
 \textbf{2.2} Ange nollhypotes och mothypotes
+
+\hfill\break
+Svar: Nollhypotes (H₀): Det finns ingen skillnad i medelvikt, dvs.
+produkternas medelvikt är fortfarande 31.2 g. Stickprovet kommer från
+samma population. Mothypotes (H₁): Produkten är tyngre än normalt denna
+morgon.\\
 
 \textbf{2.3} välj signifikansnivå
 
+\hfill\break
+Svar: En vanlig signifikansnivå är 5\%, vilket innebär att vi förkastar
+nollhypotesen om sannolikheten att observera ett stickprov med den
+uppmätta medelvikten, eller mer extremt, är mindre än 5\%.\\
+
 \textbf{2.4} Beräkna z-test i R.
 
-Du kan transformera X till z med formeln z = ( - µ)/ (σ/√n) och sedan
-slå upp p värdet med pnorm(). Så måste du göra om du bara har en
-z-tabell att tillgå för att komma åt p-värdet.
+Du kan transformera X till z med formeln
+\(z = \frac{\bar{X} - \mu}{\frac{sigma}{\sqrt{n}}}\) och sedan slå upp p
+värdet med pnorm(). Så måste du göra om du bara har en z-tabell att
+tillgå för att komma åt p-värdet.
 
 Det går även utmärkt att låta R göra transformeringen genom att fylla i
 värdet i g i pnorm() tillsammans med medel och standardavvikelse i gram.
 
 Ange om nollhypotesen förkastas eller behålls.
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Parametrar}
+\NormalTok{mu }\OtherTok{\textless{}{-}} \FloatTok{31.2}          \CommentTok{\# Populationens medelvärde}
+\NormalTok{sigma }\OtherTok{\textless{}{-}} \FloatTok{0.4}        \CommentTok{\# Populationens standardavvikelse}
+\NormalTok{x\_bar }\OtherTok{\textless{}{-}} \FloatTok{31.38}      \CommentTok{\# Stickprovets medelvärde}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{16}             \CommentTok{\# Stickprovets storlek}
+
+\CommentTok{\# Beräkna z{-}värdet}
+\NormalTok{z\_value }\OtherTok{\textless{}{-}}\NormalTok{ (x\_bar }\SpecialCharTok{{-}}\NormalTok{ mu) }\SpecialCharTok{/}\NormalTok{ (sigma }\SpecialCharTok{/} \FunctionTok{sqrt}\NormalTok{(n))}
+
+\CommentTok{\# Beräkna p{-}värdet (ensidigt test, höger{-}svans)}
+\NormalTok{p\_value }\OtherTok{\textless{}{-}} \DecValTok{1} \SpecialCharTok{{-}} \FunctionTok{pnorm}\NormalTok{(z\_value)}
+
+\CommentTok{\# Skriv ut resultaten}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"Z{-}värde:"}\NormalTok{, z\_value))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Z-värde: 1.8"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"P{-}värde:"}\NormalTok{, p\_value))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "P-värde: 0.035930319112926"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Kontrollera om vi kan förkasta nollhypotesen}
+\ControlFlowTok{if}\NormalTok{ (p\_value }\SpecialCharTok{\textless{}} \FloatTok{0.05}\NormalTok{) \{}
+  \FunctionTok{print}\NormalTok{(}\StringTok{"Nollhypotesen förkastas. Produkten är signifikant tyngre än normalt."}\NormalTok{)}
+\NormalTok{\} }\ControlFlowTok{else}\NormalTok{ \{}
+  \FunctionTok{print}\NormalTok{(}\StringTok{"Nollhypotesen behålls. Det finns ingen signifikant skillnad i produktens vikt."}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Nollhypotesen förkastas. Produkten är signifikant tyngre än normalt."
+\end{verbatim}
+
 \textbf{2.5} Rita en graf som visar stickprovens förväntade fördelning
 och arean som motsvarar p-värdet. Välj själv om du vill rita grafen med
 X (otransformerade värden i gram) eller med z (transformerade värden,
 standardavvikelsen som enhet) som x-axel.
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Skapa en data frame för normalfördelningen}
+\NormalTok{bt\_values }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FloatTok{30.8}\NormalTok{, }\FloatTok{31.5}\NormalTok{, }\AttributeTok{length.out =} \DecValTok{100}\NormalTok{)}
+\NormalTok{densities }\OtherTok{\textless{}{-}} \FunctionTok{dnorm}\NormalTok{(bt\_values, }\AttributeTok{mean =}\NormalTok{ mu, }\AttributeTok{sd =}\NormalTok{ sigma }\SpecialCharTok{/} \FunctionTok{sqrt}\NormalTok{(n))}
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{bt\_values =}\NormalTok{ bt\_values, }\AttributeTok{densities =}\NormalTok{ densities)}
+
+\CommentTok{\# Skapa en data frame för p{-}värdesområdet}
+\NormalTok{fill\_values }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(x\_bar, }\FloatTok{31.5}\NormalTok{, }\AttributeTok{length.out =} \DecValTok{100}\NormalTok{)}
+\NormalTok{fill\_densities }\OtherTok{\textless{}{-}} \FunctionTok{dnorm}\NormalTok{(fill\_values, }\AttributeTok{mean =}\NormalTok{ mu, }\AttributeTok{sd =}\NormalTok{ sigma }\SpecialCharTok{/} \FunctionTok{sqrt}\NormalTok{(n))}
+\NormalTok{fill\_data }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{fill\_values =}\NormalTok{ fill\_values, }\AttributeTok{fill\_densities =}\NormalTok{ fill\_densities)}
+
+\CommentTok{\# Rita grafen}
+\FunctionTok{ggplot}\NormalTok{(data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ bt\_values, }\AttributeTok{y =}\NormalTok{ densities)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{color =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{linewidth =} \FloatTok{1.2}\NormalTok{) }\SpecialCharTok{+}  \CommentTok{\# Fördelningskurvan}
+  \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =}\NormalTok{ x\_bar, }\AttributeTok{color =} \StringTok{"red"}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{, }\AttributeTok{linewidth =} \FloatTok{1.2}\NormalTok{) }\SpecialCharTok{+}  \CommentTok{\# Stickprovets medelvikt}
+  \FunctionTok{geom\_area}\NormalTok{(}\AttributeTok{data =}\NormalTok{ fill\_data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ fill\_values, }\AttributeTok{y =}\NormalTok{ fill\_densities), }\AttributeTok{fill =} \StringTok{"red"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.3}\NormalTok{) }\SpecialCharTok{+}  \CommentTok{\# Fyll p{-}värdesområdet}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Fördelning av produktens vikt och p{-}värdet"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Vikt (g)"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Densitet"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{))  }\CommentTok{\# Centrerar titeln}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block4_files/figure-pdf/unnamed-chunk-7-1.pdf}
+
 \textbf{2.6} Formulera resultatet från 2.4 utan att använda statistisk
 terminologi.
+
+\hfill\break
+Svar: Den produkt som vägdes denna morgon verkar vara lite tyngre än vad
+som är normalt. Vi har beräknat att sannolikheten för att få ett
+resultat som detta, om produkten i genomsnitt faktiskt vägde lika mycket
+som den brukar, är låg. Därför kan vi misstänka att vikten på
+produkterna denna morgon är högre än vanligt.\\
 
 \textbf{3. Ett stickprov jämförs med en population, standardavvikelsen
 är okänd}
 
 Ofta har man inte tillgång till standardavvikelsen för populationen. Då
 blir man tvungen att göra en uppskattning av populationens
-standardavvikelse σ, utifrån stickprovets standardavvikelse som
+standardavvikelse \(\sigma\), utifrån stickprovets standardavvikelse som
 betecknas SD eller s. Istället för z-test ska man använda t-test
 
-\textbf{t} = ( - µ)/ (\textbf{SD}/√n)
+\[
+t = \frac{\bar{X} - \mu}{\frac{SD}{\sqrt{n}}}
+\]
 
 Det finns en enda z-fördelning, men t-fördelningar finns det många, och
 de ser olika ut beroende på antal frihetsgrader. Frihetsgrader är
@@ -543,21 +683,20 @@ antalet mätningar, n, minus antalet parametrar som skattas, i vårt fall
 
 \textbf{3.1} Rita följande graf:
 
-x\textless-seq(-4, 4, 0.1)
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x}\OtherTok{\textless{}{-}}\FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{, }\FloatTok{0.1}\NormalTok{)}
+\NormalTok{y}\OtherTok{\textless{}{-}} \FunctionTok{dnorm}\NormalTok{(x)}
+\FunctionTok{plot}\NormalTok{(x,y, }\AttributeTok{type=}\StringTok{"l"}\NormalTok{ )}
+\FunctionTok{lines}\NormalTok{(x, }\FunctionTok{dt}\NormalTok{(x, }\DecValTok{10}\NormalTok{), }\AttributeTok{col=}\StringTok{"red"}\NormalTok{ )}
+\FunctionTok{lines}\NormalTok{(x, }\FunctionTok{dt}\NormalTok{(x, }\DecValTok{3}\NormalTok{), }\AttributeTok{col=}\StringTok{"blue"}\NormalTok{ )}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v=}\FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.025}\NormalTok{))}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v=}\FunctionTok{qt}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\DecValTok{10}\NormalTok{), }\AttributeTok{col=}\StringTok{"red"}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v=}\FunctionTok{qt}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\DecValTok{3}\NormalTok{), }\AttributeTok{col=}\StringTok{"blue"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
-y\textless- dnorm(x)
-
-plot(x,y, type=``l'' )
-
-lines(x, dt(x, 10), col=``red'' )
-
-lines(x, dt(x, 3), col=``blue'' )
-
-abline(v=qnorm(0.025))
-
-abline(v=qt(0.025, 10), col=``red'')
-
-abline(v=qt(0.025, 3), col=``blue'')
+\includegraphics{block4_files/figure-pdf/unnamed-chunk-8-1.pdf}
 
 Grafen visar en z-fördelning och två t-fördelningar. En med 3
 frihetsgrader och en med 10.
@@ -1030,7 +1169,6 @@ kan du förkasta nollhypotesen.
 
 \textbf{8.3Välj ett sätt att visualisera data. Du kan låta dig
 inspireras av IswR s 134.}
-
 
 
 

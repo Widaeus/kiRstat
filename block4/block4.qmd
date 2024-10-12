@@ -191,25 +191,29 @@ Fortsättning på samma exempel: -10 mmHg / 10mmHg = -1
 **1.7** Rita en graf som illustrerar transformeringen av x-axelns skala från mmHg till standardavvikelse
 
 ```{r}
-# Given parameters
-mean <- 90
-sd <- 10
-
-# Sequence of blood pressure values
+# Skapa en sekvens för blodtrycksvärden
 bt <- seq(-50, 120, 1)
 
-# Density of the normal distribution
-y <- dnorm(bt, mean, sd)
+# Beräkna densitetsfunktion för normalfördelning (N(90, 10))
+y <- dnorm(bt, mean = 90, sd = 10)
 
-# Plot the original distribution
-plot(bt, y, type = "l", xlim = c(-50, 120), main = "Transformera så µ blir noll")
-lines(bt - mean, y, col = "blue")
+# Rita första grafen där medelvärdet är 90 mmHg
+plot(bt, y, type = "l", xlim = c(-50, 120),
+main = "Transformering från mmHg till standardavvikelse",
+     xlab = "Blodtryck (mmHg)", ylab = "Densitet")
 
-# Transform the scale to standard deviation
-bt_transformed <- (bt - mean) / sd
+# Steg A: Subtrahera medelvärdet (µ = 90 mmHg)
+lines(bt - 90, y, col = "blue")
 
-# Plot the transformed distribution
-plot(bt_transformed, y, type = "l", xlim = c(-4, 4), main = "Transformera till standardavvikelse")
+# Steg B: Dividera med standardavvikelsen (σ = 10 mmHg)
+# för att få standardiserad skala
+lines((bt - 90) / 10, y, col = "red")
+
+# Lägg till en legend för att förklara linjerna
+legend("topright", legend = c("Original (mmHg)",
+"Subtraherat medelvärdet",
+"Skala: standardavvikelse"),
+       col = c("black", "blue", "red"), lty = 1)
 ```
 
 **2\. Ett stickprov jämförs med en känd population**
@@ -217,16 +221,17 @@ plot(bt_transformed, y, type = "l", xlim = c(-4, 4), main = "Transformera till s
 Du har i inlämningsuppgift 3 dragit upprepade stickprov ur populationer med olika underliggande fördelningar. Du har även läst om central limit theorem att samplingsfördelningen går mot normalfördelning om stickprovet är stort nog.
 
 Du vill testa om ett stickprov är draget ur en population med känt medelvärde och standardavvikelse. Rätt metod är z-test, men formeln ser något annorlunda ut än i 1.
+$$
+z = \frac{\bar{X} - \mu}{\frac{sigma}{\sqrt{n}}}
+$$
 
-z = ( - µ)/ (σ**/√n**)
+$\bar{X}$ är stickprovets medelvärde
 
-är stickprovets medelvärde
+$µ$ är populationens medelvärde
 
-µ är populationens medelvärde
+$n$ är stickprovets storlek
 
-n är stickprovets storlek
-
-√n är kvadratroten ur stickprovets storlek
+${\sqrt{n}}$ är kvadratroten ur stickprovets storlek
 
 **2.1** Varför dividerar man populationens standardavvikelse med kvadratroten ur stickprovets storlek. Du behöver inte härleda matematiken exakt, men anknyt gärna till resultaten i inlämningsuppgift 3 i ditt svar.
 
@@ -234,47 +239,134 @@ Kvalitetskontrollavdelningen på en fabrik testar regelbundet en produkt. Medelv
 
 Är produkten tyngre än normalt denna morgon?
 
+\
+Svar:
+Anledningen till att man dividerar populationens standardavvikelse ($\sigma$) med kvadratroten av stickprovets storlek (√n) är för att hantera osäkerheten i uppskattningen av medelvärdet från stickprovet. Enligt central limit theorem blir samplingsfördelningen av stickprovets medelvärde normalfördelad när stickprovet är stort nog, och dess spridning minskar när stickprovet blir större.
+\
+
+```{r}
+# Parametrar
+mu <- 31.2          # Populationens medelvärde
+sigma <- 0.4        # Populationens standardavvikelse
+x_bar <- 31.38      # Stickprovets medelvärde
+n <- 16             # Stickprovets storlek
+
+# Beräkna z-värdet
+z_value <- (x_bar - mu) / (sigma / sqrt(n))
+
+# Beräkna p-värdet (ensidigt test, höger-svans)
+p_value <- 1 - pnorm(z_value)
+
+print(paste("Z-värde:", z_value))
+print(paste("P-värde:", p_value))
+
+if (p_value < 0.05) {
+  print("Produkten är signifikant tyngre än normalt.")
+}
+```
+
 **2.2** Ange nollhypotes och mothypotes
+
+\
+Svar:
+Nollhypotes (H₀): Det finns ingen skillnad i medelvikt, dvs. produkternas medelvikt är fortfarande 31.2 g. Stickprovet kommer från samma population.
+Mothypotes (H₁): Produkten är tyngre än normalt denna morgon.
+\
 
 **2.3** välj signifikansnivå
 
+\
+Svar:
+En vanlig signifikansnivå är 5%, vilket innebär att vi förkastar nollhypotesen om sannolikheten att observera ett stickprov med den uppmätta medelvikten, eller mer extremt, är mindre än 5%.
+\
+
+
 **2.4** Beräkna z-test i R.
 
-Du kan transformera X till z med formeln z = ( - µ)/ (σ/√n) och sedan slå upp p värdet med pnorm(). Så måste du göra om du bara har en z-tabell att tillgå för att komma åt p-värdet.
+Du kan transformera X till z med formeln $z = \frac{\bar{X} - \mu}{\frac{sigma}{\sqrt{n}}}$ och sedan slå upp p värdet med pnorm(). Så måste du göra om du bara har en z-tabell att tillgå för att komma åt p-värdet.
 
 Det går även utmärkt att låta R göra transformeringen genom att fylla i värdet i g i pnorm() tillsammans med medel och standardavvikelse i gram.
 
 Ange om nollhypotesen förkastas eller behålls.
 
+```{r}
+# Parametrar
+mu <- 31.2          # Populationens medelvärde
+sigma <- 0.4        # Populationens standardavvikelse
+x_bar <- 31.38      # Stickprovets medelvärde
+n <- 16             # Stickprovets storlek
+
+# Beräkna z-värdet
+z_value <- (x_bar - mu) / (sigma / sqrt(n))
+
+# Beräkna p-värdet (ensidigt test, höger-svans)
+p_value <- 1 - pnorm(z_value)
+
+# Skriv ut resultaten
+print(paste("Z-värde:", z_value))
+print(paste("P-värde:", p_value))
+
+# Kontrollera om vi kan förkasta nollhypotesen
+if (p_value < 0.05) {
+  print("Nollhypotesen förkastas. Produkten är signifikant tyngre än normalt.")
+} else {
+  print("Nollhypotesen behålls. Det finns ingen signifikant skillnad i produktens vikt.")
+}
+```
+
 **2.5** Rita en graf som visar stickprovens förväntade fördelning och arean som motsvarar p-värdet. Välj själv om du vill rita grafen med X (otransformerade värden i gram) eller med z (transformerade värden, standardavvikelsen som enhet) som x-axel.
+
+```{r}
+# Skapa en data frame för normalfördelningen
+bt_values <- seq(30.8, 31.5, length.out = 100)
+densities <- dnorm(bt_values, mean = mu, sd = sigma / sqrt(n))
+data <- data.frame(bt_values = bt_values, densities = densities)
+
+# Skapa en data frame för p-värdesområdet
+fill_values <- seq(x_bar, 31.5, length.out = 100)
+fill_densities <- dnorm(fill_values, mean = mu, sd = sigma / sqrt(n))
+fill_data <- data.frame(fill_values = fill_values, fill_densities = fill_densities)
+
+# Rita grafen
+ggplot(data, aes(x = bt_values, y = densities)) +
+  geom_line(color = "blue", linewidth = 1.2) +  # Fördelningskurvan
+  geom_vline(xintercept = x_bar, color = "red", linetype = "dashed", linewidth = 1.2) +  # Stickprovets medelvikt
+  geom_area(data = fill_data, aes(x = fill_values, y = fill_densities), fill = "red", alpha = 0.3) +  # Fyll p-värdesområdet
+  labs(title = "Fördelning av produktens vikt och p-värdet",
+       x = "Vikt (g)", y = "Densitet") +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5))  # Centrerar titeln
+```
 
 **2.6** Formulera resultatet från 2.4 utan att använda statistisk terminologi.
 
+\
+Svar:
+Den produkt som vägdes denna morgon verkar vara lite tyngre än vad som är normalt. Vi har beräknat att sannolikheten för att få ett resultat som detta, om produkten i genomsnitt faktiskt vägde lika mycket som den brukar, är låg. Därför kan vi misstänka att vikten på produkterna denna morgon är högre än vanligt.
+\
+
 **3\. Ett stickprov jämförs med en population, standardavvikelsen är okänd**
 
-Ofta har man inte tillgång till standardavvikelsen för populationen. Då blir man tvungen att göra en uppskattning av populationens standardavvikelse σ, utifrån stickprovets standardavvikelse som betecknas SD eller s. Istället för z-test ska man använda t-test
+Ofta har man inte tillgång till standardavvikelsen för populationen. Då blir man tvungen att göra en uppskattning av populationens standardavvikelse $\sigma$, utifrån stickprovets standardavvikelse som betecknas SD eller s. Istället för z-test ska man använda t-test
 
-**t** = ( - µ)/ (**SD**/√n)
+$$
+t = \frac{\bar{X} - \mu}{\frac{SD}{\sqrt{n}}}
+$$
 
 Det finns en enda z-fördelning, men t-fördelningar finns det många, och de ser olika ut beroende på antal frihetsgrader. Frihetsgrader är antalet mätningar, n, minus antalet parametrar som skattas, i vårt fall är det en parameter, medelvärdet.
 
 **3.1** Rita följande graf:
 
+```{r}
 x<-seq(-4, 4, 0.1)
-
 y<- dnorm(x)
-
 plot(x,y, type="l" )
-
 lines(x, dt(x, 10), col="red" )
-
 lines(x, dt(x, 3), col="blue" )
-
 abline(v=qnorm(0.025))
-
 abline(v=qt(0.025, 10), col="red")
-
 abline(v=qt(0.025, 3), col="blue")
+```
 
 Grafen visar en z-fördelning och två t-fördelningar. En med 3 frihetsgrader och en med 10.
 
