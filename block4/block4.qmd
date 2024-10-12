@@ -1,9 +1,7 @@
 ---
 title: Inlämningsuppgift block 4 – hypotestest, konfidensintervall
 author: Statistiska Metoder med R
-format:
-  pdf:
-    keep-tex: true
+format: docx
 editor_options:
   chunk_output_type: console
 knit:
@@ -23,7 +21,7 @@ Jacob Widaeus 950729
 
 \
 
-```{r, echo: false}
+```{r, echo: false, message: false, warning: false}
 # Load dependencies
 library(tidyverse)
 ```
@@ -43,9 +41,9 @@ Alternativhypotes:
 Personen hör till en population med lägre blodtryck än N(90, 10)
 
 **1.1** Är det ett ensidigt eller tvåsidigt test vi har formulerat?
-Val av signifikansnivå: Vi väljer α = 0.05.
+Val av signifikansnivå: Vi väljer $α$ = 0.05.
 Det innebär att vi förkastar nollhypotesen om p-värdet är lägre än 0.05.
-Genom att välja α = 0.05 har vi accepterat att om vi gör upprepade tester där nollhypotesen verkligen är sann så kommer vi förkasta nollhypotesen av misstag i 5% av testen på lång sikt.
+Genom att välja $α$ = 0.05 har vi accepterat att om vi gör upprepade tester där nollhypotesen verkligen är sann så kommer vi förkasta nollhypotesen av misstag i 5% av testen på lång sikt.
 
 \
 Svar: Det är ett ensidigt test eftersom alternativhypotesen anger att personen hör till en population med lägre blodtryck än N(90, 10).
@@ -96,14 +94,15 @@ data <- data.frame(x, y)
 # Plotta
 ggplot(data, aes(x, y)) +
   geom_line() +
-  geom_area(data = subset(data, x <= value), aes(x = x, y = y), fill = "blue", alpha = 0.5) +
+  geom_area(data = subset(data, x <= value), aes(x = x, y = y),
+  fill = "blue", alpha = 0.5) +
   geom_vline(xintercept = value, linetype = "dashed") +
   labs(title = "Ensidigt test", x = "Blodtryck", y = "Densitet") +
   theme_minimal()
 
 ```
 
-**1.5**Blodtrycket bt72 eller lägre verkar förekomma i mindre del av befolkningen än 0.05, vår valda signifikansnivå. Ska vi behålla eller förkasta nollhypotesen?
+**1.5** Blodtrycket bt72 eller lägre verkar förekomma i mindre del av befolkningen än 0.05, vår valda signifikansnivå. Ska vi behålla eller förkasta nollhypotesen?
 
 \
 Svar: Eftersom blodtrycket på 72 mmHg är lägre än signifikansnivån på 5%, bör vi förkasta nollhypotesen.
@@ -145,23 +144,24 @@ if (p_value_two_sided < alfa) {
 Att göra ett experiment handlar ofta om att mäta en skillnad. Blev det skillnad i blodtryck mellan kontrollgruppen och gruppen som medicinerats? Ja, alltid blir det någon skillnad mellan två stickprov, även om medicineringen inte påverkar blodtrycket som du hade hoppats. Det blir skillnad av en slump. 3 mmHg blev det kanske. Är det mycket eller lite? Är 10 kg stor skillnad? Kanske för gäddor, kanske inte för människor. För att besvara frågan måste vi byta ut enheten mmHg, kg, cm och istället uttrycka skillnaden med variation som enhet. Övningen som följer ska illustrera detta.
 
 Undersök formeln för z-testet.
-
+$$
 z = (X-µ)/σ
-
+$$
 X är din uppmätta variabel
 
-µ är medelvärdet för populationen som X hör till enligt nollhypotesen
+$µ$ är medelvärdet för populationen som X hör till enligt nollhypotesen
 
-σ är populationens standardavvikelse
+$σ$ är populationens standardavvikelse
 
 Många variabler X kan vara normalfördelade med olika medel och standardavikelser. Siffrorna blir olika beroende på vilken enhet man använder.
 
 Titta på variablerna X1 och X2 och deras fördelningar, beskriver de samma fenomen i naturen?
-
-X1 ~N( µ = 25 , σ = 2.5)
-
-X2 ~N(µ= 10, σ = 1)
-
+$$
+X1 ~ N(\mu = 25 , \sigma = 2.5)
+$$
+$$
+X2 ~ N(\mu = 10, \sigma = 1)
+$$
 Javisst, det är längden på en sorts fiskar, X1 är längden angivet i cm, X2 är längden angivet i tum.
 
 z är en speciell variabel med fördelningen z ~N(0, 1), med andra ord, z är normalfördelad med medelvärdet 0 och standardavvikelsen 1. För att rita upp z ~N(0,1) i R kan du använda
@@ -190,30 +190,41 @@ Fortsättning på samma exempel: -10 mmHg / 10mmHg = -1
 
 **1.7** Rita en graf som illustrerar transformeringen av x-axelns skala från mmHg till standardavvikelse
 
-```{r}
+```{r, warning: false}
 # Skapa en sekvens för blodtrycksvärden
 bt <- seq(-50, 120, 1)
 
 # Beräkna densitetsfunktion för normalfördelning (N(90, 10))
 y <- dnorm(bt, mean = 90, sd = 10)
 
-# Rita första grafen där medelvärdet är 90 mmHg
-plot(bt, y, type = "l", xlim = c(-50, 120),
-main = "Transformering från mmHg till standardavvikelse",
-     xlab = "Blodtryck (mmHg)", ylab = "Densitet")
+# data.frame
+data <- data.frame(
+  bt = bt,
+  y = y,
+  original = bt,
+  subtracted_mean = bt - 90,
+  standardized = (bt - 90) / 10
+)
 
-# Steg A: Subtrahera medelvärdet (µ = 90 mmHg)
-lines(bt - 90, y, col = "blue")
+# Data manipulation för grafen
+data_long <- data %>%
+  pivot_longer(cols = c(original, subtracted_mean, standardized),
+               names_to = "transformation",
+               values_to = "value")
 
-# Steg B: Dividera med standardavvikelsen (σ = 10 mmHg)
-# för att få standardiserad skala
-lines((bt - 90) / 10, y, col = "red")
-
-# Lägg till en legend för att förklara linjerna
-legend("topright", legend = c("Original (mmHg)",
-"Subtraherat medelvärdet",
-"Skala: standardavvikelse"),
-       col = c("black", "blue", "red"), lty = 1)
+# Plotta
+ggplot(data_long, aes(x = value, y = y, color = transformation)) +
+  geom_line() +
+  scale_color_manual(values = c("black", "blue", "red"),
+                     labels = c("Original (mmHg)",
+                                "Subtraherat medelvärdet",
+                                "Skala: standardavvikelse")) +
+  labs(title = "Transformering från mmHg till standardavvikelse",
+       x = "Blodtryck (mmHg)",
+       y = "Densitet",
+       color = "Transformation") +
+  xlim(-50, 150) +
+  theme_minimal()
 ```
 
 **2\. Ett stickprov jämförs med en känd population**
@@ -269,8 +280,8 @@ if (p_value < 0.05) {
 
 \
 Svar:
-Nollhypotes (H₀): Det finns ingen skillnad i medelvikt, dvs. produkternas medelvikt är fortfarande 31.2 g. Stickprovet kommer från samma population.
-Mothypotes (H₁): Produkten är tyngre än normalt denna morgon.
+Nollhypotes ($H₀$): Det finns ingen skillnad i medelvikt, dvs. produkternas medelvikt är fortfarande 31.2 g. Stickprovet kommer från samma population.
+Mothypotes ($H₁$): Produkten är tyngre än normalt denna morgon.
 \
 
 **2.3** välj signifikansnivå
@@ -330,8 +341,10 @@ fill_data <- data.frame(fill_values = fill_values, fill_densities = fill_densiti
 # Rita grafen
 ggplot(data, aes(x = bt_values, y = densities)) +
   geom_line(color = "blue", linewidth = 1.2) +  # Fördelningskurvan
-  geom_vline(xintercept = x_bar, color = "red", linetype = "dashed", linewidth = 1.2) +  # Stickprovets medelvikt
-  geom_area(data = fill_data, aes(x = fill_values, y = fill_densities), fill = "red", alpha = 0.3) +  # Fyll p-värdesområdet
+  geom_vline(xintercept = x_bar, color = "red", linetype = "dashed",
+  linewidth = 1.2) +  # Stickprovets medelvikt
+  geom_area(data = fill_data, aes(x = fill_values, y = fill_densities),
+  fill = "red", alpha = 0.3) +  # Fyll p-värdesområdet
   labs(title = "Fördelning av produktens vikt och p-värdet",
        x = "Vikt (g)", y = "Densitet") +
   theme_minimal() +
@@ -376,51 +389,79 @@ Jag har ritat en linje som utesluter 0.025 av arean åt vänster för varje för
 
 Arean till vänster om abline motsvarar p-värdet för ensidiga test.
 
-Det krävs en större avvikelse från µ för att t-testen ska falla ut som signifikanta än för z-testet.
+**Det krävs en större avvikelse från µ för att t-testen ska falla ut som signifikanta än för z-testet.**
+
+\
+Svar: Detta påstående är rätt.
+T-fördelningarna (speciellt med färre frihetsgrader, t.ex. 3) har bredare svansar än z-fördelningen, vilket innebär att kritiska värden för t-fördelningen ligger längre från medelvärdet än för z-fördelningen. Det innebär att för att ett t-test ska bli signifikant, krävs det en större avvikelse från medelvärdet än för ett z-test, särskilt när antalet frihetsgrader är lågt.
+\
 
 **Hur ditt experiment påverkas av stickprovets storlek**
 
-Koden nedan printar en tabell över t-värden vid olika antal frihetsgrader och slutligen för z. Alla värden utesluter arean 0.025 åt vänster. Det gör att tabellen passar för tvåsidiga test med signifikansnivån α = 0.05.
-
-x<-c( 1:20, 100, 200, 300)
-
-qt(0.025, x)
-
-qnorm(0.025)
-
 **3.3** Kommentera skillnaden mellan z och t. När kan det vara rimligt att approximera t-testet med ett z-test?
 
-Tips:
-
-Kanske kan den här grafen vara illustrativ?
-
-x<-c( 1:20, 100, 200, 300)
-
-y <- qt(0.025, x)
-
-plot(y)
-
-lines(y)
-
-abline(h=qnorm(0.025))
+\
+Svar:
+Skillnaden mellan z och t:
+Z-test används när populationens standardavvikelse är känd och stickprovet är stort.
+T-test används när populationens standardavvikelse är okänd och uppskattas från stickprovet. T-fördelningen liknar normalfördelningen men har bredare svansar, särskilt vid små stickprov.
+Approximera t med z: Det kan vara rimligt att approximera t-testet med ett z-test när stickprovet är stort, eftersom t-fördelningen närmar sig normalfördelningen ju fler frihetsgrader man har (dvs. när stickprovsstorleken ökar).
+\
 
 En grupp av 32 kvinnor under speciell bevakning av mödravården föder barn. Medelvikten var 3200 g och standardavvikelsen 800 g. Avviker medelvikten från den normala medelvikten 3600 g?
 
 **3.4** Ange nollhypotes och mothypotes
 
+\
+Svar:
+Nollhypotes ($H₀$): Medelvikten för nyfödda i denna grupp avviker inte från den normala medelvikten på 3600 g.\
+Mothypotes ($H₁$): Medelvikten för nyfödda i denna grupp avviker från den normala medelvikten.
+\
+
 **3.5** Välj signifikansnivå
+
+\
+$\alpha = 0.05$
+\
 
 **3.6** Beräkna t-test i R och ange p-värde samt om nollhypotesen förkastas eller behålls
 
-Det finns inbyggda funktioner i R för att räkna ttest. Här skulle jag vilja att du räknar ut t från formeln **t** = ( - µ)/ (**SD**/√n)
-
+Det finns inbyggda funktioner i R för att räkna ttest. Här skulle jag vilja att du räknar ut t från formeln $t = \frac{\bar{X} - \mu}{\frac{SD}{\sqrt{n}}}$
 och slår upp i t-tabellen pt() hur ovanligt det beräknade t-värdet är.
-
 Fundera på om du ska göra ett ensidigt eller tvåsidigt test.
-
 Om du vill kan du beräkna ett z-test också och jämföra resultatet.
 
+```{r}
+# Parametrar
+x_bar <- 3200        # Stickprovets medelvärde
+mu <- 3600           # Populationens medelvärde (enligt H0)
+sd <- 800            # Stickprovets standardavvikelse
+n <- 32              # Stickprovets storlek
+
+# Beräkna t-värdet
+t_value <- (x_bar - mu) / (sd / sqrt(n))
+
+# Tvåsidigt p-värde baserat på t-värdet
+p_value <- 2 * pt(abs(t_value), df = n - 1, lower.tail = FALSE)
+
+# Skriv ut resultaten
+print(paste("t-värde:", t_value))
+print(paste("p-värde:", p_value))
+
+# Beslut om nollhypotesen förkastas
+if (p_value < 0.05) {
+  print("Nollhypotesen förkastas. Medelvikten avviker signifikant från den normala.")
+} else {
+  print("Nollhypotesen behålls. Det finns ingen signifikant skillnad i medelvikt.")
+}
+```
+
 **3.7** Formulera resultatet utan att använda statistisk terminologi.
+
+\
+Svar:
+Barnen i denna grupp verkar i genomsnitt väga mindre än vad som anses normalt. Skillnaden i vikt är tillräckligt stor för att vi ska misstänka att det inte är en slump att vikten avviker från den förväntade genomsnittsvikten.
+\
 
 **4\. Jämföra två stickprov gruppvis, populationens standardavvikelse är okänd**
 

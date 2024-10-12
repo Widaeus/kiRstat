@@ -201,18 +201,6 @@ Jacob Widaeus 950729
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
--- Attaching core tidyverse packages ------------------------ tidyverse 2.0.0 --
-v dplyr     1.1.4     v readr     2.1.5
-v forcats   1.0.0     v stringr   1.5.1
-v lubridate 1.9.3     v tibble    3.2.1
-v purrr     1.0.2     v tidyr     1.3.1
--- Conflicts ------------------------------------------ tidyverse_conflicts() --
-x dplyr::filter() masks stats::filter()
-x dplyr::lag()    masks stats::lag()
-i Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
-\end{verbatim}
-
 \textbf{1. En enstaka observation jämförd med en känd population}
 
 Du har tidigare beräknat hur stor andel av befolkningen som har
@@ -236,11 +224,11 @@ Alternativhypotes: Personen hör till en population med lägre blodtryck
 än N(90, 10)
 
 \textbf{1.1} Är det ett ensidigt eller tvåsidigt test vi har formulerat?
-Val av signifikansnivå: Vi väljer α = 0.05. Det innebär att vi förkastar
-nollhypotesen om p-värdet är lägre än 0.05. Genom att välja α = 0.05 har
-vi accepterat att om vi gör upprepade tester där nollhypotesen verkligen
-är sann så kommer vi förkasta nollhypotesen av misstag i 5\% av testen
-på lång sikt.
+Val av signifikansnivå: Vi väljer \(α\) = 0.05. Det innebär att vi
+förkastar nollhypotesen om p-värdet är lägre än 0.05. Genom att välja
+\(α\) = 0.05 har vi accepterat att om vi gör upprepade tester där
+nollhypotesen verkligen är sann så kommer vi förkasta nollhypotesen av
+misstag i 5\% av testen på lång sikt.
 
 \hfill\break
 Svar: Det är ett ensidigt test eftersom alternativhypotesen anger att
@@ -304,7 +292,8 @@ en slump? Svaret är arean under kurvan till vänster om bt= 72. Den arean
 \CommentTok{\# Plotta}
 \FunctionTok{ggplot}\NormalTok{(data, }\FunctionTok{aes}\NormalTok{(x, y)) }\SpecialCharTok{+}
   \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{geom\_area}\NormalTok{(}\AttributeTok{data =} \FunctionTok{subset}\NormalTok{(data, x }\SpecialCharTok{\textless{}=}\NormalTok{ value), }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ y), }\AttributeTok{fill =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_area}\NormalTok{(}\AttributeTok{data =} \FunctionTok{subset}\NormalTok{(data, x }\SpecialCharTok{\textless{}=}\NormalTok{ value), }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ y),}
+  \AttributeTok{fill =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =}\NormalTok{ value, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Ensidigt test"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Blodtryck"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Densitet"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme\_minimal}\NormalTok{()}
@@ -313,7 +302,7 @@ en slump? Svaret är arean under kurvan till vänster om bt= 72. Den arean
 
 \includegraphics{block4_files/figure-pdf/unnamed-chunk-2-1.pdf}
 
-\textbf{1.5}Blodtrycket bt72 eller lägre verkar förekomma i mindre del
+\textbf{1.5} Blodtrycket bt72 eller lägre verkar förekomma i mindre del
 av befolkningen än 0.05, vår valda signifikansnivå. Ska vi behålla eller
 förkasta nollhypotesen?
 
@@ -376,29 +365,26 @@ människor. För att besvara frågan måste vi byta ut enheten mmHg, kg, cm
 och istället uttrycka skillnaden med variation som enhet. Övningen som
 följer ska illustrera detta.
 
-Undersök formeln för z-testet.
-
+Undersök formeln för z-testet. \[
 z = (X-µ)/σ
+\] X är din uppmätta variabel
 
-X är din uppmätta variabel
+\(µ\) är medelvärdet för populationen som X hör till enligt
+nollhypotesen
 
-µ är medelvärdet för populationen som X hör till enligt nollhypotesen
-
-σ är populationens standardavvikelse
+\(σ\) är populationens standardavvikelse
 
 Många variabler X kan vara normalfördelade med olika medel och
 standardavikelser. Siffrorna blir olika beroende på vilken enhet man
 använder.
 
 Titta på variablerna X1 och X2 och deras fördelningar, beskriver de
-samma fenomen i naturen?
-
-X1 \textasciitilde N( µ = 25 , σ = 2.5)
-
-X2 \textasciitilde N(µ= 10, σ = 1)
-
-Javisst, det är längden på en sorts fiskar, X1 är längden angivet i cm,
-X2 är längden angivet i tum.
+samma fenomen i naturen? \[
+X1 ~ N(\mu = 25 , \sigma = 2.5)
+\] \[
+X2 ~ N(\mu = 10, \sigma = 1)
+\] Javisst, det är längden på en sorts fiskar, X1 är längden angivet i
+cm, X2 är längden angivet i tum.
 
 z är en speciell variabel med fördelningen z \textasciitilde N(0, 1),
 med andra ord, z är normalfördelad med medelvärdet 0 och
@@ -441,27 +427,43 @@ skala från mmHg till standardavvikelse
 \CommentTok{\# Beräkna densitetsfunktion för normalfördelning (N(90, 10))}
 \NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{dnorm}\NormalTok{(bt, }\AttributeTok{mean =} \DecValTok{90}\NormalTok{, }\AttributeTok{sd =} \DecValTok{10}\NormalTok{)}
 
-\CommentTok{\# Rita första grafen där medelvärdet är 90 mmHg}
-\FunctionTok{plot}\NormalTok{(bt, y, }\AttributeTok{type =} \StringTok{"l"}\NormalTok{, }\AttributeTok{xlim =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{50}\NormalTok{, }\DecValTok{120}\NormalTok{),}
-\AttributeTok{main =} \StringTok{"Transformering från mmHg till standardavvikelse"}\NormalTok{,}
-     \AttributeTok{xlab =} \StringTok{"Blodtryck (mmHg)"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"Densitet"}\NormalTok{)}
+\CommentTok{\# data.frame}
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{bt =}\NormalTok{ bt,}
+  \AttributeTok{y =}\NormalTok{ y,}
+  \AttributeTok{original =}\NormalTok{ bt,}
+  \AttributeTok{subtracted\_mean =}\NormalTok{ bt }\SpecialCharTok{{-}} \DecValTok{90}\NormalTok{,}
+  \AttributeTok{standardized =}\NormalTok{ (bt }\SpecialCharTok{{-}} \DecValTok{90}\NormalTok{) }\SpecialCharTok{/} \DecValTok{10}
+\NormalTok{)}
 
-\CommentTok{\# Steg A: Subtrahera medelvärdet (µ = 90 mmHg)}
-\FunctionTok{lines}\NormalTok{(bt }\SpecialCharTok{{-}} \DecValTok{90}\NormalTok{, y, }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{)}
+\CommentTok{\# Data manipulation för grafen}
+\NormalTok{data\_long }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pivot\_longer}\NormalTok{(}\AttributeTok{cols =} \FunctionTok{c}\NormalTok{(original, subtracted\_mean, standardized),}
+               \AttributeTok{names\_to =} \StringTok{"transformation"}\NormalTok{,}
+               \AttributeTok{values\_to =} \StringTok{"value"}\NormalTok{)}
 
-\CommentTok{\# Steg B: Dividera med standardavvikelsen (σ = 10 mmHg)}
-\CommentTok{\# för att få standardiserad skala}
-\FunctionTok{lines}\NormalTok{((bt }\SpecialCharTok{{-}} \DecValTok{90}\NormalTok{) }\SpecialCharTok{/} \DecValTok{10}\NormalTok{, y, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{)}
-
-\CommentTok{\# Lägg till en legend för att förklara linjerna}
-\FunctionTok{legend}\NormalTok{(}\StringTok{"topright"}\NormalTok{, }\AttributeTok{legend =} \FunctionTok{c}\NormalTok{(}\StringTok{"Original (mmHg)"}\NormalTok{,}
-\StringTok{"Subtraherat medelvärdet"}\NormalTok{,}
-\StringTok{"Skala: standardavvikelse"}\NormalTok{),}
-       \AttributeTok{col =} \FunctionTok{c}\NormalTok{(}\StringTok{"black"}\NormalTok{, }\StringTok{"blue"}\NormalTok{, }\StringTok{"red"}\NormalTok{), }\AttributeTok{lty =} \DecValTok{1}\NormalTok{)}
+\CommentTok{\# Plotta}
+\FunctionTok{ggplot}\NormalTok{(data\_long, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ value, }\AttributeTok{y =}\NormalTok{ y, }\AttributeTok{color =}\NormalTok{ transformation)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"black"}\NormalTok{, }\StringTok{"blue"}\NormalTok{, }\StringTok{"red"}\NormalTok{),}
+                     \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Original (mmHg)"}\NormalTok{,}
+                                \StringTok{"Subtraherat medelvärdet"}\NormalTok{,}
+                                \StringTok{"Skala: standardavvikelse"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Transformering från mmHg till standardavvikelse"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Blodtryck (mmHg)"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Densitet"}\NormalTok{,}
+       \AttributeTok{color =} \StringTok{"Transformation"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{xlim}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{50}\NormalTok{, }\DecValTok{150}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{block4_files/figure-pdf/unnamed-chunk-4-1.pdf}
+\begin{verbatim}
+Warning: Removed 90 rows containing missing values or values outside the scale range
+(`geom_line()`).
+\end{verbatim}
+
+\includegraphics{block4_files/figure-pdf/warning- false-1.pdf}
 
 \textbf{2. Ett stickprov jämförs med en känd population}
 
@@ -551,10 +553,10 @@ spridning minskar när stickprovet blir större.\\
 \textbf{2.2} Ange nollhypotes och mothypotes
 
 \hfill\break
-Svar: Nollhypotes (H₀): Det finns ingen skillnad i medelvikt, dvs.
+Svar: Nollhypotes (\(H₀\)): Det finns ingen skillnad i medelvikt, dvs.
 produkternas medelvikt är fortfarande 31.2 g. Stickprovet kommer från
-samma population. Mothypotes (H₁): Produkten är tyngre än normalt denna
-morgon.\\
+samma population. Mothypotes (\(H₁\)): Produkten är tyngre än normalt
+denna morgon.\\
 
 \textbf{2.3} välj signifikansnivå
 
@@ -643,8 +645,10 @@ standardavvikelsen som enhet) som x-axel.
 \CommentTok{\# Rita grafen}
 \FunctionTok{ggplot}\NormalTok{(data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ bt\_values, }\AttributeTok{y =}\NormalTok{ densities)) }\SpecialCharTok{+}
   \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{color =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{linewidth =} \FloatTok{1.2}\NormalTok{) }\SpecialCharTok{+}  \CommentTok{\# Fördelningskurvan}
-  \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =}\NormalTok{ x\_bar, }\AttributeTok{color =} \StringTok{"red"}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{, }\AttributeTok{linewidth =} \FloatTok{1.2}\NormalTok{) }\SpecialCharTok{+}  \CommentTok{\# Stickprovets medelvikt}
-  \FunctionTok{geom\_area}\NormalTok{(}\AttributeTok{data =}\NormalTok{ fill\_data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ fill\_values, }\AttributeTok{y =}\NormalTok{ fill\_densities), }\AttributeTok{fill =} \StringTok{"red"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.3}\NormalTok{) }\SpecialCharTok{+}  \CommentTok{\# Fyll p{-}värdesområdet}
+  \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =}\NormalTok{ x\_bar, }\AttributeTok{color =} \StringTok{"red"}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{,}
+  \AttributeTok{linewidth =} \FloatTok{1.2}\NormalTok{) }\SpecialCharTok{+}  \CommentTok{\# Stickprovets medelvikt}
+  \FunctionTok{geom\_area}\NormalTok{(}\AttributeTok{data =}\NormalTok{ fill\_data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ fill\_values, }\AttributeTok{y =}\NormalTok{ fill\_densities),}
+  \AttributeTok{fill =} \StringTok{"red"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.3}\NormalTok{) }\SpecialCharTok{+}  \CommentTok{\# Fyll p{-}värdesområdet}
   \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Fördelning av produktens vikt och p{-}värdet"}\NormalTok{,}
        \AttributeTok{x =} \StringTok{"Vikt (g)"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Densitet"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
@@ -652,7 +656,7 @@ standardavvikelsen som enhet) som x-axel.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{block4_files/figure-pdf/unnamed-chunk-7-1.pdf}
+\includegraphics{block4_files/figure-pdf/unnamed-chunk-6-1.pdf}
 
 \textbf{2.6} Formulera resultatet från 2.4 utan att använda statistisk
 terminologi.
@@ -696,7 +700,7 @@ antalet mätningar, n, minus antalet parametrar som skattas, i vårt fall
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{block4_files/figure-pdf/unnamed-chunk-8-1.pdf}
+\includegraphics{block4_files/figure-pdf/unnamed-chunk-7-1.pdf}
 
 Grafen visar en z-fördelning och två t-fördelningar. En med 3
 frihetsgrader och en med 10.
@@ -708,38 +712,31 @@ fördelning.
 
 Arean till vänster om abline motsvarar p-värdet för ensidiga test.
 
-Det krävs en större avvikelse från µ för att t-testen ska falla ut som
-signifikanta än för z-testet.
+\textbf{Det krävs en större avvikelse från µ för att t-testen ska falla
+ut som signifikanta än för z-testet.}
+
+\hfill\break
+Svar: Detta påstående är rätt. T-fördelningarna (speciellt med färre
+frihetsgrader, t.ex. 3) har bredare svansar än z-fördelningen, vilket
+innebär att kritiska värden för t-fördelningen ligger längre från
+medelvärdet än för z-fördelningen. Det innebär att för att ett t-test
+ska bli signifikant, krävs det en större avvikelse från medelvärdet än
+för ett z-test, särskilt när antalet frihetsgrader är lågt.\\
 
 \textbf{Hur ditt experiment påverkas av stickprovets storlek}
-
-Koden nedan printar en tabell över t-värden vid olika antal
-frihetsgrader och slutligen för z. Alla värden utesluter arean 0.025 åt
-vänster. Det gör att tabellen passar för tvåsidiga test med
-signifikansnivån α = 0.05.
-
-x\textless-c( 1:20, 100, 200, 300)
-
-qt(0.025, x)
-
-qnorm(0.025)
 
 \textbf{3.3} Kommentera skillnaden mellan z och t. När kan det vara
 rimligt att approximera t-testet med ett z-test?
 
-Tips:
-
-Kanske kan den här grafen vara illustrativ?
-
-x\textless-c( 1:20, 100, 200, 300)
-
-y \textless- qt(0.025, x)
-
-plot(y)
-
-lines(y)
-
-abline(h=qnorm(0.025))
+\hfill\break
+Svar: Skillnaden mellan z och t: Z-test används när populationens
+standardavvikelse är känd och stickprovet är stort. T-test används när
+populationens standardavvikelse är okänd och uppskattas från
+stickprovet. T-fördelningen liknar normalfördelningen men har bredare
+svansar, särskilt vid små stickprov. Approximera t med z: Det kan vara
+rimligt att approximera t-testet med ett z-test när stickprovet är
+stort, eftersom t-fördelningen närmar sig normalfördelningen ju fler
+frihetsgrader man har (dvs. när stickprovsstorleken ökar).\\
 
 En grupp av 32 kvinnor under speciell bevakning av mödravården föder
 barn. Medelvikten var 3200 g och standardavvikelsen 800 g. Avviker
@@ -747,23 +744,83 @@ medelvikten från den normala medelvikten 3600 g?
 
 \textbf{3.4} Ange nollhypotes och mothypotes
 
+\hfill\break
+Svar: Nollhypotes (\(H₀\)): Medelvikten för nyfödda i denna grupp
+avviker inte från den normala medelvikten på 3600 g.\\
+Mothypotes (\(H₁\)): Medelvikten för nyfödda i denna grupp avviker från
+den normala medelvikten.\\
+
 \textbf{3.5} Välj signifikansnivå
+
+\hfill\break
+\(\alpha = 0.05\)\\
 
 \textbf{3.6} Beräkna t-test i R och ange p-värde samt om nollhypotesen
 förkastas eller behålls
 
 Det finns inbyggda funktioner i R för att räkna ttest. Här skulle jag
-vilja att du räknar ut t från formeln \textbf{t} = ( - µ)/
-(\textbf{SD}/√n)
+vilja att du räknar ut t från formeln
+\(t = \frac{\bar{X} - \mu}{\frac{SD}{\sqrt{n}}}\) och slår upp i
+t-tabellen pt() hur ovanligt det beräknade t-värdet är. Fundera på om du
+ska göra ett ensidigt eller tvåsidigt test. Om du vill kan du beräkna
+ett z-test också och jämföra resultatet.
 
-och slår upp i t-tabellen pt() hur ovanligt det beräknade t-värdet är.
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Parametrar}
+\NormalTok{x\_bar }\OtherTok{\textless{}{-}} \DecValTok{3200}        \CommentTok{\# Stickprovets medelvärde}
+\NormalTok{mu }\OtherTok{\textless{}{-}} \DecValTok{3600}           \CommentTok{\# Populationens medelvärde (enligt H0)}
+\NormalTok{sd }\OtherTok{\textless{}{-}} \DecValTok{800}            \CommentTok{\# Stickprovets standardavvikelse}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{32}              \CommentTok{\# Stickprovets storlek}
 
-Fundera på om du ska göra ett ensidigt eller tvåsidigt test.
+\CommentTok{\# Beräkna t{-}värdet}
+\NormalTok{t\_value }\OtherTok{\textless{}{-}}\NormalTok{ (x\_bar }\SpecialCharTok{{-}}\NormalTok{ mu) }\SpecialCharTok{/}\NormalTok{ (sd }\SpecialCharTok{/} \FunctionTok{sqrt}\NormalTok{(n))}
 
-Om du vill kan du beräkna ett z-test också och jämföra resultatet.
+\CommentTok{\# Tvåsidigt p{-}värde baserat på t{-}värdet}
+\NormalTok{p\_value }\OtherTok{\textless{}{-}} \DecValTok{2} \SpecialCharTok{*} \FunctionTok{pt}\NormalTok{(}\FunctionTok{abs}\NormalTok{(t\_value), }\AttributeTok{df =}\NormalTok{ n }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{, }\AttributeTok{lower.tail =} \ConstantTok{FALSE}\NormalTok{)}
+
+\CommentTok{\# Skriv ut resultaten}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"t{-}värde:"}\NormalTok{, t\_value))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "t-värde: -2.82842712474619"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"p{-}värde:"}\NormalTok{, p\_value))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "p-värde: 0.00812753887944206"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Beslut om nollhypotesen förkastas}
+\ControlFlowTok{if}\NormalTok{ (p\_value }\SpecialCharTok{\textless{}} \FloatTok{0.05}\NormalTok{) \{}
+  \FunctionTok{print}\NormalTok{(}\StringTok{"Nollhypotesen förkastas. Medelvikten avviker signifikant från den normala."}\NormalTok{)}
+\NormalTok{\} }\ControlFlowTok{else}\NormalTok{ \{}
+  \FunctionTok{print}\NormalTok{(}\StringTok{"Nollhypotesen behålls. Det finns ingen signifikant skillnad i medelvikt."}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Nollhypotesen förkastas. Medelvikten avviker signifikant från den normala."
+\end{verbatim}
 
 \textbf{3.7} Formulera resultatet utan att använda statistisk
 terminologi.
+
+\hfill\break
+Svar: Barnen i denna grupp verkar i genomsnitt väga mindre än vad som
+anses normalt. Skillnaden i vikt är tillräckligt stor för att vi ska
+misstänka att det inte är en slump att vikten avviker från den
+förväntade genomsnittsvikten.\\
 
 \textbf{4. Jämföra två stickprov gruppvis, populationens
 standardavvikelse är okänd}
