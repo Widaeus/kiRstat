@@ -366,7 +366,7 @@ och istället uttrycka skillnaden med variation som enhet. Övningen som
 följer ska illustrera detta.
 
 Undersök formeln för z-testet. \[
-z = (X-µ)/σ
+z = (X-\mu)/σ
 \] X är din uppmätta variabel
 
 \(µ\) är medelvärdet för populationen som X hör till enligt
@@ -827,46 +827,20 @@ standardavvikelse är okänd}
 
 \textbf{4.1} Skapa en data.frameGruppvis.Vikt med följande data.
 
-\begin{longtable}[]{@{}ll@{}}
-\toprule\noalign{}
-vikt & grupp \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-90 & A \\
-91 & A \\
-93 & A \\
-106 & A \\
-97 & A \\
-108 & A \\
-97 & A \\
-105 & A \\
-106 & A \\
-103 & A \\
-105 & A \\
-96 & A \\
-105 & A \\
-95 & A \\
-90 & A \\
-101 & A \\
-90 & B \\
-91 & B \\
-85 & B \\
-99 & B \\
-93 & B \\
-104 & B \\
-89 & B \\
-103 & B \\
-102 & B \\
-95 & B \\
-103 & B \\
-95 & B \\
-105 & B \\
-87 & B \\
-86 & B \\
-101 & B \\
-\end{longtable}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{vikt =} \FunctionTok{c}\NormalTok{(}\DecValTok{90}\NormalTok{, }\DecValTok{91}\NormalTok{, }\DecValTok{93}\NormalTok{, }\DecValTok{106}\NormalTok{, }\DecValTok{97}\NormalTok{, }\DecValTok{108}\NormalTok{, }\DecValTok{97}\NormalTok{, }\DecValTok{105}\NormalTok{,}
+  \DecValTok{106}\NormalTok{, }\DecValTok{103}\NormalTok{, }\DecValTok{105}\NormalTok{, }\DecValTok{96}\NormalTok{, }\DecValTok{105}\NormalTok{, }\DecValTok{95}\NormalTok{, }\DecValTok{90}\NormalTok{, }\DecValTok{101}\NormalTok{,}
+           \DecValTok{90}\NormalTok{, }\DecValTok{91}\NormalTok{, }\DecValTok{85}\NormalTok{, }\DecValTok{99}\NormalTok{, }\DecValTok{93}\NormalTok{, }\DecValTok{104}\NormalTok{, }\DecValTok{89}\NormalTok{, }\DecValTok{103}\NormalTok{,}
+           \DecValTok{102}\NormalTok{, }\DecValTok{95}\NormalTok{, }\DecValTok{103}\NormalTok{, }\DecValTok{95}\NormalTok{, }\DecValTok{105}\NormalTok{, }\DecValTok{87}\NormalTok{, }\DecValTok{86}\NormalTok{, }\DecValTok{101}\NormalTok{),}
+  \AttributeTok{grupp =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{,}
+  \StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{,}
+            \StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{,}
+            \StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{)}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 I den första räkneuppgiften tänker vi oss att grupperna A och B är
 slumpmässigt utvalda ur två definierade populationer, kanske utifrån
@@ -876,7 +850,16 @@ medelvikt?
 
 \textbf{4.2 Ange nollhypotes och mothypotes}
 
+\hfill\break
+Svar: Nollhypotes (\(H₀\)): Det finns ingen skillnad i medelvikter
+mellan grupp A och grupp B.\\
+Mothypotes (\(H₁\)): Det finns en skillnad i medelvikter mellan grupp A
+och grupp B.\\
+
 \textbf{4.3Välj signifikansnivå}
+
+\hfill\break
+Svar: \(\alpha = 0.05\)\\
 
 \textbf{4.4 Beräkna t-test, tex så här}
 
@@ -888,68 +871,78 @@ t.test(vikt \textasciitilde{} grupp, var.equal = TRUE) \#vikt
 Tolka resultattabellen. Ange p-värde, samt om nollhypotesen förkastas
 eller behålls.
 
-\textbf{Faktaruta Welch t-test}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{result }\OtherTok{\textless{}{-}} \FunctionTok{t.test}\NormalTok{(vikt }\SpecialCharTok{\textasciitilde{}}\NormalTok{ grupp, }\AttributeTok{data =}\NormalTok{ data, }\AttributeTok{var.equal =} \ConstantTok{TRUE}\NormalTok{)}
 
-Lägg märke till argumentet:
+\ControlFlowTok{if}\NormalTok{ (result}\SpecialCharTok{$}\NormalTok{p.value }\SpecialCharTok{\textless{}} \FloatTok{0.05}\NormalTok{) \{}
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"Nollhypotesen förkastas.}
+\StringTok{  Medelvikten avviker signifikant från den normala. p{-}värde:"}\NormalTok{,}
+  \FunctionTok{round}\NormalTok{(result}\SpecialCharTok{$}\NormalTok{p.value, }\DecValTok{4}\NormalTok{))}
+\NormalTok{\} }\ControlFlowTok{else}\NormalTok{ \{}
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"Nollhypotesen behålls.}
+\StringTok{  Det finns ingen signifikant skillnad i medelvikt. p{-}värde:"}\NormalTok{,}
+  \FunctionTok{round}\NormalTok{(result}\SpecialCharTok{$}\NormalTok{p.value, }\DecValTok{4}\NormalTok{))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
-var.equal = FALSE
-
-Om du väljer var.equal = FALSE så räknar R det klassiska ttest som är
-standardvalet i många statistikmjukvaror. Om du utelämnar var.equal =
-FALSE så kommer R beräkna det så kallade Welch t-test som utgår ifrån
-att variationen kan vara olika i de två grupperna och justerar antalet
-frihetsgrader därefter. Det låter märkligt. Hur skulle variationen kunna
-vara olika om nollhypotesen säger att båda stickprov är tagna ur samma
-population? Lind ger ett praktiskt exempel där man ska avgöra om två två
-olika sorters pappersservetter absorberar olika mycket vatten. Den
-dyrare sorten har jämnare kvalitet, alltså lägre variation. (sid. 367)
-
-Testa gärna att beräkna Welch t-test och jämför resultaten:
-
-t.test(vikt \textasciitilde{} grupp) \# ger samma som t.test(vikt
-\textasciitilde{} grupp, var.equal = FALSE)
-
-Lägg märke till df, degreesoffreedom, som har justerats i Welch t-test.
+\begin{verbatim}
+Nollhypotesen behålls.
+  Det finns ingen signifikant skillnad i medelvikt. p-värde: 0.1221
+\end{verbatim}
 
 \textbf{4.5 Formulera resultatet utan att använda statistisk
 terminologi}
+
+\hfill\break
+Svar: Efter att ha analyserat vikten hos personer i två olika grupper
+visar vår undersökning att även om det finns en observerad skillnad i
+genomsnittsvikt mellan grupperna, är denna skillnad inte statistiskt
+signifikant. Med ett p-värde på 0.1221 kan vi inte säkert säga att en
+grupp väger mer än den andra utifrån de data som samlats in. Detta
+innebär att eventuella skillnader i vikt som observerats potentiellt kan
+bero på slumpmässiga variationer.\\
 
 \textbf{Jämföra två stickprov där mätningarna hör ihop parvis,
 populationens standardavvikelse är okänd}
 
 En kraftfullare experimentell design när man arbetar med människor, där
 den individuella variationen kan vara mycket stor, är att göra upprepade
-mätningar på samma individ. (Explain the difference between dependent
-and independent samples. sid 373-376) Tänk dig att mätningen A är gjord
-före en tre veckors kontrollerad diet, och mätningen B är gjord efter.
-Nu tänker vi oss alltså att data från 4.1 avser mätningar på bara 16
-personer.
+mätningar på samma individ. Tänk dig att mätningen A är gjord före en
+tre veckors kontrollerad diet, och mätningen B är gjord efter. Nu tänker
+vi oss alltså att data från 4.1 avser mätningar på bara 16 personer.
 
 Nollhypotes:
 
 Det är krångligt att få till en stram formulering av nollhypotesen utan
 att skriva en formel.
 
-Nollhypotesen för ett gruppvis test lyder: ''Stickproven A och B är
-dragna ur samma population'' Det kan illustreras med formeln µA = µB.
-Lägg märke till att det inte är samma sak som A = B. Även om stickproven
-är dragna ur samma population så tror vi inte att de ska ge exakt samma
-medelvärde. Det är den underliggande populationen som vi tror har samma
-medelvärde hela tiden.
+Nollhypotesen för ett gruppvis test lyder: ''Stickproven \(\bar{X}_A\)
+och \(\bar{X}_B\) är dragna ur samma population'' Det kan illustreras
+med formeln \(µA = µB\). Lägg märke till att det inte är samma sak som
+\(\bar{X}_A =\bar{X}_B\). Även om stickproven är dragna ur samma
+population så tror vi inte att de ska ge exakt samma medelvärde. Det är
+den underliggande populationen som vi tror har samma medelvärde hela
+tiden.
 
 I ett parvis test beräknas inte gruppernas medelvärde. Istället mäter
-man förändringen för varje individ, d, därefter beräknar man medelvärdet
-för alla förändringar, . Med hjälp av t-testet kan vi ställa i relation
-till variationen i mätningarna. δ är den underliggande populationens
-sanna skillnad.
+man förändringen för varje individ, \(d\), därefter beräknar man
+medelvärdet för alla förändringar, \(\bar{d}\). Med hjälp av t-testet
+kan vi ställa \(\bar{d}\) i relation till variationen i mätningarna.
+\(δ\) är den underliggande populationens sanna skillnad.
 
-t = (- δ) /( SD/√n)
+\[
+t = \frac{\bar{d} - \delta}{\frac{SD}{\sqrt{n}}}
+\]
 
-Oftast är nollhypotesen att δ = 0
+Oftast är nollhypotesen att \(δ = 0\)
 
 Så här brukar formeln se ut:
 
-t = /( SD/√n)
+\[
+t = \frac{\bar{d}}{\frac{SD}{\sqrt{n}}}
+\]
 
 n är i vårt exempel 16. Vid parvis test är n inte antalet mätningar,
 utan antalet par. Antalet frihetsgrader är n-1, antalet par minus ett.
@@ -960,32 +953,18 @@ kolumn en variabel.
 
 \textbf{4.6 Läs in data från 4.1 formatterat på ett nytt sätt}
 
-Parvis.Vikt\textless- read.table(``clipboard'', header=T)
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Parvis.Vikt\textless{}{-} read.table("clipboard", header=T)}
 
-\begin{longtable}[]{@{}ll@{}}
-\toprule\noalign{}
-A & B \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-90 & 90 \\
-91 & 91 \\
-93 & 85 \\
-106 & 99 \\
-97 & 93 \\
-108 & 104 \\
-97 & 89 \\
-105 & 103 \\
-106 & 102 \\
-103 & 95 \\
-105 & 103 \\
-96 & 95 \\
-105 & 105 \\
-95 & 87 \\
-90 & 86 \\
-101 & 101 \\
-\end{longtable}
+\NormalTok{Parvis.Vikt }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{A =} \FunctionTok{c}\NormalTok{(}\DecValTok{90}\NormalTok{, }\DecValTok{91}\NormalTok{, }\DecValTok{93}\NormalTok{, }\DecValTok{106}\NormalTok{, }\DecValTok{97}\NormalTok{, }\DecValTok{108}\NormalTok{, }\DecValTok{97}\NormalTok{, }\DecValTok{105}\NormalTok{,}
+  \DecValTok{106}\NormalTok{, }\DecValTok{103}\NormalTok{, }\DecValTok{105}\NormalTok{, }\DecValTok{96}\NormalTok{, }\DecValTok{105}\NormalTok{, }\DecValTok{95}\NormalTok{, }\DecValTok{90}\NormalTok{, }\DecValTok{101}\NormalTok{),}
+  \AttributeTok{B =} \FunctionTok{c}\NormalTok{(}\DecValTok{90}\NormalTok{, }\DecValTok{91}\NormalTok{, }\DecValTok{85}\NormalTok{, }\DecValTok{99}\NormalTok{, }\DecValTok{93}\NormalTok{, }\DecValTok{104}\NormalTok{, }\DecValTok{89}\NormalTok{, }\DecValTok{103}\NormalTok{,}
+  \DecValTok{102}\NormalTok{, }\DecValTok{95}\NormalTok{, }\DecValTok{103}\NormalTok{, }\DecValTok{95}\NormalTok{, }\DecValTok{105}\NormalTok{, }\DecValTok{87}\NormalTok{, }\DecValTok{86}\NormalTok{, }\DecValTok{101}\NormalTok{)}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 Det är även möjligt att återanvända din gamla data.frame genom att lägga
 till paried=T. Normalt känner man ju till i förväg om data hör ihop
@@ -997,34 +976,84 @@ t.test(vikt \textasciitilde{} grupp, paired = T)
 \textbf{4.7 Beräkna parvis ttest, kommentera varför resultatet blir
 annorlunda än vid gruppvis test}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Förutsatt att data frame \textquotesingle{}Parvis.Vikt\textquotesingle{} redan är skapad}
+\NormalTok{t\_result }\OtherTok{\textless{}{-}} \FunctionTok{t.test}\NormalTok{(Parvis.Vikt}\SpecialCharTok{$}\NormalTok{A, Parvis.Vikt}\SpecialCharTok{$}\NormalTok{B, }\AttributeTok{paired =} \ConstantTok{TRUE}\NormalTok{)}
+
+\CommentTok{\# Visa resultaten från det parvisa t{-}testet}
+\FunctionTok{print}\NormalTok{(t\_result)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+    Paired t-test
+
+data:  Parvis.Vikt$A and Parvis.Vikt$B
+t = 4.6967, df = 15, p-value = 0.0002866
+alternative hypothesis: true mean difference is not equal to 0
+95 percent confidence interval:
+ 2.048174 5.451826
+sample estimates:
+mean difference 
+           3.75 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ (t\_result}\SpecialCharTok{$}\NormalTok{p.value }\SpecialCharTok{\textless{}} \FloatTok{0.05}\NormalTok{) \{}
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"Nollhypotesen förkastas.}
+\StringTok{  Medelvikten avviker signifikant från den normala. p{-}värde:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(t\_result}\SpecialCharTok{$}\NormalTok{p.value, }\DecValTok{4}\NormalTok{))}
+\NormalTok{\} }\ControlFlowTok{else}\NormalTok{ \{}
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"Nollhypotesen behålls.}
+\StringTok{  Det finns ingen signifikant skillnad i medelvikt. p{-}värde:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(t\_result}\SpecialCharTok{$}\NormalTok{p.value, }\DecValTok{4}\NormalTok{))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Nollhypotesen förkastas.
+  Medelvikten avviker signifikant från den normala. p-värde: 3e-04
+\end{verbatim}
+
+\hfill\break
+Svar: Resultaten från ett parvis t-test och ett oberoende t-test kan
+skilja sig åt eftersom de hanterar datastrukturer olika. Ett parvis
+t-test tar hänsyn till beroenden mellan par av observationer, vilket
+minskar effekterna av individuell variation och kan öka den statistiska
+kraften. Däremot behandlar ett oberoende t-test observationerna som om
+de kommer från helt separata grupper, vilket kan leda till större
+inverkan av individuella skillnader på resultaten. Således kan ett
+parvis t-test avslöja signifikanta skillnader där ett oberoende t-test
+inte gör det, vilket speglar de olika antagandena och metodernas
+känslighet.\\
+
 \textbf{5. Illustrera typ I och typ II fel}
 
-Läs om typ I och typ II fel (Typ 1 sid. 325, 322-323, 343, Typ 2 sid.
-322-323, 343-346). Koden nedan ritar upp två normalfördelningar. Tänk er
-att de är stickprovsfördelningar och att man kan använda z-fördelningen
-därför att stickprovets storlek är stort. Den röda fördelningen, µ1,
-gäller om nollhypotesen är sann. Den blåa fördelningen, µ2, gäller om
+Koden nedan ritar upp två normalfördelningar. Tänk er att de är
+stickprovsfördelningar och att man kan använda z-fördelningen därför att
+stickprovets storlek är stort. Den röda fördelningen, µ1, gäller om
+nollhypotesen är sann. Den blåa fördelningen, µ2, gäller om
 alternativhypotesen är sann. I den röda fördelningen har jag ritat in
 arean 0.025.
 
-x=seq(50,140,length=200)
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x}\OtherTok{=}\FunctionTok{seq}\NormalTok{(}\DecValTok{50}\NormalTok{,}\DecValTok{140}\NormalTok{,}\AttributeTok{length=}\DecValTok{200}\NormalTok{)}
+\NormalTok{y1}\OtherTok{=}\FunctionTok{dnorm}\NormalTok{(x,}\DecValTok{80}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(x,y1,}\AttributeTok{type=}\StringTok{\textquotesingle{}l\textquotesingle{}}\NormalTok{,}\AttributeTok{lwd=}\DecValTok{2}\NormalTok{,}\AttributeTok{col=}\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{)}
+\NormalTok{y2}\OtherTok{=}\FunctionTok{dnorm}\NormalTok{(x,}\DecValTok{110}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(x,y2,}\AttributeTok{type=}\StringTok{\textquotesingle{}l\textquotesingle{}}\NormalTok{,}\AttributeTok{lwd=}\DecValTok{2}\NormalTok{,}\AttributeTok{col=}\StringTok{\textquotesingle{}blue\textquotesingle{}}\NormalTok{)}
+\NormalTok{cord.x1 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{((}\FunctionTok{round}\NormalTok{(}\FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.975}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{10}\NormalTok{, }\AttributeTok{lower.tail=}\NormalTok{T))),}
+\FunctionTok{seq}\NormalTok{((}\FunctionTok{round}\NormalTok{(}\FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.975}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{10}\NormalTok{, }\AttributeTok{lower.tail=}\NormalTok{T))), }\DecValTok{120}\NormalTok{,}\DecValTok{1}\NormalTok{),}\DecValTok{120}\NormalTok{)}
+\NormalTok{cord.y1 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FunctionTok{dnorm}\NormalTok{(}
+  \FunctionTok{seq}\NormalTok{((}\FunctionTok{round}\NormalTok{(}\FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.975}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{10}\NormalTok{, }\AttributeTok{lower.tail=}\NormalTok{T))), }\DecValTok{120}\NormalTok{, }\DecValTok{1}\NormalTok{), }\DecValTok{80}\NormalTok{, }\DecValTok{10}\NormalTok{),}\DecValTok{0}\NormalTok{)}
+\FunctionTok{polygon}\NormalTok{(cord.x1,cord.y1,}\AttributeTok{col=}\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
-y1=dnorm(x,80, 10)
-
-plot(x,y1,type=`l',lwd=2,col=`red')
-
-y2=dnorm(x,110, 10)
-
-lines(x,y2,type=`l',lwd=2,col=`blue')
-
-cord.x1 \textless- c((round(qnorm(0.975, 80, 10,
-lower.tail=T))),seq((round(qnorm(0.975, 80, 10, lower.tail=T))),
-120,1),120)
-
-cord.y1 \textless- c(0,dnorm(seq((round(qnorm(0.975, 80, 10,
-lower.tail=T))), 120, 1), 80, 10),0)
-
-polygon(cord.x1,cord.y1,col=`red')
+\includegraphics{block4_files/figure-pdf/unnamed-chunk-13-1.pdf}
 
 Gör ett antal nya grafer:
 
@@ -1032,29 +1061,111 @@ Gör ett antal nya grafer:
 skulle förkasta nollhypotesen µ1 = µ2 till förmån för
 alternativhypotesen µ1 \textless{} µ2. Signifikansnivån ska vara 0.05
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{=} \FunctionTok{seq}\NormalTok{(}\DecValTok{50}\NormalTok{, }\DecValTok{140}\NormalTok{, }\AttributeTok{length=}\DecValTok{200}\NormalTok{)}
+\NormalTok{y1 }\OtherTok{=} \FunctionTok{dnorm}\NormalTok{(x, }\DecValTok{80}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\NormalTok{y2 }\OtherTok{=} \FunctionTok{dnorm}\NormalTok{(x, }\DecValTok{110}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(x, y1, }\AttributeTok{type=}\StringTok{\textquotesingle{}l\textquotesingle{}}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{, }\AttributeTok{col=}\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(x, y2, }\AttributeTok{type=}\StringTok{\textquotesingle{}l\textquotesingle{}}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{, }\AttributeTok{col=}\StringTok{\textquotesingle{}blue\textquotesingle{}}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v=}\FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.95}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{10}\NormalTok{), }\AttributeTok{col=}\StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{, }\AttributeTok{lty=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block4_files/figure-pdf/unnamed-chunk-14-1.pdf}
+
 \textbf{5.2} Rita in två abline som visar gränserna utanför vilka du
 skulle förkasta nollhypotesen µ1 = µ2 till förmån för
 alternativhypotesen µ1 ≠ µ2. Signifikansnivån ska vara 0.05
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(x, y1, }\AttributeTok{type=}\StringTok{\textquotesingle{}l\textquotesingle{}}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{, }\AttributeTok{col=}\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(x, y2, }\AttributeTok{type=}\StringTok{\textquotesingle{}l\textquotesingle{}}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{, }\AttributeTok{col=}\StringTok{\textquotesingle{}blue\textquotesingle{}}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v=}\FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{10}\NormalTok{, }\AttributeTok{lower.tail=}\ConstantTok{TRUE}\NormalTok{), }\AttributeTok{col=}\StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{, }\AttributeTok{lty=}\DecValTok{2}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v=}\FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.975}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{10}\NormalTok{, }\AttributeTok{lower.tail=}\ConstantTok{TRUE}\NormalTok{), }\AttributeTok{col=}\StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{, }\AttributeTok{lty=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block4_files/figure-pdf/unnamed-chunk-15-1.pdf}
+
 \textbf{5.3} Gör en ny 5.2 där du färgar arean som visar risken att
 förkasta en sann nollhypotes. Typ I felet.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(x, y1, }\AttributeTok{type=}\StringTok{\textquotesingle{}l\textquotesingle{}}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{, }\AttributeTok{col=}\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(x, y2, }\AttributeTok{type=}\StringTok{\textquotesingle{}l\textquotesingle{}}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{, }\AttributeTok{col=}\StringTok{\textquotesingle{}blue\textquotesingle{}}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v=}\FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{10}\NormalTok{, }\AttributeTok{lower.tail=}\ConstantTok{TRUE}\NormalTok{), }\AttributeTok{col=}\StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{, }\AttributeTok{lty=}\DecValTok{2}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v=}\FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.975}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{10}\NormalTok{, }\AttributeTok{lower.tail=}\ConstantTok{TRUE}\NormalTok{), }\AttributeTok{col=}\StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{, }\AttributeTok{lty=}\DecValTok{2}\NormalTok{)}
+
+\CommentTok{\# Färga områden för Typ I fel}
+\NormalTok{x\_fill\_left }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FunctionTok{min}\NormalTok{(x), }\FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{10}\NormalTok{), }\AttributeTok{length.out=}\DecValTok{100}\NormalTok{)}
+\NormalTok{x\_fill\_right }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.975}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{10}\NormalTok{), }\FunctionTok{max}\NormalTok{(x), }\AttributeTok{length.out=}\DecValTok{100}\NormalTok{)}
+\NormalTok{y\_fill\_left }\OtherTok{\textless{}{-}} \FunctionTok{dnorm}\NormalTok{(x\_fill\_left, }\DecValTok{80}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\NormalTok{y\_fill\_right }\OtherTok{\textless{}{-}} \FunctionTok{dnorm}\NormalTok{(x\_fill\_right, }\DecValTok{80}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+
+\FunctionTok{polygon}\NormalTok{(}\FunctionTok{c}\NormalTok{(x\_fill\_left, }\FunctionTok{rev}\NormalTok{(x\_fill\_left)),}
+\FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FunctionTok{length}\NormalTok{(x\_fill\_left)), }\FunctionTok{rev}\NormalTok{(y\_fill\_left)), }\AttributeTok{col=}\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{)}
+\FunctionTok{polygon}\NormalTok{(}\FunctionTok{c}\NormalTok{(x\_fill\_right, }\FunctionTok{rev}\NormalTok{(x\_fill\_right)),}
+\FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FunctionTok{length}\NormalTok{(x\_fill\_right)), }\FunctionTok{rev}\NormalTok{(y\_fill\_right)), }\AttributeTok{col=}\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block4_files/figure-pdf/unnamed-chunk-16-1.pdf}
 
 \textbf{5.4} Gör en ny 5.2. Vi tänker oss att alternativhypotesen, µ2,
 är sann. Färga en area som visar risken att behålla en falsk
 nollhypotes. Typ II felet, kallas även β. Beräkna och ange β.
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(x, y1, }\AttributeTok{type=}\StringTok{\textquotesingle{}l\textquotesingle{}}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{, }\AttributeTok{col=}\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(x, y2, }\AttributeTok{type=}\StringTok{\textquotesingle{}l\textquotesingle{}}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{, }\AttributeTok{col=}\StringTok{\textquotesingle{}blue\textquotesingle{}}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v=}\FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{10}\NormalTok{, }\AttributeTok{lower.tail=}\ConstantTok{TRUE}\NormalTok{), }\AttributeTok{col=}\StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{, }\AttributeTok{lty=}\DecValTok{2}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v=}\FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.975}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{10}\NormalTok{, }\AttributeTok{lower.tail=}\ConstantTok{TRUE}\NormalTok{), }\AttributeTok{col=}\StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{, }\AttributeTok{lty=}\DecValTok{2}\NormalTok{)}
+
+\CommentTok{\# Färga områden för Typ II fel (β)}
+\NormalTok{x\_fill\_beta }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{10}\NormalTok{), }\FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.975}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{10}\NormalTok{), }\AttributeTok{length.out=}\DecValTok{100}\NormalTok{)}
+\NormalTok{y\_fill\_beta }\OtherTok{\textless{}{-}} \FunctionTok{dnorm}\NormalTok{(x\_fill\_beta, }\DecValTok{110}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\FunctionTok{polygon}\NormalTok{(}\FunctionTok{c}\NormalTok{(x\_fill\_beta, }\FunctionTok{rev}\NormalTok{(x\_fill\_beta)),}
+\FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FunctionTok{length}\NormalTok{(x\_fill\_beta)), }\FunctionTok{rev}\NormalTok{(y\_fill\_beta)), }\AttributeTok{col=}\StringTok{\textquotesingle{}blue\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block4_files/figure-pdf/unnamed-chunk-17-1.pdf}
+
 \textbf{5.5} Gör en ny 5.4 där du även färgar arean som visar
 sannolikheten att förkasta en falsk nollhypotes. Tips: Det ska bli 1 --
 β. Detta kallas även statistisk kraft, statistical power.
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(x, y1, }\AttributeTok{type=}\StringTok{\textquotesingle{}l\textquotesingle{}}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{, }\AttributeTok{col=}\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(x, y2, }\AttributeTok{type=}\StringTok{\textquotesingle{}l\textquotesingle{}}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{, }\AttributeTok{col=}\StringTok{\textquotesingle{}blue\textquotesingle{}}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v=}\FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{10}\NormalTok{, }\AttributeTok{lower.tail=}\ConstantTok{TRUE}\NormalTok{), }\AttributeTok{col=}\StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{, }\AttributeTok{lty=}\DecValTok{2}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v=}\FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.975}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{10}\NormalTok{, }\AttributeTok{lower.tail=}\ConstantTok{TRUE}\NormalTok{), }\AttributeTok{col=}\StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{, }\AttributeTok{lty=}\DecValTok{2}\NormalTok{)}
+\FunctionTok{polygon}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{10}\NormalTok{), }\FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\DecValTok{110}\NormalTok{, }\DecValTok{10}\NormalTok{)), }\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{), }\AttributeTok{col=}\StringTok{\textquotesingle{}blue\textquotesingle{}}\NormalTok{, }\AttributeTok{border=}\ConstantTok{NA}\NormalTok{)}
+\FunctionTok{polygon}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.975}\NormalTok{, }\DecValTok{110}\NormalTok{, }\DecValTok{10}\NormalTok{), }\FunctionTok{max}\NormalTok{(x)), }\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{), }\AttributeTok{col=}\StringTok{\textquotesingle{}blue\textquotesingle{}}\NormalTok{, }\AttributeTok{border=}\ConstantTok{NA}\NormalTok{)}
+
+\NormalTok{x\_fill\_power\_left }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FunctionTok{min}\NormalTok{(x), }\FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{10}\NormalTok{), }\AttributeTok{length.out=}\DecValTok{100}\NormalTok{)}
+\NormalTok{x\_fill\_power\_right }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.975}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{10}\NormalTok{), }\FunctionTok{max}\NormalTok{(x), }\AttributeTok{length.out=}\DecValTok{100}\NormalTok{)}
+\NormalTok{y\_fill\_power\_left }\OtherTok{\textless{}{-}} \FunctionTok{dnorm}\NormalTok{(x\_fill\_power\_left, }\DecValTok{110}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\NormalTok{y\_fill\_power\_right }\OtherTok{\textless{}{-}} \FunctionTok{dnorm}\NormalTok{(x\_fill\_power\_right, }\DecValTok{110}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+
+\FunctionTok{polygon}\NormalTok{(}\FunctionTok{c}\NormalTok{(x\_fill\_power\_left, }\FunctionTok{rev}\NormalTok{(x\_fill\_power\_left)),}
+\FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FunctionTok{length}\NormalTok{(x\_fill\_power\_left)), }\FunctionTok{rev}\NormalTok{(y\_fill\_power\_left)), }\AttributeTok{col=}\StringTok{\textquotesingle{}green\textquotesingle{}}\NormalTok{)}
+\FunctionTok{polygon}\NormalTok{(}\FunctionTok{c}\NormalTok{(x\_fill\_power\_right, }\FunctionTok{rev}\NormalTok{(x\_fill\_power\_right)),}
+\FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FunctionTok{length}\NormalTok{(x\_fill\_power\_right)), }\FunctionTok{rev}\NormalTok{(y\_fill\_power\_right)), }\AttributeTok{col=}\StringTok{\textquotesingle{}green\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block4_files/figure-pdf/unnamed-chunk-18-1.pdf}
+
 \textbf{6. Ickeparametriskt alternativ till t-test}
 
-Data inspirerade av:
-
-DIFFERENTIATING DENGUE VIRUS INFECTION FROM SCRUB TYPHUS IN THAI ADULTS
-WITH FEVER
-
-GEORGE WATT et al 2003
+Data inspirerade av: DIFFERENTIATING DENGUE VIRUS INFECTION FROM SCRUB
+TYPHUS IN THAI ADULTS WITH FEVER, GEORGE WATT et al 2003
 
 ``{[}\ldots{]} simple criteria to differentiatescrub typhus from dengue
 infection are needed {[}\ldots{]},particularly where rapid confirmatory
@@ -1065,7 +1176,7 @@ skilja åt: Denguefewer, respektive scrub typhus. Använd en
 hypotestest-strategi för att avgöra om antal vita blodceller/ mm3 kan
 ligga till grund för differentiell diagnos av scrub typhus och
 denguefewer. Man kan \textbf{inte} anta att mätvärdena är
-normalfördelade. Välj α = 0.05.
+normalfördelade. Välj \(α\) = 0.05.
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule\noalign{}
@@ -1095,22 +1206,100 @@ count & diagnosis \\
 \textbf{6.1 Läs in data och beräkna ett two sample Wilcoxon test (ISwR
 5.4, sid 103)}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Skapa data}
+\NormalTok{vbc\_counts }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{3000}\NormalTok{, }\DecValTok{3200}\NormalTok{, }\DecValTok{3500}\NormalTok{, }\DecValTok{5068}\NormalTok{, }\DecValTok{5679}\NormalTok{, }\DecValTok{6200}\NormalTok{, }\DecValTok{6300}\NormalTok{, }\DecValTok{7020}\NormalTok{,}
+                \DecValTok{4400}\NormalTok{, }\DecValTok{4500}\NormalTok{, }\DecValTok{5900}\NormalTok{, }\DecValTok{6839}\NormalTok{, }\DecValTok{7561}\NormalTok{, }\DecValTok{9047}\NormalTok{, }\DecValTok{12300}\NormalTok{, }\DecValTok{14000}\NormalTok{)}
+\NormalTok{diagnosis }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{"dengue"}\NormalTok{, }\DecValTok{8}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"scrub"}\NormalTok{, }\DecValTok{8}\NormalTok{))}
+
+\CommentTok{\# Läs in data som en data frame}
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{count =}\NormalTok{ vbc\_counts, }\AttributeTok{diagnosis =}\NormalTok{ diagnosis)}
+
+\CommentTok{\# Utför Wilcoxon test}
+\NormalTok{wilcox\_test }\OtherTok{\textless{}{-}} \FunctionTok{wilcox.test}\NormalTok{(count }\SpecialCharTok{\textasciitilde{}}\NormalTok{ diagnosis, }\AttributeTok{data =}\NormalTok{ data, }\AttributeTok{exact =} \ConstantTok{FALSE}\NormalTok{)}
+
+\CommentTok{\# Visa resultatet av testet}
+\FunctionTok{print}\NormalTok{(wilcox\_test)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+    Wilcoxon rank sum test with continuity correction
+
+data:  count by diagnosis
+W = 14, p-value = 0.06608
+alternative hypothesis: true location shift is not equal to 0
+\end{verbatim}
+
 \textbf{6.2 Hur formuleras nollhypotes och alternativhypotes i
 Wicoxontestet?}
 
-\textbf{6.3Visar testet att en enkel räkning av vita blodkroppar kan stå
-till grund för differentiell diagnos?}
+\hfill\break
+Nollhypotes (\(H₀\)): Medianen av vita blodkroppar är lika mellan
+patienter med dengue och scrub typhus. Det innebär att det inte finns
+någon skillnad mellan de två gruppernas medianvärden.\\
+Alternativhypotes (\(H₁\)): Medianen av vita blodkroppar skiljer sig
+mellan patienter med dengue och scrub typhus.\\
 
-Om man hade kunnat argumentera trovärdigt för att data i föregående
-uppgift var normalfördelade hade man kunnat genomföra ett vanligt
-gruppvis t-test.
+\textbf{6.3 Visar testet att en enkel räkning av vita blodkroppar kan
+stå till grund för differentiell diagnos?}
 
-**\\
-6.4Ange nollhypotes och mothypotes för t-testet**
+\hfill\break
+Eftersom p-värdet är större än signifikansnivån kan vi inte förkasta
+nollhypotesen. Detta innebär att det inte finns tillräckliga bevis i de
+data som samlats för att hävda att det finns en statistiskt signifikant
+skillnad i medianantalet vita blodkroppar mellan de två
+sjukdomsgrupperna.\\
 
-\textbf{6.5Beräkna testet, tolka resultatet, formulera slutsats.}
+\textbf{6.4 Ange nollhypotes och mothypotes för t-testet}
+
+\hfill\break
+Nollhypotes (\(H₀\)): Medelvärdet av vita blodkroppar är lika mellan de
+två diagnosgrupperna.\\
+Alternativhypotes (\(H₁\)): Medelvärdet av vita blodkroppar skiljer sig
+mellan de två diagnosgrupperna.\\
+
+\textbf{6.5 Beräkna testet, tolka resultatet, formulera slutsats.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Utför t{-}test}
+\NormalTok{t\_test }\OtherTok{\textless{}{-}} \FunctionTok{t.test}\NormalTok{(count }\SpecialCharTok{\textasciitilde{}}\NormalTok{ diagnosis, }\AttributeTok{data =}\NormalTok{ data)}
+
+\CommentTok{\# Visa resultatet av t{-}testet}
+\FunctionTok{print}\NormalTok{(t\_test)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+    Welch Two Sample t-test
+
+data:  count by diagnosis
+t = -2.256, df = 9.6671, p-value = 0.04856
+alternative hypothesis: true difference in means between group dengue and group scrub is not equal to 0
+95 percent confidence interval:
+ -6121.34819   -23.65181
+sample estimates:
+mean in group dengue  mean in group scrub 
+            4995.875             8068.375 
+\end{verbatim}
+
+P-värdet är mindre än signifikansnivån och således så förkastas
+nollhypotesen.
 
 \textbf{6.6 Varför blir det olika resultat i 6.3 och 6.5?}
+
+\hfill\break
+Svar: Skillnaderna i resultaten kan bero på att de två testerna hanterar
+data på olika sätt. Wilcoxontestet är mindre känsligt för extremvärden
+och icke-normal datafördelning, vilket kan leda till olika slutsatser
+jämfört med t-testet som antar normalfördelning och kan påverkas mer av
+outlier-värden och ojämn fördelning av data. Om data inte är
+normalfördelade, kan t-testets antaganden vara brutna, vilket ger
+missvisande resultat.\\
 
 \textbf{7. Konfidensintervall som metod för hypotestestning}
 
@@ -1119,49 +1308,98 @@ konfidensintervall. Att beräkna konfidensintervall är mycket användbart.
 Både för att illustrera hur bra en skattning av en parameter är och för
 resonemang som liknar hypotestest.
 
-I ett parvis t-test undersöker vi om δ ≠ 0.
+I ett parvis t-test undersöker vi om \(δ ≠ 0\).
 
-Vi kan skatta δ med och titta efter om intervallet ± 95\% CI.
+Vi kan skatta \(δ\) med \(\bar{d}\) och titta efter om intervallet
+\(\bar{d}\) ± 95\% CI.
 
 Ni har mött tekniken hur man räknar konfidensintervall för medelvärden i
 inlämningsuppgift 3, i beräkning av ett blodtryckintervall som gäller
 95\% av befolkningen. Här vill jag poängtera att beräkningen blir lite
-olika beroende på om populationens standardavvikelse σ, är känd, eller
-om man,måste skatta den utifrån ett stickprovs standardavvikelse, SD.
-Var vänlig slå upp formlerna i en bok. När σ är känd går det att använda
-z,
-
-qnorm(c(0.025, 0.975)) \#Beräknar z värdet för ett 95\%
-konfidensintervall, lägg märke till hur det utesluter 2,5\% av varje
-extrem del av fördelningen.
-
-När måste beräkna t-värde ska du hålla reda på frihetsgraderna
-
-qt(c(0.025, 0.975 , df)
-
-Exempel:
-
-Vikten på fem försöksdjur har mätts till = 28.3, SD = 3.1
-
-Beräkna ett 95\% konfidensintervall för medlet:
-
-Antal frihetsgrader 5-1 = 4 fem mätningar, en skattning
-
-round(28.3 +( qt(c(0.025, 0.975), 4)) * 3.1/sqrt(5) , 1) \#kolla upp
-formeln i bok
-
-{[}1{]} 24.5 32.1
+olika beroende på om populationens standardavvikelse \(σ\), är känd,
+eller om man,måste skatta den utifrån ett stickprovs standardavvikelse,
+SD. Var vänlig slå upp formlerna i en bok. När \(σ\) är känd går det att
+använda z.
 
 \textbf{7.1} En däckfabrikör mäter 10 däck som körts 50000 miles. I
 medel är 0.32 tum av mönstret kvar, med standardavvikelsen 0.09 tum.
 Beräkna ett 95\% konfidensintervall kring medlet.
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Data för däckmönster}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{10}
+\NormalTok{mean\_x }\OtherTok{\textless{}{-}} \FloatTok{0.32}
+\NormalTok{sd\_x }\OtherTok{\textless{}{-}} \FloatTok{0.09}
+
+\CommentTok{\# Beräkna konfidensintervall}
+\NormalTok{t\_critical }\OtherTok{\textless{}{-}} \FunctionTok{qt}\NormalTok{(}\FloatTok{0.975}\NormalTok{, }\AttributeTok{df =}\NormalTok{ n}\DecValTok{{-}1}\NormalTok{) }\CommentTok{\# 95\% CI, tvåsidigt, n{-}1 frihetsgrader}
+\NormalTok{error\_margin }\OtherTok{\textless{}{-}}\NormalTok{ t\_critical }\SpecialCharTok{*}\NormalTok{ (sd\_x }\SpecialCharTok{/} \FunctionTok{sqrt}\NormalTok{(n))}
+
+\CommentTok{\# Konfidensintervall}
+\NormalTok{ci\_lower }\OtherTok{\textless{}{-}}\NormalTok{ mean\_x }\SpecialCharTok{{-}}\NormalTok{ error\_margin}
+\NormalTok{ci\_upper }\OtherTok{\textless{}{-}}\NormalTok{ mean\_x }\SpecialCharTok{+}\NormalTok{ error\_margin}
+
+\CommentTok{\# Skriv ut resultaten}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"95\% konfidensintervall för däckmönster är mellan"}\NormalTok{, ci\_lower, }\StringTok{"och"}\NormalTok{, ci\_upper, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+95% konfidensintervall för däckmönster är mellan 0.2556179 och 0.3843821 
+\end{verbatim}
+
 \textbf{7.2} Kan fabrikören påstå att 0.30 tum brukar vara kvar efter
 50000 miles utifrån mätningen?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{claimed\_value }\OtherTok{\textless{}{-}} \FloatTok{0.30}
+
+\CommentTok{\# Kontrollera om påstått värde ligger inom konfidensintervallet}
+\ControlFlowTok{if}\NormalTok{ (claimed\_value }\SpecialCharTok{\textgreater{}=}\NormalTok{ ci\_lower }\SpecialCharTok{\&\&}\NormalTok{ claimed\_value }\SpecialCharTok{\textless{}=}\NormalTok{ ci\_upper) \{}
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"Fabrikören kan påstå att 0.30 tum brukar vara kvar efter 50000 miles,}
+\StringTok{  eftersom detta värde ligger inom 95\% konfidensintervallet ["}\NormalTok{, ci\_lower, }\StringTok{","}\NormalTok{, ci\_upper, }\StringTok{"].}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{\} }\ControlFlowTok{else}\NormalTok{ \{}
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"Fabrikören kan inte påstå att 0.30 tum brukar vara kvar efter 50000 miles,}
+\StringTok{  eftersom detta värde inte ligger inom 95\% konfidensintervallet ["}\NormalTok{, ci\_lower, }\StringTok{","}\NormalTok{, ci\_upper, }\StringTok{"].}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Fabrikören kan påstå att 0.30 tum brukar vara kvar efter 50000 miles,
+  eftersom detta värde ligger inom 95% konfidensintervallet [ 0.2556179 , 0.3843821 ].
+\end{verbatim}
 
 \textbf{7.3} Tio slumpmässigt utvalda individer har ett
 medelkolesterolvärde på 5,4 mmol/l och standardavvikelsen 0.5 mmol/l.
 Beräkna ett 95\% konfidensintervall för medlet.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Data för kolesterol}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{10}
+\NormalTok{mean\_k }\OtherTok{\textless{}{-}} \FloatTok{5.4}
+\NormalTok{sd\_k }\OtherTok{\textless{}{-}} \FloatTok{0.5}
+
+\CommentTok{\# Beräkna konfidensintervall}
+\NormalTok{t\_critical }\OtherTok{\textless{}{-}} \FunctionTok{qt}\NormalTok{(}\FloatTok{0.975}\NormalTok{, }\AttributeTok{df =}\NormalTok{ n}\DecValTok{{-}1}\NormalTok{) }\CommentTok{\# 95\% CI, tvåsidigt, n{-}1 frihetsgrader}
+\NormalTok{error\_margin }\OtherTok{\textless{}{-}}\NormalTok{ t\_critical }\SpecialCharTok{*}\NormalTok{ (sd\_k }\SpecialCharTok{/} \FunctionTok{sqrt}\NormalTok{(n))}
+
+\CommentTok{\# Konfidensintervall}
+\NormalTok{ci\_lower\_k }\OtherTok{\textless{}{-}}\NormalTok{ mean\_k }\SpecialCharTok{{-}}\NormalTok{ error\_margin}
+\NormalTok{ci\_upper\_k }\OtherTok{\textless{}{-}}\NormalTok{ mean\_k }\SpecialCharTok{+}\NormalTok{ error\_margin}
+
+\CommentTok{\# Skriv ut resultaten}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"95\% konfidensintervall för medelkolesterolvärde är mellan"}\NormalTok{,}
+\NormalTok{ci\_lower\_k, }\StringTok{"och"}\NormalTok{, ci\_upper\_k, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+95% konfidensintervall för medelkolesterolvärde är mellan 5.042322 och 5.757678 
+\end{verbatim}
 
 \textbf{8 ANOVA -- ANalysisOfVariance}
 
@@ -1218,14 +1456,54 @@ blodtryck & behandling \\
 99 & träning \\
 \end{longtable}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Skapa datasetet}
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{blodtryck =} \FunctionTok{c}\NormalTok{(}\DecValTok{77}\NormalTok{, }\DecValTok{77}\NormalTok{, }\DecValTok{78}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{81}\NormalTok{, }\DecValTok{89}\NormalTok{, }\DecValTok{90}\NormalTok{, }\DecValTok{96}\NormalTok{, }\DecValTok{99}\NormalTok{, }\DecValTok{107}\NormalTok{,}
+  \DecValTok{59}\NormalTok{, }\DecValTok{66}\NormalTok{, }\DecValTok{70}\NormalTok{, }\DecValTok{73}\NormalTok{, }\DecValTok{76}\NormalTok{, }\DecValTok{77}\NormalTok{, }\DecValTok{78}\NormalTok{, }\DecValTok{81}\NormalTok{, }\DecValTok{81}\NormalTok{, }\DecValTok{91}\NormalTok{,}
+  \DecValTok{64}\NormalTok{, }\DecValTok{66}\NormalTok{, }\DecValTok{69}\NormalTok{, }\DecValTok{72}\NormalTok{, }\DecValTok{73}\NormalTok{, }\DecValTok{74}\NormalTok{, }\DecValTok{74}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{84}\NormalTok{, }\DecValTok{99}\NormalTok{),}
+  \AttributeTok{behandling =} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{"kontroll"}\NormalTok{, }\DecValTok{10}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"medicinering"}\NormalTok{, }\DecValTok{10}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"träning"}\NormalTok{, }\DecValTok{10}\NormalTok{))}
+\NormalTok{)}
+
+\CommentTok{\# Utför ANOVA}
+\NormalTok{anova\_resultat }\OtherTok{\textless{}{-}} \FunctionTok{aov}\NormalTok{(blodtryck }\SpecialCharTok{\textasciitilde{}}\NormalTok{ behandling, }\AttributeTok{data =}\NormalTok{ data)}
+\FunctionTok{summary}\NormalTok{(anova\_resultat)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+            Df Sum Sq Mean Sq F value Pr(>F)  
+behandling   2  968.5   484.2   4.948 0.0148 *
+Residuals   27 2642.5    97.9                 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
 \textbf{8.2}ANOVA räknar ut ett F värde utifrån hur variationen är
 fördelad över matrisen. Sök efter värdetPr(\textgreater F) i tabellen,
 sannolikheten att få värdet F eller större under förutsättning att
-nollhypotesen stämmer. Om denna sannolikhet är mindre än ditt α-värde
-kan du förkasta nollhypotesen.
+nollhypotesen stämmer. Om denna sannolikhet är mindre än ditt
+\(α\)-värde kan du förkasta nollhypotesen.
 
-\textbf{8.3Välj ett sätt att visualisera data. Du kan låta dig
-inspireras av IswR s 134.}
+\hfill\break
+Svar: PR(\textgreater F) = 0.0148\\
+Således kan nollhypotesen förkastas.\\
+
+\textbf{8.3Välj ett sätt att visualisera data.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ behandling, }\AttributeTok{y =}\NormalTok{ blodtryck, }\AttributeTok{fill =}\NormalTok{ behandling)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Blodtryck efter behandlingstyp"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Behandlingskategori"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Blodtryck"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{block4_files/figure-pdf/unnamed-chunk-25-1.pdf}
 
 
 

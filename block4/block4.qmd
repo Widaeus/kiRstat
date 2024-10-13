@@ -1,7 +1,9 @@
 ---
 title: Inlämningsuppgift block 4 – hypotestest, konfidensintervall
 author: Statistiska Metoder med R
-format: docx
+format:
+  pdf:
+    keep-tex: true
 editor_options:
   chunk_output_type: console
 knit:
@@ -145,7 +147,7 @@ Att göra ett experiment handlar ofta om att mäta en skillnad. Blev det skillna
 
 Undersök formeln för z-testet.
 $$
-z = (X-µ)/σ
+z = (X-\mu)/σ
 $$
 X är din uppmätta variabel
 
@@ -467,46 +469,35 @@ Barnen i denna grupp verkar i genomsnitt väga mindre än vad som anses normalt.
 
 **4.1** Skapa en data.frameGruppvis.Vikt med följande data.
 
-| vikt | grupp |
-| --- | --- |
-| 90  | A   |
-| 91  | A   |
-| 93  | A   |
-| 106 | A   |
-| 97  | A   |
-| 108 | A   |
-| 97  | A   |
-| 105 | A   |
-| 106 | A   |
-| 103 | A   |
-| 105 | A   |
-| 96  | A   |
-| 105 | A   |
-| 95  | A   |
-| 90  | A   |
-| 101 | A   |
-| 90  | B   |
-| 91  | B   |
-| 85  | B   |
-| 99  | B   |
-| 93  | B   |
-| 104 | B   |
-| 89  | B   |
-| 103 | B   |
-| 102 | B   |
-| 95  | B   |
-| 103 | B   |
-| 95  | B   |
-| 105 | B   |
-| 87  | B   |
-| 86  | B   |
-| 101 | B   |
+```{r}
+data <- data.frame(
+  vikt = c(90, 91, 93, 106, 97, 108, 97, 105,
+  106, 103, 105, 96, 105, 95, 90, 101,
+           90, 91, 85, 99, 93, 104, 89, 103,
+           102, 95, 103, 95, 105, 87, 86, 101),
+  grupp = c('A', 'A', 'A', 'A', 'A', 'A', 'A',
+  'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A',
+            'B', 'B', 'B', 'B', 'B', 'B', 'B',
+            'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B')
+)
+```
 
 I den första räkneuppgiften tänker vi oss att grupperna A och B är slumpmässigt utvalda ur två definierade populationer, kanske utifrån livsstil eller någon diagnos, som vi vill undersöka med avseende på vikt. Sammanlagt deltar 32 personer i studien. Har grupperna olika medelvikt?
 
 **4.2 Ange nollhypotes och mothypotes**
 
+\
+Svar:
+Nollhypotes ($H₀$): Det finns ingen skillnad i medelvikter mellan grupp A och grupp B.\
+Mothypotes ($H₁$): Det finns en skillnad i medelvikter mellan grupp A och grupp B.
+\
+
+
 **4.3Välj signifikansnivå**
+
+\
+Svar: $\alpha = 0.05$
+\
 
 **4.4 Beräkna t-test, tex så här**
 
@@ -516,68 +507,65 @@ t.test(vikt ~ grupp, var.equal = TRUE) #vikt ~grupp ska läsas: vikt förklarat 
 
 Tolka resultattabellen. Ange p-värde, samt om nollhypotesen förkastas eller behålls.
 
-**Faktaruta Welch t-test**
+```{r}
+result <- t.test(vikt ~ grupp, data = data, var.equal = TRUE)
 
-Lägg märke till argumentet:
-
-var.equal = FALSE
-
-Om du väljer var.equal = FALSE så räknar R det klassiska ttest som är standardvalet i många statistikmjukvaror. Om du utelämnar var.equal = FALSE så kommer R beräkna det så kallade Welch t-test som utgår ifrån att variationen kan vara olika i de två grupperna och justerar antalet frihetsgrader därefter. Det låter märkligt. Hur skulle variationen kunna vara olika om nollhypotesen säger att båda stickprov är tagna ur samma population? Lind ger ett praktiskt exempel där man ska avgöra om två två olika sorters pappersservetter absorberar olika mycket vatten. Den dyrare sorten har jämnare kvalitet, alltså lägre variation. (sid. 367)
-
-Testa gärna att beräkna Welch t-test och jämför resultaten:
-
-t.test(vikt ~ grupp) # ger samma som t.test(vikt ~ grupp, var.equal = FALSE)
-
-Lägg märke till df, degreesoffreedom, som har justerats i Welch t-test.
+if (result$p.value < 0.05) {
+  cat("Nollhypotesen förkastas.
+  Medelvikten avviker signifikant från den normala. p-värde:",
+  round(result$p.value, 4))
+} else {
+  cat("Nollhypotesen behålls.
+  Det finns ingen signifikant skillnad i medelvikt. p-värde:",
+  round(result$p.value, 4))
+}
+```
 
 **4.5 Formulera resultatet utan att använda statistisk terminologi**
 
+\
+Svar: Efter att ha analyserat vikten hos personer i två olika grupper visar vår undersökning att även om det finns en observerad skillnad i genomsnittsvikt mellan grupperna, är denna skillnad inte statistiskt signifikant. Med ett p-värde på 0.1221 kan vi inte säkert säga att en grupp väger mer än den andra utifrån de data som samlats in. Detta innebär att eventuella skillnader i vikt som observerats potentiellt kan bero på slumpmässiga variationer.
+\
+
 **Jämföra två stickprov där mätningarna hör ihop parvis, populationens standardavvikelse är okänd**
 
-En kraftfullare experimentell design när man arbetar med människor, där den individuella variationen kan vara mycket stor, är att göra upprepade mätningar på samma individ. (Explain the difference between dependent and independent samples. sid 373-376) Tänk dig att mätningen A är gjord före en tre veckors kontrollerad diet, och mätningen B är gjord efter. Nu tänker vi oss alltså att data från 4.1 avser mätningar på bara 16 personer.
+En kraftfullare experimentell design när man arbetar med människor, där den individuella variationen kan vara mycket stor, är att göra upprepade mätningar på samma individ.  Tänk dig att mätningen A är gjord före en tre veckors kontrollerad diet, och mätningen B är gjord efter. Nu tänker vi oss alltså att data från 4.1 avser mätningar på bara 16 personer.
 
 Nollhypotes:
 
 Det är krångligt att få till en stram formulering av nollhypotesen utan att skriva en formel.
 
-Nollhypotesen för ett gruppvis test lyder: ”Stickproven A och B är dragna ur samma population” Det kan illustreras med formeln µA = µB. Lägg märke till att det inte är samma sak som A = B. Även om stickproven är dragna ur samma population så tror vi inte att de ska ge exakt samma medelvärde. Det är den underliggande populationen som vi tror har samma medelvärde hela tiden.
+Nollhypotesen för ett gruppvis test lyder: ”Stickproven $\bar{X}_A$ och $\bar{X}_B$ är dragna ur samma population” Det kan illustreras med formeln $µA = µB$. Lägg märke till att det inte är samma sak som $\bar{X}_A =\bar{X}_B$. Även om stickproven är dragna ur samma population så tror vi inte att de ska ge exakt samma medelvärde. Det är den underliggande populationen som vi tror har samma medelvärde hela tiden.
 
-I ett parvis test beräknas inte gruppernas medelvärde. Istället mäter man förändringen för varje individ, d, därefter beräknar man medelvärdet för alla förändringar, . Med hjälp av t-testet kan vi ställa i relation till variationen i mätningarna. δ är den underliggande populationens sanna skillnad.
+I ett parvis test beräknas inte gruppernas medelvärde. Istället mäter man förändringen för varje individ, $d$, därefter beräknar man medelvärdet för alla förändringar, $\bar{d}$. Med hjälp av t-testet kan vi ställa $\bar{d}$ i relation till variationen i mätningarna. $δ$ är den underliggande populationens sanna skillnad.
 
-t = (- δ) /( SD/√n)
+$$
+t = \frac{\bar{d} - \delta}{\frac{SD}{\sqrt{n}}}
+$$
 
-Oftast är nollhypotesen att δ = 0
+Oftast är nollhypotesen att $δ = 0$
 
 Så här brukar formeln se ut:
 
-t = /( SD/√n)
+$$
+t = \frac{\bar{d}}{\frac{SD}{\sqrt{n}}}
+$$
 
 n är i vårt exempel 16. Vid parvis test är n inte antalet mätningar, utan antalet par. Antalet frihetsgrader är n-1, antalet par minus ett.
 
 Den goda strategin att räkna parvis t-test är att skapa en data.frame som visar att mätningarna hör ihop, enligt mottot en rad ett case, en kolumn en variabel.
 
 **4.6 Läs in data från 4.1 formatterat på ett nytt sätt**
+```{r}
+# Parvis.Vikt<- read.table("clipboard", header=T)
 
-Parvis.Vikt<- read.table("clipboard", header=T)
-
-| A   | B   |
-| --- | --- |
-| 90  | 90  |
-| 91  | 91  |
-| 93  | 85  |
-| 106 | 99  |
-| 97  | 93  |
-| 108 | 104 |
-| 97  | 89  |
-| 105 | 103 |
-| 106 | 102 |
-| 103 | 95  |
-| 105 | 103 |
-| 96  | 95  |
-| 105 | 105 |
-| 95  | 87  |
-| 90  | 86  |
-| 101 | 101 |
+Parvis.Vikt <- data.frame(
+  A = c(90, 91, 93, 106, 97, 108, 97, 105,
+  106, 103, 105, 96, 105, 95, 90, 101),
+  B = c(90, 91, 85, 99, 93, 104, 89, 103,
+  102, 95, 103, 95, 105, 87, 86, 101)
+)
+```
 
 Det är även möjligt att återanvända din gamla data.frame genom att lägga till paried=T. Normalt känner man ju till i förväg om data hör ihop parvis eller ej och jag rekommenderar att ni använder strukturen i data.frame.
 
@@ -585,49 +573,128 @@ t.test(vikt ~ grupp, paired = T)
 
 **4.7 Beräkna parvis ttest, kommentera varför resultatet blir annorlunda än vid gruppvis test**
 
+```{r}
+# Förutsatt att data frame 'Parvis.Vikt' redan är skapad
+t_result <- t.test(Parvis.Vikt$A, Parvis.Vikt$B, paired = TRUE)
+
+# Visa resultaten från det parvisa t-testet
+print(t_result)
+
+if (t_result$p.value < 0.05) {
+  cat("Nollhypotesen förkastas.
+  Medelvikten avviker signifikant från den normala. p-värde:", round(t_result$p.value, 4))
+} else {
+  cat("Nollhypotesen behålls.
+  Det finns ingen signifikant skillnad i medelvikt. p-värde:", round(t_result$p.value, 4))
+}
+```
+
+\
+Svar: Resultaten från ett parvis t-test och ett oberoende t-test kan skilja sig åt eftersom de hanterar datastrukturer olika. Ett parvis t-test tar hänsyn till beroenden mellan par av observationer, vilket minskar effekterna av individuell variation och kan öka den statistiska kraften. Däremot behandlar ett oberoende t-test observationerna som om de kommer från helt separata grupper, vilket kan leda till större inverkan av individuella skillnader på resultaten. Således kan ett parvis t-test avslöja signifikanta skillnader där ett oberoende t-test inte gör det, vilket speglar de olika antagandena och metodernas känslighet.
+\
+
 **5\. Illustrera typ I och typ II fel**
 
-Läs om typ I och typ II fel (Typ 1 sid. 325, 322-323, 343, Typ 2 sid. 322-323, 343-346). Koden nedan ritar upp två normalfördelningar. Tänk er att de är stickprovsfördelningar och att man kan använda z-fördelningen därför att stickprovets storlek är stort. Den röda fördelningen, µ1, gäller om nollhypotesen är sann. Den blåa fördelningen, µ2, gäller om alternativhypotesen är sann. I den röda fördelningen har jag ritat in arean 0.025.
+Koden nedan ritar upp två normalfördelningar. Tänk er att de är stickprovsfördelningar och att man kan använda z-fördelningen därför att stickprovets storlek är stort. Den röda fördelningen, µ1, gäller om nollhypotesen är sann. Den blåa fördelningen, µ2, gäller om alternativhypotesen är sann. I den röda fördelningen har jag ritat in arean 0.025.
 
+```{r}
 x=seq(50,140,length=200)
-
 y1=dnorm(x,80, 10)
-
 plot(x,y1,type='l',lwd=2,col='red')
-
 y2=dnorm(x,110, 10)
-
 lines(x,y2,type='l',lwd=2,col='blue')
-
-cord.x1 <- c((round(qnorm(0.975, 80, 10, lower.tail=T))),seq((round(qnorm(0.975, 80, 10, lower.tail=T))), 120,1),120)
-
-cord.y1 <- c(0,dnorm(seq((round(qnorm(0.975, 80, 10, lower.tail=T))), 120, 1), 80, 10),0)
-
+cord.x1 <- c((round(qnorm(0.975, 80, 10, lower.tail=T))),
+seq((round(qnorm(0.975, 80, 10, lower.tail=T))), 120,1),120)
+cord.y1 <- c(0,dnorm(
+  seq((round(qnorm(0.975, 80, 10, lower.tail=T))), 120, 1), 80, 10),0)
 polygon(cord.x1,cord.y1,col='red')
-
+```
 Gör ett antal nya grafer:
 
 **5.1** Rita in en abline som visar gränsen utanför vilken du skulle förkasta nollhypotesen µ1 = µ2 till förmån för alternativhypotesen µ1 < µ2. Signifikansnivån ska vara 0.05
 
+```{r}
+x = seq(50, 140, length=200)
+y1 = dnorm(x, 80, 10)
+y2 = dnorm(x, 110, 10)
+plot(x, y1, type='l', lwd=2, col='red')
+lines(x, y2, type='l', lwd=2, col='blue')
+abline(v=qnorm(0.95, 80, 10), col='black', lty=2)
+```
+
 **5.2** Rita in två abline som visar gränserna utanför vilka du skulle förkasta nollhypotesen µ1 = µ2 till förmån för alternativhypotesen µ1 ≠ µ2. Signifikansnivån ska vara 0.05
+
+```{r}
+plot(x, y1, type='l', lwd=2, col='red')
+lines(x, y2, type='l', lwd=2, col='blue')
+abline(v=qnorm(0.025, 80, 10, lower.tail=TRUE), col='black', lty=2)
+abline(v=qnorm(0.975, 80, 10, lower.tail=TRUE), col='black', lty=2)
+```
 
 **5.3** Gör en ny 5.2 där du färgar arean som visar risken att förkasta en sann nollhypotes. Typ I felet.
 
+```{r}
+plot(x, y1, type='l', lwd=2, col='red')
+lines(x, y2, type='l', lwd=2, col='blue')
+abline(v=qnorm(0.025, 80, 10, lower.tail=TRUE), col='black', lty=2)
+abline(v=qnorm(0.975, 80, 10, lower.tail=TRUE), col='black', lty=2)
+
+# Färga områden för Typ I fel
+x_fill_left <- seq(min(x), qnorm(0.025, 80, 10), length.out=100)
+x_fill_right <- seq(qnorm(0.975, 80, 10), max(x), length.out=100)
+y_fill_left <- dnorm(x_fill_left, 80, 10)
+y_fill_right <- dnorm(x_fill_right, 80, 10)
+
+polygon(c(x_fill_left, rev(x_fill_left)),
+c(rep(0, length(x_fill_left)), rev(y_fill_left)), col='red')
+polygon(c(x_fill_right, rev(x_fill_right)),
+c(rep(0, length(x_fill_right)), rev(y_fill_right)), col='red')
+```
+
 **5.4** Gör en ny 5.2. Vi tänker oss att alternativhypotesen, µ2, är sann. Färga en area som visar risken att behålla en falsk nollhypotes. Typ II felet, kallas även β. Beräkna och ange β.
 
+```{r}
+plot(x, y1, type='l', lwd=2, col='red')
+lines(x, y2, type='l', lwd=2, col='blue')
+abline(v=qnorm(0.025, 80, 10, lower.tail=TRUE), col='black', lty=2)
+abline(v=qnorm(0.975, 80, 10, lower.tail=TRUE), col='black', lty=2)
+
+# Färga områden för Typ II fel (β)
+x_fill_beta <- seq(qnorm(0.025, 80, 10), qnorm(0.975, 80, 10), length.out=100)
+y_fill_beta <- dnorm(x_fill_beta, 110, 10)
+polygon(c(x_fill_beta, rev(x_fill_beta)),
+c(rep(0, length(x_fill_beta)), rev(y_fill_beta)), col='blue')
+```
+
 **5.5** Gör en ny 5.4 där du även färgar arean som visar sannolikheten att förkasta en falsk nollhypotes. Tips: Det ska bli 1 – β. Detta kallas även statistisk kraft, statistical power.
+
+```{r}
+plot(x, y1, type='l', lwd=2, col='red')
+lines(x, y2, type='l', lwd=2, col='blue')
+abline(v=qnorm(0.025, 80, 10, lower.tail=TRUE), col='black', lty=2)
+abline(v=qnorm(0.975, 80, 10, lower.tail=TRUE), col='black', lty=2)
+polygon(c(qnorm(0.025, 80, 10), qnorm(0.025, 110, 10)), c(0, 0), col='blue', border=NA)
+polygon(c(qnorm(0.975, 110, 10), max(x)), c(0, 0), col='blue', border=NA)
+
+x_fill_power_left <- seq(min(x), qnorm(0.025, 80, 10), length.out=100)
+x_fill_power_right <- seq(qnorm(0.975, 80, 10), max(x), length.out=100)
+y_fill_power_left <- dnorm(x_fill_power_left, 110, 10)
+y_fill_power_right <- dnorm(x_fill_power_right, 110, 10)
+
+polygon(c(x_fill_power_left, rev(x_fill_power_left)),
+c(rep(0, length(x_fill_power_left)), rev(y_fill_power_left)), col='green')
+polygon(c(x_fill_power_right, rev(x_fill_power_right)),
+c(rep(0, length(x_fill_power_right)), rev(y_fill_power_right)), col='green')
+```
 
 **6\. Ickeparametriskt alternativ till t-test**
 
 Data inspirerade av:
-
-DIFFERENTIATING DENGUE VIRUS INFECTION FROM SCRUB TYPHUS IN THAI ADULTS WITH FEVER
-
-GEORGE WATT et al 2003
+DIFFERENTIATING DENGUE VIRUS INFECTION FROM SCRUB TYPHUS IN THAI ADULTS WITH FEVER, GEORGE WATT et al 2003
 
 “\[…\] simple criteria to differentiatescrub typhus from dengue infection are needed \[…\],particularly where rapid confirmatory diagnostic tests are notavailable.”
 
-Vita blodkroppar har räknats hos två patientgrupper som är svåra att skilja åt: Denguefewer, respektive scrub typhus. Använd en hypotestest-strategi för att avgöra om antal vita blodceller/ mm3 kan ligga till grund för differentiell diagnos av scrub typhus och denguefewer. Man kan **inte** anta att mätvärdena är normalfördelade. Välj α = 0.05.
+Vita blodkroppar har räknats hos två patientgrupper som är svåra att skilja åt: Denguefewer, respektive scrub typhus. Använd en hypotestest-strategi för att avgöra om antal vita blodceller/ mm3 kan ligga till grund för differentiell diagnos av scrub typhus och denguefewer. Man kan **inte** anta att mätvärdena är normalfördelade. Välj $α$ = 0.05.
 
 | count | diagnosis |
 | --- | --- |
@@ -650,52 +717,126 @@ Vita blodkroppar har räknats hos två patientgrupper som är svåra att skilja 
 
 **6.1 Läs in data och beräkna ett two sample Wilcoxon test (ISwR 5.4, sid 103)**
 
+```{r}
+# Skapa data
+vbc_counts <- c(3000, 3200, 3500, 5068, 5679, 6200, 6300, 7020,
+                4400, 4500, 5900, 6839, 7561, 9047, 12300, 14000)
+diagnosis <- c(rep("dengue", 8), rep("scrub", 8))
+
+# Läs in data som en data frame
+data <- data.frame(count = vbc_counts, diagnosis = diagnosis)
+
+# Utför Wilcoxon test
+wilcox_test <- wilcox.test(count ~ diagnosis, data = data, exact = FALSE)
+
+# Visa resultatet av testet
+print(wilcox_test)
+```
+
 **6.2 Hur formuleras nollhypotes och alternativhypotes i Wicoxontestet?**
 
-**6.3Visar testet att en enkel räkning av vita blodkroppar kan stå till grund för differentiell diagnos?**
+\
+Nollhypotes ($H₀$): Medianen av vita blodkroppar är lika mellan patienter med dengue och scrub typhus. Det innebär att det inte finns någon skillnad mellan de två gruppernas medianvärden.
+\
+Alternativhypotes ($H₁$): Medianen av vita blodkroppar skiljer sig mellan patienter med dengue och scrub typhus.
+\
 
-Om man hade kunnat argumentera trovärdigt för att data i föregående uppgift var normalfördelade hade man kunnat genomföra ett vanligt gruppvis t-test.
+**6.3 Visar testet att en enkel räkning av vita blodkroppar kan stå till grund för differentiell diagnos?**
 
-**  
-6.4Ange nollhypotes och mothypotes för t-testet**
+\
+Eftersom p-värdet är större än signifikansnivån kan vi inte förkasta nollhypotesen. Detta innebär att det inte finns tillräckliga bevis i de data som samlats för att hävda att det finns en statistiskt signifikant skillnad i medianantalet vita blodkroppar mellan de två sjukdomsgrupperna.
+\
 
-**6.5Beräkna testet, tolka resultatet, formulera slutsats.**
+**6.4 Ange nollhypotes och mothypotes för t-testet**
+
+\
+Nollhypotes ($H₀$): Medelvärdet av vita blodkroppar är lika mellan de två diagnosgrupperna.
+\
+Alternativhypotes ($H₁$): Medelvärdet av vita blodkroppar skiljer sig mellan de två diagnosgrupperna.
+\
+
+**6.5 Beräkna testet, tolka resultatet, formulera slutsats.**
+
+```{r}
+# Utför t-test
+t_test <- t.test(count ~ diagnosis, data = data)
+
+# Visa resultatet av t-testet
+print(t_test)
+```
+P-värdet är mindre än signifikansnivån och således så förkastas nollhypotesen.
 
 **6.6 Varför blir det olika resultat i 6.3 och 6.5?**
+
+\
+Svar: Skillnaderna i resultaten kan bero på att de två testerna hanterar data på olika sätt. Wilcoxontestet är mindre känsligt för extremvärden och icke-normal datafördelning, vilket kan leda till olika slutsatser jämfört med t-testet som antar normalfördelning och kan påverkas mer av outlier-värden och ojämn fördelning av data. Om data inte är normalfördelade, kan t-testets antaganden vara brutna, vilket ger missvisande resultat.
+\
 
 **7\. Konfidensintervall som metod för hypotestestning**
 
 I resultattabellerna som t.test skapat finner du även konfidensintervall. Att beräkna konfidensintervall är mycket användbart. Både för att illustrera hur bra en skattning av en parameter är och för resonemang som liknar hypotestest.
 
-I ett parvis t-test undersöker vi om δ ≠ 0.
+I ett parvis t-test undersöker vi om $δ ≠ 0$.
 
-Vi kan skatta δ med och titta efter om intervallet ± 95% CI.
+Vi kan skatta $δ$ med $\bar{d}$ och titta efter om intervallet $\bar{d}$ ± 95% CI.
 
-Ni har mött tekniken hur man räknar konfidensintervall för medelvärden i inlämningsuppgift 3, i beräkning av ett blodtryckintervall som gäller 95% av befolkningen. Här vill jag poängtera att beräkningen blir lite olika beroende på om populationens standardavvikelse σ, är känd, eller om man,måste skatta den utifrån ett stickprovs standardavvikelse, SD. Var vänlig slå upp formlerna i en bok. När σ är känd går det att använda z,
-
-qnorm(c(0.025, 0.975)) #Beräknar z värdet för ett 95% konfidensintervall, lägg märke till hur det utesluter 2,5% av varje extrem del av fördelningen.
-
-När måste beräkna t-värde ska du hålla reda på frihetsgraderna
-
-qt(c(0.025, 0.975 , df)
-
-Exempel:
-
-Vikten på fem försöksdjur har mätts till = 28.3, SD = 3.1
-
-Beräkna ett 95% konfidensintervall för medlet:
-
-Antal frihetsgrader 5-1 = 4 fem mätningar, en skattning
-
-round(28.3 +( qt(c(0.025, 0.975), 4)) \* 3.1/sqrt(5) , 1) #kolla upp formeln i bok
-
-\[1\] 24.5 32.1
+Ni har mött tekniken hur man räknar konfidensintervall för medelvärden i inlämningsuppgift 3, i beräkning av ett blodtryckintervall som gäller 95% av befolkningen. Här vill jag poängtera att beräkningen blir lite olika beroende på om populationens standardavvikelse $σ$, är känd, eller om man,måste skatta den utifrån ett stickprovs standardavvikelse, SD. Var vänlig slå upp formlerna i en bok. När $σ$ är känd går det att använda z.
 
 **7.1** En däckfabrikör mäter 10 däck som körts 50000 miles. I medel är 0.32 tum av mönstret kvar, med standardavvikelsen 0.09 tum. Beräkna ett 95% konfidensintervall kring medlet.
 
+```{r}
+# Data för däckmönster
+n <- 10
+mean_x <- 0.32
+sd_x <- 0.09
+
+# Beräkna konfidensintervall
+t_critical <- qt(0.975, df = n-1) # 95% CI, tvåsidigt, n-1 frihetsgrader
+error_margin <- t_critical * (sd_x / sqrt(n))
+
+# Konfidensintervall
+ci_lower <- mean_x - error_margin
+ci_upper <- mean_x + error_margin
+
+# Skriv ut resultaten
+cat("95% konfidensintervall för däckmönster är mellan", ci_lower, "och", ci_upper, "\n")
+```
+
 **7.2** Kan fabrikören påstå att 0.30 tum brukar vara kvar efter 50000 miles utifrån mätningen?
 
+```{r}
+claimed_value <- 0.30
+
+# Kontrollera om påstått värde ligger inom konfidensintervallet
+if (claimed_value >= ci_lower && claimed_value <= ci_upper) {
+  cat("Fabrikören kan påstå att 0.30 tum brukar vara kvar efter 50000 miles,
+  eftersom detta värde ligger inom 95% konfidensintervallet [", ci_lower, ",", ci_upper, "].\n")
+} else {
+  cat("Fabrikören kan inte påstå att 0.30 tum brukar vara kvar efter 50000 miles,
+  eftersom detta värde inte ligger inom 95% konfidensintervallet [", ci_lower, ",", ci_upper, "].\n")
+}
+```
+
 **7.3** Tio slumpmässigt utvalda individer har ett medelkolesterolvärde på 5,4 mmol/l och standardavvikelsen 0.5 mmol/l. Beräkna ett 95% konfidensintervall för medlet.
+```{r}
+# Data för kolesterol
+n <- 10
+mean_k <- 5.4
+sd_k <- 0.5
+
+# Beräkna konfidensintervall
+t_critical <- qt(0.975, df = n-1) # 95% CI, tvåsidigt, n-1 frihetsgrader
+error_margin <- t_critical * (sd_k / sqrt(n))
+
+# Konfidensintervall
+ci_lower_k <- mean_k - error_margin
+ci_upper_k <- mean_k + error_margin
+
+# Skriv ut resultaten
+cat("95% konfidensintervall för medelkolesterolvärde är mellan",
+ci_lower_k, "och", ci_upper_k, "\n")
+
+```
 
 **8 ANOVA – ANalysisOfVariance**
 
@@ -707,7 +848,8 @@ Alternativhypotes: µ1= µ2 = µ3 gäller ej
 
 Vi ställer upp ett antal stickprov och kontrollerar om någon grupp avviker från de andra.
 
-**8.1Läs in datasetet med blodtryck hos tre olika grupper av försökspersoner och beräkna ANOVA** med funktionen anova(lm(blodtryck ~behandling))
+**8.1Läs in datasetet med blodtryck hos tre olika grupper av försökspersoner och beräkna ANOVA**
+med funktionen anova(lm(blodtryck ~behandling))
 
 | blodtryck | behandling |
 | --- | --- |
@@ -742,6 +884,36 @@ Vi ställer upp ett antal stickprov och kontrollerar om någon grupp avviker fr�
 | 84  | träning |
 | 99  | träning |
 
-**8.2**ANOVA räknar ut ett F värde utifrån hur variationen är fördelad över matrisen. Sök efter värdetPr(>F) i tabellen, sannolikheten att få värdet F eller större under förutsättning att nollhypotesen stämmer. Om denna sannolikhet är mindre än ditt α-värde kan du förkasta nollhypotesen.
+```{r}
+# Skapa datasetet
+data <- data.frame(
+  blodtryck = c(77, 77, 78, 80, 81, 89, 90, 96, 99, 107,
+  59, 66, 70, 73, 76, 77, 78, 81, 81, 91,
+  64, 66, 69, 72, 73, 74, 74, 80, 84, 99),
+  behandling = c(rep("kontroll", 10), rep("medicinering", 10), rep("träning", 10))
+)
 
-**8.3Välj ett sätt att visualisera data. Du kan låta dig inspireras av IswR s 134.**
+# Utför ANOVA
+anova_resultat <- aov(blodtryck ~ behandling, data = data)
+summary(anova_resultat)
+```
+
+**8.2**ANOVA räknar ut ett F värde utifrån hur variationen är fördelad över matrisen. Sök efter värdetPr(>F) i tabellen, sannolikheten att få värdet F eller större under förutsättning att nollhypotesen stämmer. Om denna sannolikhet är mindre än ditt $α$-värde kan du förkasta nollhypotesen.
+
+\
+Svar:
+PR(>F) = 0.0148
+\
+Således kan nollhypotesen förkastas.
+\
+
+**8.3Välj ett sätt att visualisera data.**
+
+```{r}
+ggplot(data, aes(x = behandling, y = blodtryck, fill = behandling)) +
+  geom_boxplot() +
+  labs(title = "Blodtryck efter behandlingstyp",
+       x = "Behandlingskategori",
+       y = "Blodtryck") +
+  theme_minimal()
+```
