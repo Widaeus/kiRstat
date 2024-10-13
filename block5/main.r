@@ -16,38 +16,33 @@ save(data, file = paste0("block5/data/jasa_", Sys.Date(), ".rda"))
 # Starting EDA
 glimpse(data)
 
+
 # Convert character strings that are dates to Date type
-data <- data %>%
+data_cleaned <- data %>%
   mutate(across(where(~ is.character(.) && any(!is.na(as.Date(.)))), as.Date))
 
-# Convert all 0 and 1 integer columns to booleans
-data <- data %>%
-  mutate(across(where(~ all(. %in% c(0, 1)) && is.numeric(.)), as.logical))
+# Convert all 0 and 1 integer columns (including those with NAs) to booleans
+data_cleaned <- data_cleaned %>%
+  mutate(across(where(~ all(. %in% c(0, 1, NA)) && is.numeric(.)), ~ as.logical(.)))
 
-# It appears that the 'reject' and 'hla.a2'
-# columns are still numeric, not logical.
+# Faktorisera alla kolumner som har färre än 10 diskreta variabler, men inte är logical.
 
-# Explicitly convert 'reject' and 'hla.a2' to logical, preserving NAs
-data <- data %>%
-  mutate(across(c(reject, hla.a2), as.logical))
-
-# Factorize columns with fewer than 10 discrete values
-data <- data %>%
-  mutate(across(where(~ n_distinct(.) < 10), as.factor))
-
+data_cleaned <- data_cleaned %>%
+  mutate(across(where(~ n_distinct(.) < 10 && !is.logical(.)), as.factor))
 
 ####### Initial cleaning done #######
 
 # Check distributiuons of numeric values
-data %>%
+data_cleaned %>%
   select_if(is.numeric) %>%
+  select(-X) %>%  # Remove the variable 'X'
   gather(key = "variables", value = "values") %>%
   ggplot(aes(x = values)) +
   facet_wrap(~variables, scales = "free") +
   geom_histogram(bins = 30)
 
 # Boxplots for numeric variables to spot outliers
-data %>%
+data_cleaned %>%
   select_if(is.numeric) %>%
   gather(key = "variables", value = "values") %>%
   ggplot(aes(x = variables, y = values)) +
@@ -55,7 +50,7 @@ data %>%
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 # Correlation matrix for numeric variables
-data %>%
+data_cleaned %>%
   select_if(is.numeric) %>%
   cor() %>%
   as_tibble(rownames = "Variable") %>%
@@ -65,13 +60,48 @@ data %>%
   scale_fill_viridis_c()
 
 # Scatter plots for pairs of variables
-pairs(data %>% select_if(is.numeric))
+pairs(data_cleaned %>% select_if(is.numeric))
 
 # Categorical data analysis
-data %>%
-  select(where(is.factor)) %>%
+data_cleaned %>%
+  select(where(is.logical)) %>%
   pivot_longer(cols = everything(), names_to = "variables", values_to = "values") %>% #nolint
   ggplot(aes(x = values)) +
   facet_wrap(~variables, scales = "free_x") +
   geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+count_na_hla_a2 <- data_cleaned %>%
+filter(is.na(reject)) %>%
+summarize(count = sum(is.na(hla.a2)))
+print(count_na_hla_a2)
+
+count_na_hla_a2_not_reject_na <- data_cleaned %>%
+  filter(!is.na(reject)) %>%
+  summarize(count = sum(is.na(hla.a2)))
+
+print(count_na_hla_a2_not_reject_na)
+
+sum(data$transplant)
+sum(data$surgery)
+
+# Load necessary libraries
+library(survminer)
+library(broom)
+library(survival)
+
+transplanted <- data_cleaned %>%
+  filter(transplant == 1)
+
+# Fit the Cox proportional hazards model
+cox_model <- coxph(Surv(futime, fustat) ~ surgery + age + reject, data = transplanted)
+
+cox_zph <- cox.zph(cox_model)
+print(cox_zph)
+ggcoxdiagnostics(cox_model, type = "martingale", linear.predictions = FALSE)
+
+## time varying
+# Adding a time-varying effect for 'reject'
+# Assume 'time' is the follow-up time variable; replace 'futime' with your actual time variable if different
+cox_model_time_varying <- coxph(Surv(futime, fustat) ~ surgery + age + reject + tt(reject), data = transplanted,
+                                tt = function(x, t, ...) x * log(t + 1))

@@ -44,7 +44,7 @@ Min hypotes är att ålder, tidigare kirurgi, organavstötning är de variabler 
 
 # Dependencies
 Detta arbete bygger på följande paket:
-```{r}
+```{r, echo: false, warning: false, message: false}
 library(tidyverse)
 library(survival)
 library(fs)
@@ -55,30 +55,35 @@ Först importeras datan genom att skapa en funktion för att skapa en ny mapp "d
 ```{r}
 initiate <- function(output_path) {
   dir_path <- dirname(output_path)
-  if (!dir_exists(dir_path)) dir_create(dir_path)
+  if (!dir.exists(dir_path)) dir.create(dir_path)
   today_date <- Sys.Date()
   file_name <- basename(output_path)
   file_extension <- tools::file_ext(file_name)
   file_base <- tools::file_path_sans_ext(file_name)
+  
+  # Remove any existing date from the file_base
+  file_base <- sub("_\\d{4}-\\d{2}-\\d{2}$", "", file_base)
+  
   new_file_name <- paste0(file_base, "_", today_date, ".", file_extension)
   new_output_path <- file.path(dir_path, new_file_name)
-  write_csv(jasa, new_output_path)
+  
+  # Assuming 'jasa' is a data frame that you want to write to CSV
+  write.csv(jasa, new_output_path)
 }
 ```
-Den laddas in med "source" tillsammans som "output_path" definieras.
 
 base_dir definieras som bas-filsökvägen. Denna är datorberoende.
 ```{r}
-base_dir <- "C:/Users/oesma/Desktop/kiRstat"
+base_dir <- "C:/Users/oesma/Desktop/kiRstat/block5"
 ```
 ```{r}
-source(file.path(base_dir, "block5/funs.r"))
-output_path <- file.path(base_dir, paste0("block5/data/jasa_", Sys.Date(), ".csv"))
+output_path <- file.path(base_dir, paste0("data/jasa_", Sys.Date(), ".csv"))
 ```
 Därefter läses .csv filen in, och samtidigt sparas som en .rda fil för redundans - även här med datum. Om den som granskar detta ska återskapa, se till att ha rätt path och använd helst .r filen då .qmd inte alltid samarbetar väl med importfunktioner.
 ```{r}
-data <- read.csv(file.path(base_dir, paste0("block5/data/jasa_", Sys.Date(), ".csv")))
-save(data, file = file.path(base_dir, paste0("block5/data/jasa_", Sys.Date(), ".rda")))
+initiate(output_path)
+data <- read.csv(file.path(base_dir, paste0("data/jasa_", Sys.Date(), ".csv")))
+save(data, file = file.path(base_dir, paste0("data/jasa_", Sys.Date(), ".rda")))
 ```
 
 # Översikt och städa upp klasser
@@ -89,31 +94,71 @@ glimpse(data)
 Man kan redan nu se att flera av klasserna av variablerna är fel. Jag konverterar datumen till datumklasser, och de binära variablerna som representerar TRUE/FALSE till booleans.
 ```{r}
 # Convert character strings that are dates to Date type
-data <- data %>%
+data_cleaned <- data %>%
   mutate(across(where(~ is.character(.) && any(!is.na(as.Date(.)))), as.Date))
 
-# Convert all 0 and 1 integer columns to booleans
-data <- data %>%
-  mutate(across(where(~ all(. %in% c(0, 1)) && is.numeric(.)), as.logical))
-
-glimpse(data)
+# Convert all 0 and 1 integer columns (including those with NAs) to booleans
+data_cleaned <- data_cleaned %>%
+  mutate(across(where(~ all(. %in% c(0, 1, NA)) && is.numeric(.)), ~ as.logical(.)))
 ```
-reject och hla.a2 förblev "int". Jag konverterar de manuellt.
+Faktorisera alla kolumner som har färre än 10 diskreta variabler, men inte är logical.
 ```{r}
-data <- data %>%
-  mutate(across(c(reject, hla.a2), as.logical))
-```
-Faktorisera alla kolumner som har färre än 10 diskreta variabler.
-```{r}
-data <- data %>%
-  mutate(across(where(~ n_distinct(.) < 10), as.factor))
-
-glimpse(data)
+data_cleaned <- data_cleaned %>%
+  mutate(across(where(~ n_distinct(.) < 10 && !is.logical(.)), as.factor))
 ```
 
 ## EDA - Exploratory data analysis
 
+Barplots för att skildra numeriska variabler.
+```{r, warning: false}
+data_cleaned %>%
+  select_if(is.numeric) %>%
+  select(-X) %>%  # Remove the variable 'X'
+  gather(key = "variables", value = "values") %>%
+  ggplot(aes(x = values)) +
+  facet_wrap(~variables, scales = "free") +
+  geom_histogram(bins = 30)
+```
+Man ser att alla numeriska variabler är skewed och ej normalfördelade.
 
+Barplot for logistiska variabler
+```{r}
+data_cleaned %>%
+  select(where(is.logical)) %>%
+  pivot_longer(cols = everything(), names_to = "variables", values_to = "values") %>% #nolint
+  ggplot(aes(x = values)) +
+  facet_wrap(~variables, scales = "free_x") +
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+Hur många av de som **inte** är NA på reject är NA på hla.a2?
+```{r}
+count_na_hla_a2 <- data_cleaned %>%
+  filter(!is.na(reject)) %>%
+  summarize(count = sum(is.na(hla.a2)))
+
+print(count_na_hla_a2)
+```
+Alltså, de som inte har fått rejection finns inga värden på hla provtagning.
+Det verkar som att man endast provtagit de som fått en rejection.
+
+## Cox regression
+
+```{r}
+# Select transplant only patients
+transplanted <- data_cleaned %>%
+  filter(transplant == 1)
+
+# Fit the Cox proportional hazards model
+cox_model <- coxph(Surv(futime, fustat) ~ surgery + age + reject, data = transplanted)
+cox_model <- tidy(cox_model)
+
+# Summarize the model
+print(cox_model)
+
+# Plot as a forest plot
+ggforest(cox_model, data = transplanted)
+```
 
 
 ## Reflektion

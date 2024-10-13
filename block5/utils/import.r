@@ -15,12 +15,18 @@ library(fs)
 #'
 initiate <- function(output_path) {
   dir_path <- dirname(output_path)
-  if (!dir_exists(dir_path)) dir_create(dir_path)
+  if (!dir.exists(dir_path)) dir.create(dir_path)
   today_date <- Sys.Date()
   file_name <- basename(output_path)
   file_extension <- tools::file_ext(file_name)
   file_base <- tools::file_path_sans_ext(file_name)
+
+  # Remove any existing date from the file_base
+  file_base <- sub("_\\d{4}-\\d{2}-\\d{2}$", "", file_base)
+
   new_file_name <- paste0(file_base, "_", today_date, ".", file_extension)
   new_output_path <- file.path(dir_path, new_file_name)
-  write_csv(jasa, new_output_path)
+
+  # Assuming 'jasa' is a data frame that you want to write to CSV
+  write.csv(jasa, new_output_path)
 }
