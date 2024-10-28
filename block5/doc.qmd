@@ -48,15 +48,22 @@ Detta arbete bygger på följande paket:
 library(tidyverse)
 library(survival)
 library(fs)
+library(broom)
+library(survminer)
 ```
 
 # Import
 Först importeras datan genom att skapa en funktion för att skapa en ny mapp "data" och spara den i en csv fil där datum inkluderas.
 ```{r}
 initiate <- function(output_path) {
+  # Ensure the directory exists
   dir_path <- dirname(output_path)
-  if (!dir.exists(dir_path)) dir.create(dir_path)
+  if (!dir.exists(dir_path)) dir.create(dir_path, recursive = TRUE)
+  
+  # Get the current date
   today_date <- Sys.Date()
+  
+  # Extract file name and extension
   file_name <- basename(output_path)
   file_extension <- tools::file_ext(file_name)
   file_base <- tools::file_path_sans_ext(file_name)
@@ -64,26 +71,33 @@ initiate <- function(output_path) {
   # Remove any existing date from the file_base
   file_base <- sub("_\\d{4}-\\d{2}-\\d{2}$", "", file_base)
   
+  # Construct the new file name with the current date
   new_file_name <- paste0(file_base, "_", today_date, ".", file_extension)
   new_output_path <- file.path(dir_path, new_file_name)
   
   # Assuming 'jasa' is a data frame that you want to write to CSV
-  write.csv(jasa, new_output_path)
+  if (exists("jasa") && is.data.frame(jasa)) {
+    write.csv(jasa, new_output_path)
+  } else {
+    stop("Data frame 'jasa' does not exist or is not a data frame.")
+  }
 }
 ```
 
 base_dir definieras som bas-filsökvägen. Denna är datorberoende.
 ```{r}
-base_dir <- "C:/Users/oesma/Desktop/kiRstat/block5"
+# Define base directory
+base_dir <- file.path(getwd(), "block5")
 ```
 ```{r}
-output_path <- file.path(base_dir, paste0("data/jasa_", Sys.Date(), ".csv"))
+# Define output path
+output_path <- file.path(base_dir, "data", paste0("jasa_", Sys.Date(), ".csv"))
 ```
 Därefter läses .csv filen in, och samtidigt sparas som en .rda fil för redundans - även här med datum. Om den som granskar detta ska återskapa, se till att ha rätt path och använd helst .r filen då .qmd inte alltid samarbetar väl med importfunktioner.
 ```{r}
 initiate(output_path)
-data <- read.csv(file.path(base_dir, paste0("data/jasa_", Sys.Date(), ".csv")))
-save(data, file = file.path(base_dir, paste0("data/jasa_", Sys.Date(), ".rda")))
+data <- read.csv(output_path)
+save(data, file = file.path(base_dir, "data", paste0("jasa_", Sys.Date(), ".rda")))
 ```
 
 # Översikt och städa upp klasser
@@ -142,6 +156,8 @@ print(count_na_hla_a2)
 Alltså, de som inte har fått rejection finns inga värden på hla provtagning.
 Det verkar som att man endast provtagit de som fått en rejection.
 
+# Inferentiell analys
+
 ## Cox regression
 
 ```{r}
@@ -151,12 +167,14 @@ transplanted <- data_cleaned %>%
 
 # Fit the Cox proportional hazards model
 cox_model <- coxph(Surv(futime, fustat) ~ surgery + age + reject, data = transplanted)
-cox_model <- tidy(cox_model)
+
+# Tidy the Cox model for summarizing
+cox_model_tidy <- tidy(cox_model)
 
 # Summarize the model
-print(cox_model)
+print(cox_model_tidy)
 
-# Plot as a forest plot
+# Plot as a forest plot using the original coxph model
 ggforest(cox_model, data = transplanted)
 ```
 
