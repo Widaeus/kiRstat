@@ -13,10 +13,15 @@ echo: true
 ---
 Grupp 10
 
-Namn och personnummer på dem som deltagit aktivt:
+Namn på dem som deltagit aktivt:
 
 Jacob Widaeus 950729
 
+Rozh Kader
+
+Karl Wärnberg 940807
+
+Beata Rosenberg
 
 
 \
